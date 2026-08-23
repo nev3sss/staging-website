@@ -7,13 +7,14 @@
   "navigation": [
     { "label": "About", "href": "#about" },
     { "label": "Ecosystem", "href": "#ecosystem" },
-    { "label": "Brands", "href": "#brands" },
+    { "label": "Brands", "href": "pages/brands.html" },
     { "label": "Offices", "href": "pages/offices.html" },
     { "label": "FAQ", "href": "#faq" },
     { "label": "Contact", "href": "#contact" }
   ],
   "pages": [
     { "path": "index.html", "label": "Home", "public": true },
-    { "path": "pages/offices.html", "label": "Offices", "public": true }
+    { "path": "pages/offices.html", "label": "Offices", "public": true },
+    { "path": "pages/brands.html", "label": "Brands", "public": true }
   ]
 }
