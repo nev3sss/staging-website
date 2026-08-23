@@ -21,6 +21,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="NEV3S">
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any">
 
 <!-- Canonical URL -->
 <link rel="canonical" href="https://www.nev3s.com/">
@@ -64,7 +65,6 @@
 <!-- ============================================
      FAVICONS
      ============================================ -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23D30100'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='28' font-weight='700' fill='white'%3E3S%3C/text%3E%3C/svg%3E">
 
 <!-- ============================================
      FONTS - OPTIMIZED
@@ -135,8 +135,7 @@ a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid v
 .header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.98);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
 .nav-logo{display:flex;align-items:center;gap:16px}
-.logo-mark{font-family:var(--font-display);font-weight:800;font-size:1.5rem;letter-spacing:.02em;color:var(--white);background:var(--red);padding:4px 10px;border-radius:var(--radius-sm);line-height:1.3}
-.logo-mark span{color:var(--white)}
+.nav-logo img{width:176px;height:auto}
 .nav-logo-text{font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:var(--ink)}
 .nav-logo-text span{color:var(--red)}
 .nav-links{display:flex;align-items:center;gap:32px}
@@ -156,7 +155,7 @@ a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid v
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px;z-index:0}
 .hero-content{position:relative;z-index:1;max-width:1000px;margin:0 auto;text-align:center}
 .hero-logo{margin-bottom:40px}
-.hero-logo .logo-mark{display:inline-block;font-size:3rem;padding:10px 20px}
+.hero-logo img{width:min(360px,80vw);height:auto;margin:0 auto}
 .hero h1{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,5rem);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin:0 0 24px}
 .hero h1 .red{color:var(--red-onblack)}
 .hero-tagline{font-size:clamp(1.125rem,2.5vw,1.5rem);line-height:1.6;color:var(--on-black-dim);max-width:800px;margin:0 auto 24px}
@@ -181,7 +180,7 @@ a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid v
 .about-content h2 span{color:var(--red)}
 .about-content p{font-size:1.125rem;line-height:1.7;color:var(--ink-dim);margin:0 0 24px}
 .about-visual{position:relative;background:var(--panel);border-radius:var(--radius-lg);padding:60px;text-align:center}
-.about-visual .logo-mark{display:inline-block;font-size:4rem;padding:24px 30px}
+.about-visual img{width:min(300px,80vw);margin:0 auto}
 @media(max-width:900px){.about-grid{grid-template-columns:1fr}}
 
 /* Ecosystem */
@@ -333,8 +332,7 @@ a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid v
   <div class="container">
     <nav class="nav" role="navigation" aria-label="Main navigation">
       <div class="nav-logo">
-        <div class="logo-mark" aria-label="NEV3S Logo">NEV<span>3S</span></div>
-        <span class="nav-logo-text">NEV<span>3S</span></span>
+        <img src="assets/logos/NEV3S-Logo-Full-Horizonal-Darkred.png" alt="NEV3S Logo" width="176" height="117" loading="eager">
       </div>
       <div class="nav-links" id="nav-links">
         <a href="#about" class="nav-link">About</a>
@@ -364,7 +362,7 @@ a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid v
   <div class="container">
     <div class="hero-content">
       <div class="hero-logo">
-        <div class="logo-mark" aria-label="NEV3S - Master Franchise for Chinese EV Brands">NEV<span>3S</span></div>
+        <img src="assets/logos/NEV3S-Logo-Short-Horizontal.png" alt="NEV3S - Master Franchise for Chinese EV Brands" width="360" height="240" loading="eager">
       </div>
       <h1 id="hero-heading">Master Franchise for<br><span class="red">Leading Chinese EV Brands</span></h1>
       <p class="hero-tagline">Your single source for the complete New Energy Vehicle ecosystem — from charging stations to aftermarket, battery repairs, specialized HV training and workshop setups across the Middle East.</p>
@@ -411,7 +409,7 @@ a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid v
         <p class="mono" style="color: var(--red); font-weight: 600;">Intelligent Mobility. Engineered Sustainably.</p>
       </div>
       <div class="about-visual reveal">
-        <div class="logo-mark" aria-label="NEV3S Brand Mark - New Energy Vehicles Sales Service Spare Parts">NEV<span>3S</span></div>
+        <img src="assets/logos/NEV3S-logo-vertical-with-box.png" alt="NEV3S Brand Mark - New Energy Vehicles Sales Service Spare Parts" width="300" height="200" loading="lazy">
       </div>
     </div>
   </div>
@@ -706,7 +704,7 @@ a:focus,button:focus,input:focus,select:focus,textarea:focus{outline:3px solid v
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo-mark" aria-label="NEV3S Logo">NEV<span>3S</span></div>
+        <img src="assets/logos/NEV3S-Logo-Full-Horizonal-Darkred.png" alt="NEV3S Logo" width="200" height="133" loading="lazy">
         <p>Master Franchise for leading Chinese EV brands — your single source for the complete NEV ecosystem: charging stations, aftermarket, battery repairs, HV training & workshop setups across the Middle East.</p>
         
         <div class="footer-contact">
