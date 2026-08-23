@@ -37,13 +37,18 @@ Keep navigation paths relative when linking from `pages/`, for example `../asset
 
 ## Content Workflow
 
-1. Create the page in `pages/` using the shared structure and relative asset paths.
-2. Add its `path`, `label`, and `public` status to `content/site.json`.
-3. Add any reusable copy or structured data to `content/` rather than duplicating it in multiple pages.
-4. Run `python3 scripts/build.py` from the repository root.
-5. Review the generated navigation and sitemap, then run the local preview before publishing.
+For a new page, use one command from the repository root:
 
-The build fails when a registered page is missing. This makes navigation and sitemap references auditable before deployment.
+```bash
+python3 scripts/new-page.py insights "Insights" "NEV3S Insights"
+python3 scripts/build.py
+```
+
+The first command creates `pages/insights.html`, registers it in `content/site.json`, and adds it to homepage navigation. The second command validates all registered pages and regenerates `sitemap.xml`.
+
+For existing content, edit the relevant page or file under `content/`, then run `python3 scripts/build.py`. Add reusable copy or structured data to `content/` rather than duplicating it across pages.
+
+The build fails when a registered page is missing, a required registry section is absent, or duplicate paths/navigation labels exist. This makes navigation and sitemap references auditable before deployment.
 
 ## Asset Guidelines
 
@@ -62,6 +67,10 @@ python3 -m http.server 4173
 ```
 
 Then open <http://localhost:4173/>.
+
+## Automation Boundary
+
+The system is intentionally dependency-free and deterministic. It does not rewrite authored page content or invent copy; it updates only generated navigation and sitemap output. Shared CSS and JavaScript can be extracted into `styles/` and `scripts/` as the page count grows.
 
 ## Publishing Checklist
 

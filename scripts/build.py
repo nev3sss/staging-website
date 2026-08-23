@@ -40,6 +40,12 @@ def validate_pages(config):
     missing = [page["path"] for page in config["pages"] if not (ROOT / page["path"]).is_file()]
     if missing:
         raise SystemExit("Missing registered pages: " + ", ".join(missing))
+    paths = [page["path"] for page in config["pages"]]
+    if len(paths) != len(set(paths)):
+        raise SystemExit("Duplicate page paths found in content/site.json")
+    labels = [item["label"] for item in config["navigation"]]
+    if len(labels) != len(set(labels)):
+        raise SystemExit("Duplicate navigation labels found in content/site.json")
 
 
 def write_sitemap(config):
@@ -56,6 +62,9 @@ def write_sitemap(config):
 
 def main():
     config = load_config()
+    required = {"site", "navigation", "pages"}
+    if not required.issubset(config):
+        raise SystemExit("content/site.json must define site, navigation, and pages")
     validate_pages(config)
     update_homepage(config)
     write_sitemap(config)
