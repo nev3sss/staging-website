@@ -25,7 +25,7 @@ Static corporate website foundation for NEV3S, the Chinese EV master franchise a
 
 ## Planned Pages
 
-The next pages can be added under `pages/` without changing the asset layout:
+The next pages can be added under `pages/` without changing the asset layout. They are intentionally not registered until their content is ready:
 
 - `about.html` - company, leadership, and operating model
 - `ecosystem.html` - charging, workshops, battery repair, training, and aftermarket
@@ -34,6 +34,16 @@ The next pages can be added under `pages/` without changing the asset layout:
 - `contact.html` - institutional inquiry workflow
 
 Keep navigation paths relative when linking from `pages/`, for example `../assets/logos/brand-name.svg` and `../index.html#contact`.
+
+## Content Workflow
+
+1. Create the page in `pages/` using the shared structure and relative asset paths.
+2. Add its `path`, `label`, and `public` status to `content/site.json`.
+3. Add any reusable copy or structured data to `content/` rather than duplicating it in multiple pages.
+4. Run `python3 scripts/build.py` from the repository root.
+5. Review the generated navigation and sitemap, then run the local preview before publishing.
+
+The build fails when a registered page is missing. This makes navigation and sitemap references auditable before deployment.
 
 ## Asset Guidelines
 

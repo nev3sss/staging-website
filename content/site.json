@@ -1,0 +1,18 @@
+{
+  "site": {
+    "name": "NEV3S",
+    "url": "https://www.nev3s.com/",
+    "description": "Chinese EV master franchise and new energy vehicle ecosystem partner for the GCC."
+  },
+  "navigation": [
+    { "label": "About", "href": "#about" },
+    { "label": "Ecosystem", "href": "#ecosystem" },
+    { "label": "Brands", "href": "#brands" },
+    { "label": "Offices", "href": "#offices" },
+    { "label": "FAQ", "href": "#faq" },
+    { "label": "Contact", "href": "#contact" }
+  ],
+  "pages": [
+    { "path": "index.html", "label": "Home", "public": true }
+  ]
+}
