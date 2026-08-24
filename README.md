@@ -14,6 +14,19 @@ The repository currently includes:
 - Shared content metadata in `content/site.json`
 - Generated navigation and sitemap updates via `scripts/build.py`
 
+## Recommended Copilot skills
+
+This repo is intentionally simple, so the most useful setup is a minimal, practical skill set rather than a long list of extra tooling.
+
+Recommended skills for this project:
+
+- `expert-ui-ux-developer` — for layout polish, responsive improvements, and accessibility tuning
+- `pylance-refactoring` — for small Python script cleanup and maintainability
+- `agent-customization` — for repo-specific workflow guidance and consistent Copilot behavior
+- `chronicle` — for session tracking and continuity across multi-step tasks
+
+These are built-in Copilot capabilities in the current workspace and do not require a separate repo install step. They are intended to support the workflow without adding complexity.
+
 ## Repository structure
 
 ```text
