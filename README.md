@@ -2,6 +2,8 @@
 
 Static corporate website foundation for NEV3S, the Chinese EV master franchise and new energy vehicle ecosystem partner for the GCC.
 
+> Repository notice: This is a staging website repository for development, content review, and preview only. It is not the live public business website and should not be treated as production-facing or customer-critical. Changes here are intended for staging validation and review before any production deployment.
+
 ## Current Status
 
 - `index.html` is the current single-page homepage and working preview.
