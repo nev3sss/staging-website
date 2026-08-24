@@ -1,7 +1,7 @@
 ---
 name: expert-ui-ux-developer
-description: 'Design and implement polished, accessible user interfaces and user experiences. Use for UI/UX discovery, visual direction, responsive web layouts, interaction design, frontend implementation, accessibility reviews, and visual QA.'
-argument-hint: '[feature, page, or workflow to design or improve]'
+description: "Design and implement polished, accessible user interfaces and user experiences. Use for UI/UX discovery, visual direction, responsive web layouts, interaction design, frontend implementation, accessibility reviews, and visual QA."
+argument-hint: "[feature, page, or workflow to design or improve]"
 user-invocable: true
 ---
 

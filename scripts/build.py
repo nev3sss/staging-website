@@ -18,21 +18,25 @@ def load_config():
 
 def render_links(items, class_name):
     return "\n".join(
-        f'        <a href="{item["href"]}" class="{class_name}">{item["label"]}</a>'
+        f'<a href="{item["href"]}" class="{class_name}">{item["label"]}</a>'
         for item in items
     )
 
 
 def replace_block(source, start, end, content):
-    start_index = source.index(start) + len(start)
+    marker_index = source.index(start)
+    start_index = marker_index + len(start)
     end_index = source.index(end, start_index)
-    return source[:start_index] + "\n" + content + "\n      " + source[end_index:]
+    line_start = source.rfind("\n", 0, marker_index) + 1
+    indentation = source[line_start:marker_index]
+    content = "\n".join(indentation + line for line in content.splitlines())
+    return source[:start_index] + "\n" + content + "\n" + indentation + source[end_index:]
 
 
 def update_homepage(config):
     source = INDEX_PATH.read_text(encoding="utf-8")
     navigation = render_links(config["navigation"], "nav-link")
-    source = replace_block(source, "      <!-- GENERATED:NAV-START -->", "<!-- GENERATED:NAV-END -->", navigation)
+    source = replace_block(source, "<!-- GENERATED:NAV-START -->", "<!-- GENERATED:NAV-END -->", navigation)
     INDEX_PATH.write_text(source, encoding="utf-8")
 
 
