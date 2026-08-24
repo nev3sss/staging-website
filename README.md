@@ -1,61 +1,74 @@
 # NEV3S Staging Website
 
-Static marketing site for NEV3S, built as a dependency-light, review-friendly staging repository for the GCC automotive and mobility brand portfolio.
+Static marketing website for the NEV3S brand portfolio, built as a lightweight, dependency-light hub for review, content validation, and staged marketing updates.
 
-This repository is intended for content review, local preview, and pre-launch validation. It is not a full application framework and does not add runtime dependencies beyond the existing static build workflow.
+This repository is intentionally simple: it uses static HTML/CSS, a content registry, and a small Python build step instead of introducing a framework or heavier runtime complexity. The goal is fast review cycles, clear content governance, and reliable page generation.
 
-## Current project status
+## Current status
 
-The repository currently includes:
+The project currently includes:
 
-- A homepage at `index.html`
-- Public pages for brands and offices
-- Legal and compliance pages for privacy and cookie policy
-- Shared content metadata in `content/site.json`
+- A premium corporate homepage in `index.html`
+- Supporting public pages under `pages/`
+- Core metadata and page registration in `content/site.json`
+- Shared styling under `styles/`
 - Generated navigation and sitemap updates via `scripts/build.py`
+- A lightweight static publishing workflow suitable for staging and review
 
-## Recommended Copilot skills
+## Project goals
 
-This repo is intentionally simple, so the most useful setup is a minimal, practical skill set rather than a long list of extra tooling.
+This repo supports:
 
-Recommended skills for this project:
+- review-ready marketing copy and layout changes
+- public route validation before launch
+- generated navigation and sitemap consistency
+- lightweight local preview without framework overhead
+- clean update flows for content, legal, and brand pages
 
-- `expert-ui-ux-developer` — for layout polish, responsive improvements, and accessibility tuning
-- `pylance-refactoring` — for small Python script cleanup and maintainability
-- `agent-customization` — for repo-specific workflow guidance and consistent Copilot behavior
-- `chronicle` — for session tracking and continuity across multi-step tasks
+## Recommended minimal Copilot skill set
 
-These are built-in Copilot capabilities in the current workspace and do not require a separate repo install step. They are intended to support the workflow without adding complexity.
+For this repository, a focused skill set is enough. Avoid adding unnecessary tooling and keep the workflow simple.
+
+Recommended skills:
+
+- `expert-ui-ux-developer` — layout refinement, responsiveness, accessibility, and visual polish
+- `pylance-refactoring` — Python maintenance for build and workflow scripts
+- `agent-customization` — repo-specific guidance and consistent Copilot behavior
+- `chronicle` — continuity for multi-step editorial or design work
+
+These are lightweight, practical additions that fit the current static-site approach without overcomplicating the project.
 
 ## Repository structure
 
 ```text
 .
-├── index.html              # Homepage entry point
-├── pages/                  # Public page templates and legal pages
+├── index.html              # Homepage and primary marketing landing page
+├── pages/                  # Public pages, including legal and brand pages
 ├── assets/
 │   ├── images/             # Approved photography and media
-│   ├── logos/              # Brand and partner assets
+│   ├── logos/              # Brand and partner logo assets
 │   └── icons/              # Favicons and UI assets
 ├── content/
-│   └── site.json           # Registration data for pages and nav
-├── styles/                 # Shared CSS
+│   └── site.json           # Source of truth for pages and nav metadata
+├── styles/                 # Shared site styles
 ├── scripts/
-│   ├── build.py            # Validates pages and regenerates nav/sitemap
-│   └── new-page.py         # Creates a new registered page
-├── sitemap.xml             # Generated public route map
+│   ├── build.py            # Validates page registry and regenerates nav/sitemap
+│   └── new-page.py         # Creates and registers a new page
+├── sitemap.xml             # Generated route map for public pages
 ├── robots.txt              # Basic crawler policy
 ├── package.json            # Lint and format scripts
-├── eslint.config.js        # ESLint configuration
+├── eslint.config.js        # Lint configuration
 ├── README.md               # Project documentation
-├── .gitignore              # Repository ignore rules
-├── package-lock.json       # Locked dependency state
-└── node_modules/           # Installed local dependencies
+├── .gitignore              # Ignore rules for local and generated artifacts
+├── package-lock.json       # Lockfile for npm dependencies
+├── node_modules/           # Installed dependencies for local validation
+└── .github/
+    └── copilot-instructions.md
 ```
 
-## Public pages and routes
+## Public routes
 
-The site registry currently includes these public routes:
+The current page registry includes the following public routes:
 
 - `/` — Home
 - `/pages/brands.html` — Brands
@@ -63,11 +76,11 @@ The site registry currently includes these public routes:
 - `/pages/privacy-policy.html` — Privacy Policy
 - `/pages/cookie-policy.html` — Cookie Policy
 
-The `content/site.json` file is the source of truth for registered pages and homepage navigation. When a page is added or removed, run the build so the homepage nav and sitemap stay in sync.
+The source of truth is `content/site.json`. If pages are added, removed, or renamed, run the build so the generated homepage navigation and sitemap stay aligned.
 
-## Local development
+## Local workflow
 
-From the project root, install dependencies once if needed:
+Install dependencies once if needed:
 
 ```bash
 npm install
@@ -79,39 +92,39 @@ Start a local preview server:
 python3 -m http.server 4173
 ```
 
-Then open:
+Open the site in a browser at:
 
 ```text
 http://localhost:4173/
 ```
 
-## Content workflow
+## Content creation workflow
 
-Create a new page with the project helper:
+Create a new registered page with the helper script:
 
 ```bash
 python3 scripts/new-page.py insights "Insights" "NEV3S Insights"
 ```
 
-This creates a new page file and registers it in `content/site.json`.
+This creates a page file and updates the registry in `content/site.json`.
 
-After any page or route change, regenerate the homepage nav and sitemap:
+After any page or route change, regenerate the homepage navigation and sitemap:
 
 ```bash
 python3 scripts/build.py
 ```
 
-The build validates that:
+The build checks that:
 
-- all registered pages exist
+- registered pages exist
 - page paths are unique
-- navigation labels are unique
-- the sitemap reflects only public routes
-- homepage navigation remains aligned with `content/site.json`
+- nav labels are unique
+- public routes are reflected in `sitemap.xml`
+- homepage navigation stays consistent with `content/site.json`
 
-## Validation and quality checks
+## Validation checks
 
-Run the project checks before considering the repository ready:
+Run these checks before considering the repo ready:
 
 ```bash
 npm run lint
@@ -119,18 +132,18 @@ npm run format:check
 python3 scripts/build.py
 ```
 
-These checks ensure linting, formatting, and static content registry consistency are all green.
+These checks validate formatting, linting, and static content registry integrity.
 
 ## Content and asset guidance
 
-- Keep authored content factual, approved, and specific to real business operations.
-- Use relative URLs when linking between pages and root assets.
-- Preserve semantic HTML, visible focus styles, readable contrast, and reduced-motion support.
-- Only use approved photography, logos, and partner references.
-- Do not publish unverified claims, partner relationships, or office/legal details.
+- Keep content factual, approved, and aligned to actual NEV3S operations
+- Use relative paths between pages and root assets
+- Preserve semantic HTML, accessible focus states, readable contrast, and reduced-motion support
+- Only use approved logos, photography, and business references
+- Avoid publishing unverified claims, legal language, or office details without approval
 
 ## Notes
 
-This site is intentionally lightweight and deterministic. It does not add a framework or runtime layer for simple static marketing work; the generated nav and sitemap are the only output that should be rebuilt automatically.
+This project is intentionally lightweight and deterministic. It does not add a framework or runtime layer for simple marketing work; the generated navigation and sitemap are the only outputs that should be rebuilt automatically.
 
-Before any production or public launch, review the final content, verify all public routes, confirm legal language and contact details, and ensure the final build is clean.
+Before public launch, review the final copy, verify all routes, confirm legal language and contact details, and ensure the build stays clean.
