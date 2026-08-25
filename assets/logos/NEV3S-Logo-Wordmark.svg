@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="180" viewBox="0 0 640 180" role="img" aria-labelledby="title desc">
+  <title id="title">NEV3S wordmark</title>
+  <desc id="desc">Transparent background NEV3S corporate wordmark in red.</desc>
+  <defs>
+    <linearGradient id="nev3s-red" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d30100"/>
+      <stop offset="100%" stop-color="#a80000"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#nev3s-red)">
+    <text x="18" y="115" font-family="Poppins, 'Segoe UI', Arial, sans-serif" font-size="110" font-weight="700" letter-spacing="1.5">NEV3S</text>
+    <circle cx="587" cy="49" r="11" fill="#d30100"/>
+    <rect x="578" y="72" width="65" height="16" rx="8" fill="#d30100" opacity="0.9"/>
+  </g>
+</svg>
