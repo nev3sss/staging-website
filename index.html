@@ -3120,7 +3120,7 @@
         background: linear-gradient(
           180deg,
           rgba(23, 23, 23, 0),
-          rgba(23, 23, 23, 0.25)
+          rgba(23, 23, 23, 0.32)
         );
         display: none;
       }
@@ -3133,19 +3133,34 @@
         background: linear-gradient(
           135deg,
           rgba(28, 27, 27, 0.98),
-          rgba(49, 17, 17, 0.96)
+          rgba(45, 17, 17, 0.96)
         );
         border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 22px;
-        box-shadow: var(--shadow);
+        border-radius: 24px;
+        box-shadow: 0 20px 48px rgba(10, 10, 10, 0.26);
         padding: 1.2rem 1.3rem 1rem;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+      .cookie-banner__panel::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto auto 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          #d30100 0%,
+          rgba(255, 255, 255, 0.12) 100%
+        );
       }
       .cookie-banner__brand {
         display: flex;
         align-items: center;
         gap: 0.85rem;
         justify-content: space-between;
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.7rem;
       }
       .cookie-banner__mark {
         display: inline-flex;
@@ -3168,7 +3183,7 @@
         text-transform: uppercase;
       }
       .cookie-banner__content {
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.9rem;
       }
       .cookie-banner__content p {
         margin: 0;
@@ -3185,7 +3200,7 @@
       .cookie-link,
       .cookie-btn {
         border-radius: 999px;
-        padding: 0.8rem 1.1rem;
+        padding: 0.8rem 1.15rem;
         font-size: 0.92rem;
         font-weight: 700;
         text-decoration: none;
@@ -3193,7 +3208,8 @@
         transition:
           transform 0.2s ease,
           opacity 0.2s ease,
-          border-color 0.2s ease;
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
       }
       .cookie-link:hover,
       .cookie-btn:hover {
@@ -3205,7 +3221,7 @@
         justify-content: center;
         color: #fff;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        background: transparent;
+        background: rgba(255, 255, 255, 0.03);
       }
       .cookie-btn {
         border: 0;
@@ -3213,12 +3229,12 @@
       .cookie-btn--primary {
         background: linear-gradient(135deg, #d30100, #a60b0b);
         color: #fff;
-        box-shadow: 0 10px 24px rgba(211, 1, 0, 0.2);
+        box-shadow: 0 10px 24px rgba(211, 1, 0, 0.24);
       }
       .cookie-btn--secondary {
-        background: transparent;
+        background: rgba(255, 255, 255, 0.04);
         color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.23);
       }
       .cookie-btn--ghost {
         background: rgba(255, 255, 255, 0.06);
@@ -3253,10 +3269,10 @@
         position: relative;
         width: min(560px, calc(100vw - 2rem));
         margin: 8vh auto 0;
-        background: var(--panel-light);
-        border: 1px solid var(--line);
+        background: linear-gradient(180deg, #ffffff 0%, #fffaf9 100%);
+        border: 1px solid rgba(21, 21, 21, 0.08);
         border-radius: 24px;
-        box-shadow: var(--shadow);
+        box-shadow: 0 22px 52px rgba(17, 16, 16, 0.16);
         overflow: hidden;
       }
       .cookie-modal__header {
@@ -3310,6 +3326,11 @@
         color: var(--ink);
         font-size: 1.6rem;
         cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      .cookie-modal__close:hover {
+        background: var(--brand-red-soft);
+        border-color: rgba(211, 1, 0, 0.2);
       }
       .cookie-modal__body {
         padding: 1.2rem 1.4rem;
@@ -3329,6 +3350,7 @@
         border-radius: 16px;
         background: #fff;
         overflow: hidden;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
       }
       .cookie-accordion__item summary {
         list-style: none;
@@ -3403,6 +3425,7 @@
         background: #fff;
         border-radius: 50%;
         transition: 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
       }
       .switch input:checked + .slider {
         background: var(--brand-red);
@@ -3420,7 +3443,7 @@
         gap: 0.75rem;
         padding: 0.8rem 1.4rem 1.3rem;
         border-top: 1px solid var(--line);
-        background: #fff;
+        background: rgba(255, 255, 255, 0.75);
       }
       @media (max-width: 700px) {
         .cookie-banner__panel {
