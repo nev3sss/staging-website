@@ -499,7 +499,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 176px;
+        min-width: 220px;
         padding: 10px 14px;
         border-radius: 14px;
         background: rgba(255, 255, 255, 0.96);
@@ -507,9 +507,10 @@
         box-shadow: 0 8px 16px rgba(10, 10, 10, 0.04);
       }
       .nav-logo img {
-        width: auto;
-        max-width: 180px;
-        height: 42px;
+        display: block;
+        width: 220px;
+        max-width: 100%;
+        height: auto;
         object-fit: contain;
       }
       .nav-logo-text {
@@ -601,12 +602,72 @@
         }
       }
       @media (max-width: 640px) {
+        .nav {
+          padding: 12px 0;
+        }
+        .nav-logo {
+          flex: 1;
+          min-width: 0;
+        }
         .nav-logo-mark {
+          width: clamp(136px, 42vw, 180px);
           min-width: 0;
           padding: 8px 10px;
         }
         .nav-logo img {
-          height: 32px;
+          width: 100%;
+          height: auto;
+        }
+        .nav-links.is-open {
+          top: 82px;
+          left: 12px;
+          right: 12px;
+        }
+        .hero {
+          padding: 96px 0 72px;
+        }
+        .hero-kicker {
+          gap: 8px;
+          padding: 0.6rem 0.8rem;
+          letter-spacing: 0.08em;
+        }
+        .hero-kicker::before,
+        .hero-kicker::after {
+          width: 12px;
+        }
+        .hero h1 {
+          font-size: clamp(2.2rem, 12vw, 3.2rem);
+        }
+        .hero-tagline {
+          font-size: 1.02rem;
+        }
+        .hero-contact {
+          font-size: 0.84rem;
+          line-height: 1.65;
+        }
+        .hero-contact p {
+          margin: 0;
+        }
+        .hero-3s {
+          gap: 12px;
+          margin: 24px 0 30px;
+        }
+        .hero-3s-item {
+          width: 100%;
+          max-width: 220px;
+          justify-content: center;
+          padding: 12px 18px;
+        }
+        .hero-cta {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-secondary-light {
+          width: 100%;
+          max-width: 100%;
         }
       }
 
@@ -2010,7 +2071,7 @@
           <div class="nav-logo">
             <a href="#top" class="nav-logo-mark" aria-label="NEV3S home">
               <img
-                src="assets/logos/NEV3S-Logo-Wordmark.svg"
+                src="assets/logos/NEV3S-website-logo-transparent-bg.png"
                 alt="NEV3S Logo"
                 width="220"
                 height="62"
@@ -2261,10 +2322,10 @@
             </div>
             <div class="about-visual reveal">
               <img
-                src="assets/logos/NEV3S-Logo-Stacked.svg"
+                src="assets/logos/NEV3S-website-logo-transparent-bg.png"
                 alt="NEV3S Brand Mark - New Energy Vehicles Sales Service Spare Parts"
                 width="300"
-                height="300"
+                height="90"
                 loading="lazy"
               />
             </div>
@@ -2904,7 +2965,7 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <img
-              src="assets/logos/NEV3S-Logo-Wordmark.svg"
+              src="assets/logos/NEV3S-website-logo-transparent-bg.png"
               alt="NEV3S Logo"
               width="220"
               height="62"
