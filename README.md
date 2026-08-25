@@ -1,74 +1,60 @@
 # NEV3S Staging Website
 
-Static marketing website for the NEV3S brand portfolio, built as a lightweight, dependency-light hub for review, content validation, and staged marketing updates.
+Static marketing website for NEV3S, built as a lightweight, dependency-light corporate landing experience for EV brand partnerships, GCC market expansion, service infrastructure, and lead capture.
 
-This repository is intentionally simple: it uses static HTML/CSS, a content registry, and a small Python build step instead of introducing a framework or heavier runtime complexity. The goal is fast review cycles, clear content governance, and reliable page generation.
+This repository keeps the site easy to review and ship: plain HTML/CSS, a simple content registry, and a small Python build script instead of a heavier frontend framework. The goal is fast iteration, reliable route generation, and a clean staging flow for approved marketing changes.
 
 ## Current status
 
-The project currently includes:
+The production-facing site includes:
 
-- A premium corporate homepage in `index.html`
-- Supporting public pages under `pages/`
-- Core metadata and page registration in `content/site.json`
-- Shared styling under `styles/`
-- Generated navigation and sitemap updates via `scripts/build.py`
-- A lightweight static publishing workflow suitable for staging and review
+- a premium homepage and hero structure in `index.html`
+- supporting public pages under `pages/`
+- route metadata and nav source-of-truth in `content/site.json`
+- shared styling and design tokens in `styles/`
+- generated homepage navigation and `sitemap.xml` via `scripts/build.py`
+- a HubSpot-form lead capture flow for the static site
+- updated GCC contact details and clearer presence cards
 
-## Project goals
+## What was recently improved
 
-This repo supports:
-
-- review-ready marketing copy and layout changes
-- public route validation before launch
-- generated navigation and sitemap consistency
-- lightweight local preview without framework overhead
-- clean update flows for content, legal, and brand pages
-
-## Recommended minimal Copilot skill set
-
-For this repository, a focused skill set is enough. Avoid adding unnecessary tooling and keep the workflow simple.
-
-Recommended skills:
-
-- `expert-ui-ux-developer` — layout refinement, responsiveness, accessibility, and visual polish
-- `pylance-refactoring` — Python maintenance for build and workflow scripts
-- `agent-customization` — repo-specific guidance and consistent Copilot behavior
-- `chronicle` — continuity for multi-step editorial or design work
-
-These are lightweight, practical additions that fit the current static-site approach without overcomplicating the project.
+- HubSpot lead form integration using the Forms API with fetch, JSON payloads, validation, inline messaging, and disabled submit state
+- standardized phone contact details to `+966 56 556 920`
+- improved homepage visual hierarchy and presence card contrast for better readability
+- verified linting, formatting, and route-level build integrity
 
 ## Repository structure
 
 ```text
 .
-├── index.html              # Homepage and primary marketing landing page
-├── pages/                  # Public pages, including legal and brand pages
+├── index.html              # Main landing page and site content
+├── pages/                  # Public pages and legal/brand pages
 ├── assets/
 │   ├── images/             # Approved photography and media
 │   ├── logos/              # Brand and partner logo assets
 │   └── icons/              # Favicons and UI assets
 ├── content/
-│   └── site.json           # Source of truth for pages and nav metadata
-├── styles/                 # Shared site styles
+│   └── site.json           # Source of truth for route metadata and nav
+├── styles/                 # Shared CSS and design system styles
 ├── scripts/
-│   ├── build.py            # Validates page registry and regenerates nav/sitemap
+│   ├── build.py            # Validates pages and regenerates nav + sitemap
 │   └── new-page.py         # Creates and registers a new page
-├── sitemap.xml             # Generated route map for public pages
-├── robots.txt              # Basic crawler policy
+├── sitemap.xml             # Generated XML sitemap
+├── robots.txt              # Basic crawler instructions
 ├── package.json            # Lint and format scripts
-├── eslint.config.js        # Lint configuration
+├── eslint.config.js        # ESLint configuration
 ├── README.md               # Project documentation
 ├── .gitignore              # Ignore rules for local and generated artifacts
-├── package-lock.json       # Lockfile for npm dependencies
-├── node_modules/           # Installed dependencies for local validation
-└── .github/
-    └── copilot-instructions.md
+├── package-lock.json       # NPM lockfile
+├── node_modules/           # Installed dependencies (ignored by Git)
+├── .github/
+│   └── copilot-instructions.md
+└── .vscode/                # Optional editor settings, if present
 ```
 
 ## Public routes
 
-The current page registry includes the following public routes:
+The site currently contains the following registered pages:
 
 - `/` — Home
 - `/pages/brands.html` — Brands
@@ -76,11 +62,11 @@ The current page registry includes the following public routes:
 - `/pages/privacy-policy.html` — Privacy Policy
 - `/pages/cookie-policy.html` — Cookie Policy
 
-The source of truth is `content/site.json`. If pages are added, removed, or renamed, run the build so the generated homepage navigation and sitemap stay aligned.
+If pages are added, removed, or renamed, run the build so the generated navigation and sitemap stay aligned.
 
 ## Local workflow
 
-Install dependencies once if needed:
+Install dependencies once:
 
 ```bash
 npm install
@@ -100,13 +86,11 @@ http://localhost:4173/
 
 ## Content creation workflow
 
-Create a new registered page with the helper script:
+Create a registered page with the helper script:
 
 ```bash
 python3 scripts/new-page.py insights "Insights" "NEV3S Insights"
 ```
-
-This creates a page file and updates the registry in `content/site.json`.
 
 After any page or route change, regenerate the homepage navigation and sitemap:
 
@@ -114,17 +98,17 @@ After any page or route change, regenerate the homepage navigation and sitemap:
 python3 scripts/build.py
 ```
 
-The build checks that:
+The build validates that:
 
 - registered pages exist
 - page paths are unique
 - nav labels are unique
-- public routes are reflected in `sitemap.xml`
+- `sitemap.xml` reflects the public routes
 - homepage navigation stays consistent with `content/site.json`
 
 ## Validation checks
 
-Run these checks before considering the repo ready:
+Before considering the repo ready, run:
 
 ```bash
 npm run lint
@@ -132,18 +116,14 @@ npm run format:check
 python3 scripts/build.py
 ```
 
-These checks validate formatting, linting, and static content registry integrity.
-
-## Content and asset guidance
-
-- Keep content factual, approved, and aligned to actual NEV3S operations
-- Use relative paths between pages and root assets
-- Preserve semantic HTML, accessible focus states, readable contrast, and reduced-motion support
-- Only use approved logos, photography, and business references
-- Avoid publishing unverified claims, legal language, or office details without approval
+These checks validate formatting, linting, and static route integrity.
 
 ## Notes
 
-This project is intentionally lightweight and deterministic. It does not add a framework or runtime layer for simple marketing work; the generated navigation and sitemap are the only outputs that should be rebuilt automatically.
+- Use relative paths between pages and root assets.
+- Keep content factual, approved, and aligned with actual NEV3S operations.
+- Preserve semantic HTML, accessible focus indicators, readable contrast, and reduced-motion support.
+- Keep the site lightweight; avoid adding framework overhead unless there is a clear product need.
+- HubSpot form submission depends on the form’s CRM configuration. If API submissions are rejected, check the HubSpot form settings for spam/captcha restrictions.
 
-Before public launch, review the final copy, verify all routes, confirm legal language and contact details, and ensure the build stays clean.
+This repo is intentionally lightweight and deterministic. The generated navigation and sitemap are build outputs, not source-of-truth content.
