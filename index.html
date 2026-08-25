@@ -143,6 +143,7 @@
         ],
         "industry": "Automotive - Electric Vehicles",
         "email": "info@nev3s.com",
+        "telephone": "+96656556920",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Ground Floor & Level 1, Building No. 7, The Business Gate, Zone A, Airport Road",
@@ -626,23 +627,32 @@
       .hero-kicker {
         display: inline-flex;
         align-items: center;
-        gap: 14px;
+        justify-content: center;
+        gap: 12px;
         margin: 0 0 28px;
+        padding: 0.7rem 1.15rem;
+        border: 1px solid rgba(255, 110, 96, 0.45);
+        border-radius: 999px;
+        background: rgba(211, 1, 0, 0.08);
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+          0 10px 28px rgba(0, 0, 0, 0.18);
         color: var(--red-onblack);
         font-family: var(--font-mono);
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.18em;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
+        line-height: 1.1;
       }
       .hero-kicker::before,
       .hero-kicker::after {
         content: "";
         display: block;
-        width: 36px;
+        width: 18px;
         height: 1px;
         background: currentColor;
-        opacity: 0.7;
+        opacity: 0.8;
       }
       .hero h1 {
         font-family: var(--font-display);
@@ -1339,62 +1349,97 @@
         margin: 0 auto;
       }
       .office-card {
-        background: var(--panel);
+        background: linear-gradient(180deg, #ffffff 0%, #faf7f6 100%);
+        border: 1px solid var(--line);
         border-radius: var(--radius-lg);
-        padding: 32px;
+        padding: 28px 24px 24px;
         transition: all 0.3s var(--ease);
-        border-top: 4px solid var(--line);
+        border-top: 5px solid rgba(211, 1, 0, 0.22);
+        box-shadow: 0 8px 18px rgba(10, 10, 10, 0.04);
+        position: relative;
+        overflow: hidden;
+      }
+      .office-card::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          var(--red) 50%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.2s var(--ease);
       }
       .office-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        border-top-color: var(--red);
+        box-shadow: 0 18px 30px rgba(10, 10, 10, 0.09);
+        border-color: rgba(211, 1, 0, 0.32);
+      }
+      .office-card:hover::after {
+        opacity: 1;
       }
       .office-card.headquarters {
         background: linear-gradient(
           135deg,
-          var(--red-soft) 0%,
-          var(--panel) 100%
+          rgba(211, 1, 0, 0.08) 0%,
+          #ffffff 36%,
+          #faf7f6 100%
         );
+        border-color: rgba(211, 1, 0, 0.2);
         border-top-color: var(--red);
-        position: relative;
       }
       .office-card.headquarters::before {
         content: "HEADQUARTERS";
         position: absolute;
-        top: 16px;
-        right: 16px;
+        top: 14px;
+        right: 14px;
         font-family: var(--font-mono);
         font-size: 0.6875rem;
         font-weight: 700;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
         color: var(--red);
-        background: var(--white);
-        padding: 4px 12px;
-        border-radius: var(--radius-sm);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(211, 1, 0, 0.18);
+        padding: 6px 10px;
+        border-radius: 999px;
       }
       .office-flag {
-        font-size: 2.5rem;
-        margin-bottom: 16px;
-        display: block;
+        width: 52px;
+        height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-bottom: 18px;
+        background: rgba(211, 1, 0, 0.08);
+        border: 1px solid rgba(211, 1, 0, 0.12);
+        border-radius: 14px;
       }
       .office-country {
         font-family: var(--font-display);
-        font-size: 1.25rem;
+        font-size: 1.35rem;
         font-weight: 700;
-        margin: 0 0 8px;
+        margin: 0 0 10px;
         color: var(--ink);
       }
       .office-city {
-        font-size: 0.9375rem;
-        color: var(--ink-faint);
+        display: inline-block;
+        font-size: 0.75rem;
+        color: var(--red);
         margin: 0 0 16px;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.12em;
+        font-weight: 700;
+        background: rgba(211, 1, 0, 0.08);
+        border-radius: 999px;
+        padding: 6px 10px;
       }
       .office-address {
-        font-size: 0.9375rem;
-        line-height: 1.6;
+        font-size: 0.95rem;
+        line-height: 1.7;
         color: var(--ink-dim);
         margin: 0;
       }
@@ -1896,6 +1941,8 @@
             <div class="hero-contact">
               <p>
                 📧 <a href="mailto:info@nev3s.com">info@nev3s.com</a>
+                &nbsp;|&nbsp; 📞
+                <a href="tel:+96656556920">+966 56 556 920</a>
                 &nbsp;|&nbsp; 📍 Riyadh, Saudi Arabia (HQ)
               </p>
             </div>
@@ -2607,6 +2654,10 @@
                   <strong>Email:</strong>
                   <a href="mailto:info@nev3s.com">info@nev3s.com</a>
                 </p>
+                <p>
+                  <strong>Phone:</strong>
+                  <a href="tel:+96656556920">+966 56 556 920</a>
+                </p>
                 <p><strong>Headquarters:</strong> Riyadh, Saudi Arabia</p>
                 <p><strong>Response time:</strong> Within 1 business day</p>
               </div>
@@ -2615,9 +2666,11 @@
             <div class="contact-form reveal">
               <form
                 id="contactForm"
-                action="mailto:info@nev3s.com"
+                action=""
                 method="POST"
-                enctype="text/plain"
+                data-hubspot-portal-id="247127460"
+                data-hubspot-form-id="f1c7693c-2d48-45ab-92c4-d32fcaf8fc04"
+                data-hubspot-page-name="NEV3S GCC Briefing Request"
                 aria-label="Contact form for institutional inquiries"
               >
                 <input
@@ -2629,31 +2682,32 @@
 
                 <div class="form-grid">
                   <div class="form-group">
-                    <label for="fullName">Full Name *</label>
+                    <label for="firstname">First name *</label>
                     <input
                       type="text"
-                      id="fullName"
-                      name="fullName"
+                      id="firstname"
+                      name="firstname"
                       required
-                      autocomplete="name"
+                      autocomplete="given-name"
                       aria-required="true"
                     />
                   </div>
                   <div class="form-group">
-                    <label for="entity">Corporate Entity / Group *</label>
+                    <label for="lastname">Last name *</label>
                     <input
                       type="text"
-                      id="entity"
-                      name="entity"
+                      id="lastname"
+                      name="lastname"
                       required
-                      autocomplete="organization"
+                      autocomplete="family-name"
                       aria-required="true"
                     />
                   </div>
                 </div>
+
                 <div class="form-grid">
                   <div class="form-group">
-                    <label for="email">Business Email *</label>
+                    <label for="email">Email *</label>
                     <input
                       type="email"
                       id="email"
@@ -2664,85 +2718,47 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label for="phone">Phone Number *</label>
+                    <label for="phone">Phone</label>
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
-                      required
                       autocomplete="tel"
-                      aria-required="true"
-                      pattern="[0-9+\-\s()]+"
                     />
                   </div>
                 </div>
+
                 <div class="form-grid">
-                  <div class="form-group">
-                    <label for="brand">Brand of Interest *</label>
-                    <select
-                      id="brand"
-                      name="brand"
-                      required
-                      aria-required="true"
-                    >
-                      <option value="">Select a brand</option>
-                      <option value="byd">BYD</option>
-                      <option value="nio">NIO</option>
-                      <option value="geely">Geely</option>
-                      <option value="changan">Changan</option>
-                      <option value="chery">Chery</option>
-                      <option value="all">Multiple Brands</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="title">Job Title *</label>
-                    <select
-                      id="title"
-                      name="title"
-                      required
-                      aria-required="true"
-                    >
-                      <option value="">Select your title</option>
-                      <option value="managing-director">
-                        Managing Director
-                      </option>
-                      <option value="c-level">C-Level Executive</option>
-                      <option value="investment-partner">
-                        Investment Partner
-                      </option>
-                      <option value="other">Other</option>
-                    </select>
+                  <div class="form-group full-width">
+                    <label for="company">Company</label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      autocomplete="organization"
+                    />
                   </div>
                 </div>
+
                 <div class="form-group full-width">
-                  <label for="message">Your Opportunity Brief</label>
+                  <label for="message">Message *</label>
                   <textarea
                     id="message"
                     name="message"
-                    placeholder="Share your goals, timeline, market focus, and the type of support you're evaluating..."
+                    placeholder="Tell us about your EV growth goals, target market, and the support you need..."
+                    required
+                    aria-required="true"
                     autocomplete="off"
                   ></textarea>
                 </div>
-                <div class="checkbox-group">
-                  <input
-                    type="checkbox"
-                    id="nda"
-                    name="nda"
-                    required
-                    aria-required="true"
-                  />
-                  <label for="nda"
-                    >I understand this inquiry is for qualified decision-makers
-                    and consent to confidential review of market and partnership
-                    opportunities.</label
-                  >
-                </div>
+
                 <div class="form-submit">
                   <button type="submit" class="btn-submit" id="submitBtn">
                     <span>Request a GCC briefing</span>
                   </button>
                   <p
                     id="formStatus"
+                    aria-live="polite"
                     style="
                       margin-top: 16px;
                       font-size: 0.9375rem;
@@ -2780,6 +2796,10 @@
               <p>
                 <strong>Email:</strong>
                 <a href="mailto:info@nev3s.com">info@nev3s.com</a>
+              </p>
+              <p>
+                <strong>Phone:</strong>
+                <a href="tel:+96656556920">+966 56 556 920</a>
               </p>
               <p><strong>Headquarters:</strong> Riyadh, Saudi Arabia</p>
             </div>
@@ -3531,18 +3551,114 @@
       });
 
       // ============================================================
-      // Form Submission Handler
+      // HubSpot Forms API Submission
+      // NOTE: Confirm the internal HubSpot property names for the message field
+      // in the form settings before production use.
       // ============================================================
-      document
-        .getElementById("contactForm")
-        .addEventListener("submit", function (e) {
-          const btn = document.getElementById("submitBtn");
+      const contactForm = document.getElementById("contactForm");
+
+      if (contactForm) {
+        const portalId = contactForm.dataset.hubspotPortalId;
+        const formId = contactForm.dataset.hubspotFormId;
+        const endpoint = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
+
+        function setStatus(message, isError) {
           const status = document.getElementById("formStatus");
+          status.textContent = message;
+          status.style.color = isError ? "#b3261e" : "#0d8d54";
+        }
+
+        function validateForm() {
+          const formData = new FormData(contactForm);
+          const requiredFields = ["firstname", "lastname", "email", "message"];
+
+          for (const fieldName of requiredFields) {
+            const value = String(formData.get(fieldName) || "").trim();
+            if (!value) {
+              setStatus(
+                `Please complete the ${fieldName.replace("_", " ")} field.`,
+                true,
+              );
+              return false;
+            }
+          }
+
+          const email = String(formData.get("email") || "").trim();
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(email)) {
+            setStatus("Please enter a valid email address.", true);
+            return false;
+          }
+
+          return true;
+        }
+
+        contactForm.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          if (!validateForm()) {
+            return;
+          }
+
+          const btn = document.getElementById("submitBtn");
           btn.disabled = true;
           btn.innerHTML = "<span>Sending...</span>";
-          status.style.color = "var(--ink-dim)";
-          status.textContent = "Please wait while we process your request...";
+          setStatus("Please wait while we send your request...", false);
+
+          const formData = new FormData(contactForm);
+          const fields = [];
+
+          for (const [name, value] of formData.entries()) {
+            const fieldValue = String(value).trim();
+            if (name === "_honey" || !fieldValue) {
+              continue;
+            }
+            fields.push({ name, value: fieldValue });
+          }
+
+          const payload = {
+            fields,
+            context: {
+              pageUri: window.location.href,
+              pageName: contactForm.dataset.hubspotPageName || document.title,
+            },
+          };
+
+          try {
+            const response = await fetch(endpoint, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            });
+
+            const responseText = await response.text();
+
+            if (!response.ok) {
+              throw new Error(
+                responseText ||
+                  `HubSpot submission failed (${response.status})`,
+              );
+            }
+
+            contactForm.reset();
+            setStatus(
+              "Thanks — your request has been sent successfully.",
+              false,
+            );
+          } catch (error) {
+            console.error("HubSpot form submission failed:", error);
+            setStatus(
+              "Sorry, we couldn’t send your request right now. Please email info@nev3s.com directly.",
+              true,
+            );
+          } finally {
+            btn.disabled = false;
+            btn.innerHTML = "<span>Request a GCC briefing</span>";
+          }
         });
+      }
 
       // ============================================================
       // Mobile Menu Toggle
