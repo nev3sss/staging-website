@@ -52,9 +52,22 @@ a {
   justify-content: space-between;
   gap: 32px;
 }
+.logo-shell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(17, 17, 17, 0.06);
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(18, 18, 18, 0.04);
+}
 .logo {
-  width: 150px;
-  height: auto;
+  display: block;
+  width: auto;
+  max-width: 170px;
+  height: 42px;
+  object-fit: contain;
 }
 .nav-links {
   display: flex;
@@ -239,6 +252,14 @@ h1 {
 .footer-links a:hover,
 .footer-links a:focus {
   color: #ff7774;
+}
+@media (max-width: 600px) {
+  .logo-shell {
+    padding: 8px 10px;
+  }
+  .logo {
+    height: 34px;
+  }
 }
 @media (max-width: 760px) {
   .nav {
