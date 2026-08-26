@@ -1181,7 +1181,7 @@
         text-align: center;
       }
       .about-visual img {
-        width: min(300px, 80vw);
+        width: min(360px, 80vw);
         margin: 0 auto;
       }
       @media (max-width: 900px) {
@@ -2044,12 +2044,22 @@
         gap: 16px;
         flex-wrap: wrap;
       }
+      .footer-regions a,
       .footer-regions span {
         font-size: 0.875rem;
         color: var(--on-black-dim);
         padding: 6px 12px;
         background: rgba(255, 255, 255, 0.05);
         border-radius: var(--radius-sm);
+        text-decoration: none;
+        transition:
+          color 0.2s var(--ease),
+          background 0.2s var(--ease);
+      }
+      .footer-regions a:hover,
+      .footer-regions a:focus-visible {
+        color: var(--red-onblack);
+        background: rgba(255, 255, 255, 0.08);
       }
       @media (max-width: 900px) {
         .footer-grid {
@@ -2141,7 +2151,7 @@
             <a href="#top" class="nav-logo-mark" aria-label="NEV3S home">
               <img
                 src="assets/logos/NEV3S-website-logo-transparent-bg.png"
-                alt="NEV3S Logo"
+                alt="NEV3S logo"
                 width="220"
                 height="62"
                 loading="eager"
@@ -2442,7 +2452,7 @@
             <div class="about-visual reveal">
               <img
                 src="assets/logos/NEV3S-website-logo-transparent-bg.png"
-                alt="NEV3S Brand Mark - New Energy Vehicles Sales Service Spare Parts"
+                alt="NEV3S brand mark for sales, service, and spare parts"
                 width="300"
                 height="90"
                 loading="lazy"
@@ -3098,7 +3108,7 @@
           <div class="footer-brand">
             <img
               src="assets/logos/NEV3S-website-logo-transparent-bg.png"
-              alt="NEV3S Logo"
+              alt="NEV3S logo"
               width="220"
               height="62"
               loading="lazy"
@@ -3182,10 +3192,14 @@
           <div class="footer-column">
             <h4>Regions</h4>
             <ul>
-              <li><a href="pages/offices.html">Saudi Arabia (HQ)</a></li>
-              <li><a href="pages/offices.html">United Arab Emirates</a></li>
-              <li><a href="pages/offices.html">Qatar & Bahrain</a></li>
-              <li><a href="pages/offices.html">Kuwait & Oman</a></li>
+              <li>
+                <a href="pages/offices.html#saudi-arabia">Saudi Arabia (HQ)</a>
+              </li>
+              <li><a href="pages/offices.html#uae">United Arab Emirates</a></li>
+              <li><a href="pages/offices.html#qatar">Qatar</a></li>
+              <li><a href="pages/offices.html#bahrain">Bahrain</a></li>
+              <li><a href="pages/offices.html#kuwait">Kuwait</a></li>
+              <li><a href="pages/offices.html#oman">Oman</a></li>
             </ul>
           </div>
         </div>
@@ -3193,12 +3207,12 @@
           <p>INSTITUTIONAL FRANCHISE ADVISORY · GCC</p>
           <p>
             <span class="footer-regions" aria-label="Service regions">
-              <span>🇸🇦 KSA</span>
-              <span>🇦🇪 UAE</span>
-              <span>🇶🇦 Qatar</span>
-              <span>🇧🇭 Bahrain</span>
-              <span>🇰🇼 Kuwait</span>
-              <span>🇴🇲 Oman</span>
+              <a href="pages/offices.html#saudi-arabia">🇸🇦 KSA</a>
+              <a href="pages/offices.html#uae">🇦🇪 UAE</a>
+              <a href="pages/offices.html#qatar">🇶🇦 Qatar</a>
+              <a href="pages/offices.html#bahrain">🇧🇭 Bahrain</a>
+              <a href="pages/offices.html#kuwait">🇰🇼 Kuwait</a>
+              <a href="pages/offices.html#oman">🇴🇲 Oman</a>
             </span>
           </p>
           <p>© 2026 NEV3S. All rights reserved.</p>
@@ -3380,11 +3394,11 @@
         right: 0;
         bottom: 0;
         z-index: 1000;
-        padding: 0.9rem 1rem 1.4rem;
+        padding: 0.82rem 0.9rem 1.05rem;
         background: linear-gradient(
           180deg,
           rgba(23, 23, 23, 0),
-          rgba(23, 23, 23, 0.32)
+          rgba(23, 23, 23, 0.3)
         );
         display: none;
       }
@@ -3392,17 +3406,17 @@
         display: block;
       }
       .cookie-banner__panel {
-        max-width: 1180px;
+        max-width: 1120px;
         margin: 0 auto;
         background: linear-gradient(
           135deg,
-          rgba(28, 27, 27, 0.98),
-          rgba(45, 17, 17, 0.96)
+          rgba(20, 16, 16, 0.98),
+          rgba(42, 17, 17, 0.96)
         );
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 24px;
-        box-shadow: 0 20px 48px rgba(10, 10, 10, 0.26);
-        padding: 1.2rem 1.3rem 1rem;
+        box-shadow: 0 18px 48px rgba(10, 10, 10, 0.28);
+        padding: 0.8rem 0.9rem 0.9rem;
         backdrop-filter: blur(10px);
         position: relative;
         overflow: hidden;
@@ -3412,60 +3426,63 @@
         position: absolute;
         inset: 0 auto auto 0;
         width: 100%;
-        height: 3px;
+        height: 2px;
         background: linear-gradient(
           90deg,
-          #d30100 0%,
+          rgba(211, 1, 0, 0.9) 0%,
           rgba(255, 255, 255, 0.12) 100%
         );
       }
       .cookie-banner__brand {
         display: flex;
         align-items: center;
-        gap: 0.85rem;
-        justify-content: space-between;
-        margin-bottom: 0.7rem;
+        gap: 0.6rem;
+        margin-bottom: 0.4rem;
       }
       .cookie-banner__mark {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background: rgba(211, 1, 0, 0.15);
+        background: rgba(255, 255, 255, 0.08);
         color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: 999px;
-        font-size: 0.78rem;
+        font-size: 0.7rem;
         font-weight: 700;
-        letter-spacing: 0.08em;
-        padding: 0.42rem 0.8rem;
+        letter-spacing: 0.06em;
+        padding: 0.28rem 0.72rem;
         text-transform: uppercase;
       }
       .cookie-banner__eyebrow {
         color: rgba(255, 255, 255, 0.72);
-        font-size: 0.72rem;
+        font-size: 0.62rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
+        line-height: 1.2;
       }
       .cookie-banner__content {
-        margin-bottom: 0.9rem;
+        margin-bottom: 0.7rem;
       }
       .cookie-banner__content p {
         margin: 0;
-        color: rgba(255, 255, 255, 0.92);
-        font-size: 0.96rem;
-        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.94);
+        font-size: clamp(0.95rem, 1.45vw, 1.15rem);
+        line-height: 1.38;
+        font-weight: 400;
+        letter-spacing: -0.015em;
       }
       .cookie-banner__actions {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.62rem;
+        align-items: stretch;
       }
       .cookie-link,
       .cookie-btn {
-        border-radius: 999px;
-        padding: 0.8rem 1.15rem;
-        font-size: 0.92rem;
+        border-radius: 14px;
+        min-height: 46px;
+        padding: 0.72rem 0.9rem;
+        font-size: 0.96rem;
         font-weight: 700;
         text-decoration: none;
         cursor: pointer;
@@ -3493,7 +3510,7 @@
       .cookie-btn--primary {
         background: linear-gradient(135deg, #d30100, #a60b0b);
         color: #fff;
-        box-shadow: 0 10px 24px rgba(211, 1, 0, 0.24);
+        box-shadow: 0 10px 24px rgba(211, 1, 0, 0.22);
       }
       .cookie-btn--secondary {
         background: rgba(255, 255, 255, 0.04);
@@ -3710,16 +3727,29 @@
         background: rgba(255, 255, 255, 0.75);
       }
       @media (max-width: 700px) {
+        .cookie-banner {
+          padding: 0.7rem 0.8rem 1rem;
+        }
         .cookie-banner__panel {
-          padding: 1rem;
+          padding: 0.8rem 0.8rem 0.8rem;
+          border-radius: 22px;
         }
         .cookie-banner__brand {
           align-items: flex-start;
           flex-direction: column;
+          gap: 0.35rem;
+          margin-bottom: 0.5rem;
+        }
+        .cookie-banner__content {
+          margin-bottom: 0.7rem;
+        }
+        .cookie-banner__content p {
+          font-size: 1.05rem;
+          line-height: 1.45;
         }
         .cookie-banner__actions,
         .cookie-modal__footer {
-          flex-direction: column;
+          grid-template-columns: 1fr;
           align-items: stretch;
         }
         .cookie-link,
