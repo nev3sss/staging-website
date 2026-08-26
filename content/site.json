@@ -2,24 +2,38 @@
   "site": {
     "name": "NEV3S",
     "url": "https://www.nev3s.com/",
-    "description": "Chinese EV master franchise and new energy vehicle ecosystem partner for the GCC."
+    "description": "GCC EV sales, service & spare parts platform."
   },
   "navigation": [
     {
-      "label": "About",
-      "href": "#about"
+      "label": "Company",
+      "href": "#about",
+      "items": [
+        { "label": "About", "href": "#about" },
+        { "label": "Why NEV3S", "href": "#proof-panel" },
+        { "label": "Service Network", "href": "pages/service-network.html" },
+        { "label": "Offices", "href": "pages/offices.html" }
+      ]
     },
     {
-      "label": "Ecosystem",
-      "href": "#ecosystem"
+      "label": "Solutions",
+      "href": "pages/solutions.html",
+      "items": [
+        { "label": "EV Solutions", "href": "pages/solutions.html" },
+        {
+          "label": "Service & Aftermarket",
+          "href": "pages/service-network.html"
+        },
+        {
+          "label": "Franchise Opportunities",
+          "href": "pages/franchise-opportunities.html"
+        },
+        { "label": "Spare Parts", "href": "pages/spare-parts.html" }
+      ]
     },
     {
       "label": "Brands",
       "href": "pages/brands.html"
-    },
-    {
-      "label": "Offices",
-      "href": "pages/offices.html"
     },
     {
       "label": "FAQ",
@@ -34,6 +48,26 @@
     {
       "path": "index.html",
       "label": "Home",
+      "public": true
+    },
+    {
+      "path": "pages/service-network.html",
+      "label": "Service Network",
+      "public": true
+    },
+    {
+      "path": "pages/franchise-opportunities.html",
+      "label": "Franchise Opportunities",
+      "public": true
+    },
+    {
+      "path": "pages/spare-parts.html",
+      "label": "Spare Parts",
+      "public": true
+    },
+    {
+      "path": "pages/solutions.html",
+      "label": "Solutions",
       "public": true
     },
     {

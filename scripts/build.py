@@ -2,8 +2,9 @@
 """Validate the content registry and update generated homepage navigation."""
 
 import json
+import subprocess
+from html import escape
 from pathlib import Path
-from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATH = ROOT / "content" / "site.json"
@@ -16,11 +17,26 @@ def load_config():
         return json.load(stream)
 
 
+def render_nav_item(item, class_name):
+    safe_label = escape(item["label"], quote=False)
+    if "items" in item and item["items"]:
+        children = "\n".join(
+            f'    <a href="{escape(child["href"], quote=True)}" class="{class_name} nav-link--child">{escape(child["label"], quote=False)}</a>'
+            for child in item["items"]
+        )
+        return (
+            '<div class="nav-item has-menu">\n'
+            f'  <a href="{escape(item["href"], quote=True)}" class="{class_name} nav-link--parent">{safe_label}</a>\n'
+            '  <div class="nav-submenu">\n'
+            f'{children}\n'
+            '  </div>\n'
+            '</div>'
+        )
+    return f'<a href="{escape(item["href"], quote=True)}" class="{class_name}">{safe_label}</a>'
+
+
 def render_links(items, class_name):
-    return "\n".join(
-        f'<a href="{item["href"]}" class="{class_name}">{item["label"]}</a>'
-        for item in items
-    )
+    return "\n".join(render_nav_item(item, class_name) for item in items)
 
 
 def replace_block(source, start, end, content):
@@ -38,6 +54,7 @@ def update_homepage(config):
     navigation = render_links(config["navigation"], "nav-link")
     source = replace_block(source, "<!-- GENERATED:NAV-START -->", "<!-- GENERATED:NAV-END -->", navigation)
     INDEX_PATH.write_text(source, encoding="utf-8")
+    subprocess.run(["npx", "prettier", "--write", str(INDEX_PATH)], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
 
 
 def validate_pages(config):
