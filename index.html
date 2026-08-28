@@ -555,6 +555,14 @@
       .nav-item:focus-within .nav-link--parent::after {
         color: var(--red);
       }
+      .nav-item::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: -14px;
+        right: -14px;
+        height: 16px;
+      }
       .nav-submenu {
         position: absolute;
         top: calc(100% + 16px);
@@ -655,12 +663,20 @@
         }
         .nav-links.is-open .nav-submenu {
           position: static;
-          display: flex;
+          display: none;
           min-width: 0;
           padding: 0 0 8px;
           background: transparent;
           border: 0;
           box-shadow: none;
+        }
+        .nav-links.is-open .nav-item.has-menu.is-expanded .nav-submenu {
+          display: flex;
+        }
+        .nav-links.is-open
+          .nav-item.has-menu.is-expanded
+          .nav-link--parent::after {
+          transform: rotate(180deg);
         }
         .nav-links.is-open .nav-submenu .nav-link {
           padding-left: 16px;
@@ -2151,7 +2167,7 @@
     ></div>
 
     <!-- Header -->
-    <header class="header" role="banner">
+    <header class="header" role="banner" id="top">
       <div class="container">
         <nav class="nav" role="navigation" aria-label="Main navigation">
           <div class="nav-logo">
@@ -2304,6 +2320,7 @@
       </section>
 
       <section
+        id="proof-panel"
         class="proof-panel section-light"
         aria-label="Business value summary"
       >
@@ -4097,19 +4114,51 @@
       // ============================================================
       const navToggle = document.querySelector(".nav-toggle");
       const navLinks = document.querySelector(".nav-links");
+      const isMobileNav = () => window.innerWidth <= 1024;
 
       navToggle.addEventListener("click", function () {
         const isExpanded = this.getAttribute("aria-expanded") === "true";
         this.setAttribute("aria-expanded", !isExpanded);
         navLinks.classList.toggle("is-open", !isExpanded);
+        if (isExpanded) {
+          document
+            .querySelectorAll(".nav-item.has-menu.is-expanded")
+            .forEach((item) => item.classList.remove("is-expanded"));
+        }
       });
+
+      // On mobile, tapping a parent link expands/collapses its submenu
+      // first, instead of navigating away immediately, so the submenu
+      // links stay visible long enough to be tapped.
+      document
+        .querySelectorAll(".nav-item.has-menu > .nav-link--parent")
+        .forEach((parentLink) => {
+          parentLink.addEventListener("click", (event) => {
+            if (!isMobileNav()) return;
+            const navItem = parentLink.closest(".nav-item");
+            const alreadyExpanded = navItem.classList.contains("is-expanded");
+            if (!alreadyExpanded) {
+              event.preventDefault();
+              event.stopImmediatePropagation();
+              document
+                .querySelectorAll(".nav-item.has-menu.is-expanded")
+                .forEach((item) => {
+                  if (item !== navItem) item.classList.remove("is-expanded");
+                });
+              navItem.classList.add("is-expanded");
+            }
+          });
+        });
 
       // Close mobile menu on link click
       document.querySelectorAll(".nav-link").forEach((link) => {
         link.addEventListener("click", () => {
-          if (window.innerWidth <= 1024) {
+          if (isMobileNav()) {
             navLinks.classList.remove("is-open");
             navToggle.setAttribute("aria-expanded", "false");
+            document
+              .querySelectorAll(".nav-item.has-menu.is-expanded")
+              .forEach((item) => item.classList.remove("is-expanded"));
           }
         });
       });
