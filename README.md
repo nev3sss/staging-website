@@ -18,6 +18,9 @@ The production-facing site includes:
 
 ## What was recently improved
 
+- **Mobile navigation submenu fix** — tapping a parent nav link on mobile now expands its submenu in place, so links remain visible and tappable. Previously the link would navigate away before submenu items could be selected.
+- **Hover gap bridge** — added invisible hit area between desktop nav items and their dropdowns to prevent the menu from accidentally closing when the cursor moves between them.
+- **Section anchors** — added `id="top"` to `<header>` and `id="proof-panel"` to the business-value section for reliable in-page navigation.
 - HubSpot lead form integration using the Forms API with fetch, JSON payloads, validation, inline messaging, and disabled submit state
 - standardized phone contact details to `+966 56 556 920`
 - improved homepage visual hierarchy and presence card contrast for better readability
