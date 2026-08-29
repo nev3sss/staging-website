@@ -50,11 +50,13 @@ def replace_block(source, start, end, content):
 
 
 def update_homepage(config):
-    source = INDEX_PATH.read_text(encoding="utf-8")
+    with INDEX_PATH.open(encoding="utf-8") as f:
+        source = f.read()
     navigation = render_links(config["navigation"], "nav-link")
     source = replace_block(source, "<!-- GENERATED:NAV-START -->", "<!-- GENERATED:NAV-END -->", navigation)
-    INDEX_PATH.write_text(source, encoding="utf-8")
-    subprocess.run(["npx", "prettier", "--write", str(INDEX_PATH)], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+    with INDEX_PATH.open("w", encoding="utf-8") as f:
+        f.write(source)
+    subprocess.run(["npx.cmd" if subprocess.os.name == "nt" else "npx", "prettier", "--write", str(INDEX_PATH)], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
 
 
 def validate_pages(config):

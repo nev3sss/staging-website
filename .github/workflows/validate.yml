@@ -24,4 +24,5 @@ jobs:
       - run: npm run lint
       - run: npm run format:check
       - run: python3 scripts/build.py
-      - run: git diff --exit-code -- index.html sitemap.xml
+      - run: git add index.html sitemap.xml
+      - run: git diff --cached --exit-code -- index.html sitemap.xml
