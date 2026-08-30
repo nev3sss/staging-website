@@ -18,8 +18,11 @@ The production-facing site includes:
 
 ## What was recently improved
 
-- **Mobile navigation submenu fix** — tapping a parent nav link on mobile now expands its submenu in place, so links remain visible and tappable. Previously the link would navigate away before submenu items could be selected.
-- **Hover gap bridge** — added invisible hit area between desktop nav items and their dropdowns to prevent the menu from accidentally closing when the cursor moves between them.
+- **Cookie/Privacy nav path fix** — corrected nav links in `pages/cookie-policy.html` and `pages/privacy-policy.html` from `../pages/brands.html` to `brands.html` for proper relative path resolution.
+- **YouTube channel link** — updated footer YouTube link from generic `youtube.com/` to the official NEV3S channel.
+- **Trailing whitespace cleanup** — removed stray whitespace from `pages/brands.html`.
+- **Mobile navigation submenu fix** — tapping a parent nav link on mobile now expands its submenu in place, so links remain visible and tappable.
+- **Hover gap bridge** — added invisible hit area between desktop nav items and their dropdowns to prevent the menu from accidentally closing.
 - **Section anchors** — added `id="top"` to `<header>` and `id="proof-panel"` to the business-value section for reliable in-page navigation.
 - HubSpot lead form integration using the Forms API with fetch, JSON payloads, validation, inline messaging, and disabled submit state
 - standardized phone contact details to `+966 56 556 920`
@@ -78,7 +81,7 @@ npm install
 Start a local preview server:
 
 ```bash
-python3 -m http.server 4173
+py -m http.server 4173
 ```
 
 Open the site in a browser at:
@@ -92,13 +95,13 @@ http://localhost:4173/
 Create a registered page with the helper script:
 
 ```bash
-python3 scripts/new-page.py insights "Insights" "NEV3S Insights"
+py scripts/new-page.py insights "Insights" "NEV3S Insights"
 ```
 
 After any page or route change, regenerate the homepage navigation and sitemap:
 
 ```bash
-python3 scripts/build.py
+py scripts/build.py
 ```
 
 The build validates that:
@@ -116,8 +119,10 @@ Before considering the repo ready, run:
 ```bash
 npm run lint
 npm run format:check
-python3 scripts/build.py
+py scripts/build.py
 ```
+
+> **Note:** On Windows, use `py` to invoke Python. On other systems, use `python3`.
 
 These checks validate formatting, linting, and static route integrity.
 
