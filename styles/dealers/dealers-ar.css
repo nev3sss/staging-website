@@ -1,0 +1,35 @@
+/* ===================================================================
+   NEV3S Dealer pages — styles/dealers/dealers-ar.css
+   Arabic / RTL overrides for dealers.css
+   =================================================================== */
+@import url('./dealers.css');
+
+[dir="rtl"] body { direction: rtl; }
+
+/* Reverse margins / paddings for RTL */
+[dir="rtl"] .form-fieldset { direction: rtl; }
+[dir="rtl"] .form-row { direction: rtl; }
+[dir="rtl"] .footer-inner { flex-direction: row-reverse; }
+[dir="rtl"] .footer-links { flex-direction: row-reverse; }
+[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+[dir="rtl"] .trust-grid { direction: rtl; }
+[dir="rtl"] .props-grid { direction: rtl; }
+[dir="rtl"] .journey-steps { direction: rtl; }
+[dir="rtl"] .faq-list { direction: rtl; }
+
+/* Flip icons and arrows */
+[dir="rtl"] .prop-link::after { content: ' \2190'; }
+
+/* Arabic-friendly font adjustments */
+[dir="rtl"] body {
+  font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+}
+
+/* Override font-family for specific elements in Arabic context */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] .trust-value,
+[dir="rtl"] .eyebrow {
+  font-family: 'Noto Sans Arabic', 'Poppins', sans-serif;
+}

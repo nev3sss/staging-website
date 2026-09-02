@@ -40,6 +40,10 @@
       "href": "pages/marketplace.html"
     },
     {
+      "label": "Dealers",
+      "href": "pages/dealers/apply.html"
+    },
+    {
       "label": "FAQ",
       "href": "#faq"
     },
@@ -88,6 +92,21 @@
       "path": "pages/marketplace.html",
       "label": "Marketplace",
       "public": true
+    },
+    {
+      "path": "pages/dealers/apply.html",
+      "label": "Dealership Application",
+      "public": true
+    },
+    {
+      "path": "pages/dealers/apply-ar.html",
+      "label": "تقديم طلب وكالة",
+      "public": true
+    },
+    {
+      "path": "pages/dealers/dashboard.html",
+      "label": "Dealer Portal",
+      "public": false
     },
     {
       "path": "pages/privacy-policy.html",

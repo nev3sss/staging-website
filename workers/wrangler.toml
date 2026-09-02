@@ -1,0 +1,72 @@
+# Cloudflare Worker config — NEV3S Dealership API
+# This file is committed to the repo. Only non-secret bindings here.
+# Secrets are stored via:  npx wrangler secret put SECRET_NAME
+# See docs/dealership-config.md for the full config reference.
+
+name = "nev3s-dealership-api"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ── D1 Database ────────────────────────────────────────────────────────────
+# database_id is NOT a secret — it's a public reference. Get it from
+# Cloudflare dashboard → Workers & Pages → D1 → nev3s-dealership-db.
+[[d1_databases]]
+binding = "DB"
+database_name = "nev3s-dealership-db"
+database_id = "REPLACE_WITH_D1_ID_AFTER_CREATING_DATABASE"
+
+# ── R2 Buckets ─────────────────────────────────────────────────────────────
+# Private bucket — trade licences, authorization docs, ownership evidence.
+# Block all public access. Signed URLs only.
+[[r2_buckets]]
+binding = "DEALER_DOCS"
+bucket_name = "nev3s-dealership-docs"
+
+# Public bucket — listing photos, public dealer assets.
+# CORS configured separately. public-read via custom domain.
+[[r2_buckets]]
+binding = "LISTING_MEDIA"
+bucket_name = "nev3s-marketplace-media"
+
+# ── KV Namespaces ──────────────────────────────────────────────────────────
+# feature_flags — runtime toggles (kill switches, launch windows)
+# config        — read-only runtime config (email from, launch window end)
+[[kv_namespaces]]
+binding = "FEATURE_FLAGS"
+id = "REPLACE_WITH_KV_ID"
+
+[[kv_namespaces]]
+binding = "CONFIG"
+id = "REPLACE_WITH_KV_ID"
+
+# ── Cron Triggers ──────────────────────────────────────────────────────────
+# Daily 6 AM UTC — 48h first-listing nudge (Email 6)
+# 1st of each month 7 AM UTC — 30-day check-in (Email 8)
+[triggers]
+crons = ["0 6 * * *", "0 7 1 * *"]
+
+# ── Custom Domain (set after first deploy) ─────────────────────────────────
+# routes = [
+#   { pattern = "api.nev3s.com/dealers/*", custom_domain = true }
+# ]
+
+# ── Environments ───────────────────────────────────────────────────────────
+[env.staging]
+name = "nev3s-dealership-api-staging"
+
+[env.staging.d1_databases]
+binding = "DB"
+database_name = "nev3s-dealership-db-staging"
+database_id = "REPLACE_WITH_STAGING_D1_ID"
+
+[env.staging.r2_buckets]
+binding = "DEALER_DOCS"
+bucket_name = "nev3s-dealership-docs-staging"
+
+[env.staging.r2_buckets]
+binding = "LISTING_MEDIA"
+bucket_name = "nev3s-marketplace-media-staging"
+
+[env.production]
+name = "nev3s-dealership-api-production"
