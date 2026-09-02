@@ -1,0 +1,1249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="NEV3S is the GCC's first EV automotive ecosystem — combining a trust-first EV marketplace, dealer software, and complete ownership services into one platform. Launching January 1, 2027. Buy, sell, and own EVs with data, security, and confidence."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="EV marketplace GCC, electric vehicle platform Middle East, buy sell EVs online, EV dealer software, EV ownership journey, battery health report, EV financing GCC, NEV3S" />
+    <meta property="og:title" content="NEV3S Marketplace | The GCC's First EV Automotive Ecosystem" />
+    <meta property="og:description" content="Not just classifieds. NEV3S is the GCC's first EV automotive ecosystem — trust-first, transaction-enabled, data-driven. Launching Jan 1, 2027." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.nev3s.com/pages/marketplace.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NEV3S Marketplace | The GCC's First EV Automotive Ecosystem" />
+    <meta name="twitter:description" content="Not just classifieds. NEV3S is the GCC's first EV automotive ecosystem — trust-first, transaction-enabled, data-driven." />
+    <title>NEV3S Marketplace | The GCC's First EV Automotive Ecosystem — Launch Jan 1, 2027</title>
+    <link rel="canonical" href="https://www.nev3s.com/pages/marketplace.html" />
+    <link rel="icon" href="../assets/icons/favicon.ico" sizes="any" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/brands.css" />
+    <style>
+      /* ── Marketplace overrides ── */
+      .marketplace-hero {
+        background: linear-gradient(135deg, #121212 0%, #1e1e1e 50%, #151515 100%);
+        color: #fff;
+        padding: 88px 0 72px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .marketplace-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 700px 400px at 50% 0%, rgba(211,1,0,0.2) 0%, transparent 70%),
+          repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.018) 60px, rgba(255,255,255,0.018) 61px),
+          repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.018) 60px, rgba(255,255,255,0.018) 61px);
+        pointer-events: none;
+      }
+      .marketplace-hero .eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #ff8f8c;
+        margin-bottom: 1rem;
+        display: inline-block;
+        background: rgba(211,1,0,0.12);
+        padding: 6px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(211,1,0,0.25);
+      }
+      .marketplace-hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2.2rem, 5.5vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+        color: #fff;
+        letter-spacing: -0.02em;
+      }
+      .marketplace-hero h1 span.red { color: #d30100; }
+      .marketplace-hero .tagline {
+        font-size: clamp(1rem, 2vw, 1.15rem);
+        color: rgba(255,255,255,0.75);
+        max-width: 660px;
+        margin: 0 auto 1.5rem;
+        font-weight: 400;
+        line-height: 1.7;
+      }
+      .ecosystem-pills {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 2rem;
+      }
+      .ecosystem-pill {
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.65);
+      }
+      .countdown-bar {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 0 0 2rem;
+        flex-wrap: wrap;
+      }
+      .countdown-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        padding: 14px 22px;
+        min-width: 78px;
+      }
+      .countdown-unit .number {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #d30100;
+        line-height: 1;
+      }
+      .countdown-unit .label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.45);
+        margin-top: 6px;
+      }
+      .countdown-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.45);
+        margin-bottom: 1rem;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+      }
+      @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 600px) { .features-grid { grid-template-columns: 1fr; } }
+      .features-grid .feature-card {
+        border-top: 3px solid #d30100;
+      }
+      .steps-section { background: #f1efec; padding: 72px 0; }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } }
+      .step-card {
+        background: #fff;
+        border: 1px solid #e6e2de;
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        box-shadow: 0 4px 16px rgba(18,18,18,0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .step-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(18,18,18,0.1); }
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: rgba(211,1,0,0.08);
+        color: #d30100;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+      }
+      .buyer-seller-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      @media (max-width: 760px) { .buyer-seller-grid { grid-template-columns: 1fr; } }
+      .buyer-seller-col {
+        background: #fff;
+        border: 1px solid #e6e2de;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 4px 16px rgba(18,18,18,0.05);
+      }
+      .buyer-seller-col.buyers { border-top: 4px solid #d30100; }
+      .buyer-seller-col.sellers { border-top: 4px solid #171717; }
+      .buyer-seller-col h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #171717;
+      }
+      .buyer-seller-col .col-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px;
+      }
+      .buyers .col-tag { background: rgba(211,1,0,0.08); color: #d30100; }
+      .sellers .col-tag { background: rgba(23,23,23,0.08); color: #171717; }
+      .buyer-seller-col ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .buyer-seller-col ul li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #f0ede9;
+        font-size: 0.93rem;
+        color: #4a4a4a;
+        line-height: 1.5;
+      }
+      .buyer-seller-col ul li:last-child { border-bottom: none; }
+      .buyer-seller-col ul li::before {
+        content: '✓';
+        flex-shrink: 0;
+        width: 22px;
+        height: 22px;
+        background: rgba(211,1,0,0.1);
+        color: #d30100;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-top: 1px;
+      }
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin: 2.5rem 0;
+      }
+      @media (max-width: 900px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 480px) { .stats-row { grid-template-columns: 1fr; } }
+      .stat-box {
+        background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+        color: #fff;
+        border-radius: 16px;
+        padding: 1.75rem 1.25rem;
+        text-align: center;
+      }
+      .stat-box .stat-number {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #d30100;
+        line-height: 1;
+      }
+      .stat-box .stat-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+        margin-top: 8px;
+        display: block;
+      }
+      .stat-box .stat-desc {
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.6);
+        margin-top: 5px;
+        display: block;
+      }
+      .comparison-table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 0.9rem; }
+      .comparison-table th {
+        background: #171717;
+        color: #fff;
+        padding: 14px 20px;
+        text-align: left;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+      }
+      .comparison-table th:first-child { border-radius: 10px 0 0 0; }
+      .comparison-table th:last-child { border-radius: 0 10px 0 0; }
+      .comparison-table th.col-marketplace { background: #d30100; }
+      .comparison-table td { padding: 13px 20px; border-bottom: 1px solid #ede9e4; color: #4a4a4a; vertical-align: middle; }
+      .comparison-table tr:last-child td:first-child { border-radius: 0 0 0 10px; }
+      .comparison-table tr:last-child td:last-child { border-radius: 0 0 10px 0; }
+      .comparison-table tr:nth-child(even) td { background: #faf9f7; }
+      .comparison-table tr:last-child td { border-bottom: none; }
+      .comparison-table td .check { color: #2e9e4a; font-weight: 700; }
+      .comparison-table td .cross { color: #c0392b; }
+      .comparison-table td .partial { color: #e67e22; }
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+      .testimonial-card {
+        background: #fff;
+        border: 1px solid #e6e2de;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 16px rgba(18,18,18,0.05);
+        position: relative;
+      }
+      .testimonial-card::before {
+        content: '\201C';
+        font-size: 4rem;
+        color: rgba(211,1,0,0.12);
+        font-family: Georgia, serif;
+        line-height: 1;
+        position: absolute;
+        top: 16px;
+        left: 20px;
+      }
+      .testimonial-card blockquote {
+        font-style: italic;
+        color: #4a4a4a;
+        margin: 0 0 1.25rem;
+        padding-top: 1.5rem;
+        font-size: 0.93rem;
+        line-height: 1.65;
+      }
+      .testimonial-card footer cite {
+        font-style: normal;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #171717;
+        display: block;
+      }
+      .testimonial-card footer .role {
+        font-size: 0.78rem;
+        color: #6f6f6f;
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        margin-top: 3px;
+      }
+      .faq-section { margin-top: 2.5rem; }
+      .faq-item { border-bottom: 1px solid #ede9e4; padding: 1.25rem 0; }
+      .faq-item:first-child { border-top: 1px solid #ede9e4; }
+      .faq-item h4 { font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: #171717; margin-bottom: 0.5rem; }
+      .faq-item p { font-size: 0.9rem; color: #5c5c5c; line-height: 1.65; margin: 0; }
+      .launch-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(211,1,0,0.08);
+        color: #d30100;
+        border: 1px solid rgba(211,1,0,0.2);
+        border-radius: 999px;
+        padding: 6px 16px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+      .launch-badge::before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        background: #d30100;
+        border-radius: 50%;
+        animation: pulse-dot 2s ease-in-out infinite;
+      }
+      @keyframes pulse-dot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.8); }
+      }
+      .section-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #d30100;
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+      .highlight-box {
+        background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+        color: #fff;
+        border-radius: 20px;
+        padding: 3rem;
+        text-align: center;
+        margin: 3rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .highlight-box::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 500px 350px at 50% 50%, rgba(211,1,0,0.22) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .highlight-box h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: #fff;
+        position: relative;
+      }
+      .highlight-box h2 span { color: #d30100; }
+      .highlight-box p {
+        color: rgba(255,255,255,0.68);
+        max-width: 520px;
+        margin: 0 auto 1.75rem;
+        font-size: 1rem;
+        position: relative;
+        line-height: 1.7;
+      }
+      .highlight-box .button { position: relative; }
+      .ecosystem-chain {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0;
+        margin: 2.5rem 0;
+        border: 1px solid #e6e2de;
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      @media (max-width: 900px) { .ecosystem-chain { grid-template-columns: repeat(3, 1fr); } }
+      @media (max-width: 600px) { .ecosystem-chain { grid-template-columns: repeat(2, 1fr); } }
+      .chain-link {
+        background: #fff;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        border-right: 1px solid #e6e2de;
+        border-bottom: 1px solid #e6e2de;
+        transition: background 0.15s;
+      }
+      .chain-link:last-child { border-right: none; }
+      .chain-link:hover { background: rgba(211,1,0,0.04); }
+      .chain-icon { font-size: 1.75rem; margin-bottom: 0.5rem; display: block; }
+      .chain-label {
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #171717;
+        display: block;
+      }
+      .chain-sub {
+        font-size: 0.72rem;
+        color: #6f6f6f;
+        display: block;
+        margin-top: 3px;
+      }
+      .data-intro-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 2.5rem 0;
+        align-items: start;
+      }
+      @media (max-width: 760px) { .data-intro-grid { grid-template-columns: 1fr; } }
+      .data-intro-card {
+        background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
+        color: #fff;
+        border-radius: 20px;
+        padding: 2.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .data-intro-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 300px 250px at 80% 20%, rgba(211,1,0,0.2) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .data-intro-card .card-eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #ff8f8c;
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+      .data-intro-card h3 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+      .data-intro-card p { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 1.25rem; position: relative; }
+      .data-intro-card ul { list-style: none; padding: 0; margin: 0; position: relative; }
+      .data-intro-card ul li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 0.5rem 0;
+        font-size: 0.88rem;
+        color: rgba(255,255,255,0.7);
+      }
+      .data-intro-card ul li::before {
+        content: '→';
+        color: #d30100;
+        flex-shrink: 0;
+        font-weight: 700;
+      }
+    </style>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoDealer",
+      "name": "NEV3S Marketplace",
+      "description": "The GCC's first EV automotive ecosystem — combining a trust-first EV marketplace, dealer software, and complete ownership services into one platform. Launching January 1, 2027.",
+      "url": "https://www.nev3s.com/pages/marketplace.html",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Gulf Cooperation Council (GCC): Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, Oman"
+      },
+      "priceRange": "$$$",
+      "knowsAbout": [
+        "electric vehicle marketplace",
+        "EV dealer software",
+        "battery health verification",
+        "EV financing",
+        "automotive escrow transactions",
+        "certified pre-owned EVs",
+        "inter-GCC EV delivery"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "NEV3S EV Marketplace Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "EV Marketplace — Buy & Sell",
+              "description": "Trust-first, transaction-enabled EV marketplace for the GCC"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Dealer Software Platform",
+              "description": "Data-driven inventory management, pricing intelligence, and analytics for EV dealers"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "EV Ownership Services",
+              "description": "Service continuity, battery care, spare parts, and warranty through NEV3S franchise centers"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Certified Pre-Owned EV Program",
+              "description": "150-point EV inspection with battery health reports and marketplace warranty"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "EV Trade-In Program",
+              "description": "Competitive EV trade-in valuations with seamless ownership transfer"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When does NEV3S Marketplace officially launch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NEV3S Marketplace launches on January 1, 2027. Early access registration is open now — the first 1,000 registrants receive priority listing placement and reduced platform fees for the first 6 months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is NEV3S different from other EV classifieds sites?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NEV3S is not a classifieds site. It is the GCC's first EV automotive ecosystem — combining a trust-first marketplace, dealer software tools, and complete ownership services (service, warranty, trade-in, spare parts) into one integrated platform. Generic classifieds offer listing pages. NEV3S offers a full automotive lifecycle platform."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What vehicle types can be listed on NEV3S Marketplace?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only pure battery electric vehicles (BEVs) are accepted. Plug-in hybrids and ICE vehicles are not permitted. Every listing is verified to ensure every vehicle on the platform is a genuine electric vehicle."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does NEV3S protect buyers and sellers in transactions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All transactions on NEV3S Marketplace are protected by escrow payment infrastructure — funds are held securely and released only when the vehicle is confirmed delivered in agreed condition. Combined with VIN verification, identity checks, and optional Marketplace Warranty on select listings, both parties are protected throughout the transaction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What dealer software tools does NEV3S provide?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NEV3S provides EV dealers with a purpose-built software platform including AI-powered pricing intelligence, real-time listing performance analytics, inventory management, buyer demand analytics, and cross-market reach across all six GCC countries. It is designed to be indispensable for professional EV dealers operating in the region."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the ownership journey work after purchasing on NEV3S?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every vehicle purchased on NEV3S Marketplace is automatically connected to NEV3S service centers across the GCC. Buyers gain access to high-voltage certified workshops, genuine spare parts supply, battery care programs, and optional extended warranty — making NEV3S the beginning of a complete ownership journey, not just a one-time transaction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does NEV3S offer EV-specific financing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. NEV3S has partnered with regional financial institutions to provide EV-specific financing products — including green loan programs with favorable terms for electric vehicle purchases. Financing options are integrated directly into the marketplace checkout flow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can EVs be sold across different GCC countries on NEV3S?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. NEV3S Marketplace supports inter-GCC listings and cross-border delivery coordination. We handle logistics, documentation, and registration transfer so sellers can reach buyers in any of the six GCC markets."
+          }
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="../index.html" class="logo-shell" aria-label="NEV3S home">
+          <img
+            class="logo"
+            src="../assets/logos/logo-horizontal.png"
+            alt="NEV3S logo"
+            width="220"
+            height="62"
+          />
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <div class="nav-item has-menu">
+            <a class="nav-link nav-link--parent" href="../index.html#about">Company</a>
+            <div class="nav-submenu" aria-label="Company submenu">
+              <a class="nav-link" href="../index.html#about">About</a>
+              <a class="nav-link" href="../index.html#proof-panel">Why NEV3S</a>
+              <a class="nav-link" href="service-network.html">Service Network</a>
+              <a class="nav-link" href="offices.html">Offices</a>
+            </div>
+          </div>
+          <div class="nav-item has-menu">
+            <a class="nav-link nav-link--parent" href="solutions.html">Solutions</a>
+            <div class="nav-submenu" aria-label="Solutions submenu">
+              <a class="nav-link" href="solutions.html">EV Solutions</a>
+              <a class="nav-link" href="service-network.html">Service &amp; Aftermarket</a>
+              <a class="nav-link" href="franchise-opportunities.html">Franchise Opportunities</a>
+              <a class="nav-link" href="spare-parts.html">Spare Parts</a>
+            </div>
+          </div>
+          <a class="nav-link" href="brands.html">Brands</a>
+          <a class="nav-link active" href="marketplace.html" aria-current="page">Marketplace</a>
+          <a class="nav-link" href="../index.html#faq">FAQ</a>
+          <a class="nav-link" href="../index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+
+      <!-- ── HERO ── -->
+      <section class="marketplace-hero">
+        <div class="container">
+          <p class="eyebrow">Coming January 1, 2027</p>
+          <h1>The GCC's First<br><span class="red">EV Automotive Ecosystem</span></h1>
+          <p class="tagline">
+            Not another classifieds site. NEV3S is a trust-first, transaction-enabled,
+            data-driven automotive ecosystem — giving dealers indispensible software tools
+            and consumers a complete EV ownership journey from purchase to service.
+          </p>
+          <div class="ecosystem-pills">
+            <span class="ecosystem-pill">EV Marketplace</span>
+            <span class="ecosystem-pill">Dealer Software</span>
+            <span class="ecosystem-pill">Ownership Journey</span>
+            <span class="ecosystem-pill">Data Intelligence</span>
+            <span class="ecosystem-pill">Trust Infrastructure</span>
+          </div>
+          <p class="countdown-label">Launch countdown</p>
+          <div class="countdown-bar" id="countdown" aria-live="polite" aria-label="Countdown to launch">
+            <div class="countdown-unit">
+              <span class="number" id="cd-days">---</span>
+              <span class="label">Days</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="number" id="cd-hours">--</span>
+              <span class="label">Hours</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="number" id="cd-mins">--</span>
+              <span class="label">Mins</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="number" id="cd-secs">--</span>
+              <span class="label">Secs</span>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <a class="button primary" href="../index.html#contact">Register Early Access</a>
+            <a class="button secondary" href="#ecosystem">See How It Works</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── WHAT MAKES US DIFFERENT ── -->
+      <section class="page-section" style="background:#fff;">
+        <div class="container">
+          <div class="section-intro">
+            <span class="section-label">The NEV3S Difference</span>
+            <h2>Beyond Classifieds — A Complete EV Ecosystem</h2>
+            <p>
+              Generic marketplaces give you a listing. NEV3S gives you an ecosystem —
+              purpose-built software for EV dealers, a trust-first transaction layer for
+              buyers and sellers, and a full ownership journey that keeps vehicles on the
+              road and owners coming back.
+            </p>
+          </div>
+          <div class="data-intro-grid">
+            <div class="data-intro-card">
+              <span class="card-eyebrow">For Dealers</span>
+              <h3>Software You Can&apos;t Operate Without</h3>
+              <p>
+                NEV3S dealer software gives you AI pricing intelligence, inventory analytics,
+                buyer demand data, and regional market reach — tools that become operationally
+                indispensible, not just convenient.
+              </p>
+              <ul>
+                <li>Real-time market pricing intelligence</li>
+                <li>Inventory performance analytics</li>
+                <li>Buyer demand &amp; lead intelligence</li>
+                <li>Cross-GCC listing syndication</li>
+                <li>Integrated escrow &amp; payment flow</li>
+              </ul>
+            </div>
+            <div class="data-intro-card">
+              <span class="card-eyebrow">For Consumers</span>
+              <h3>Own with Confidence, Drive with Care</h3>
+              <p>
+                Buying on NEV3S connects you to a complete ownership ecosystem — certified
+                inspections, battery health reports, optional warranty, financing, trade-in,
+                and a GCC-wide service network that outlasts the transaction.
+              </p>
+              <ul>
+                <li>150-point certified EV inspection</li>
+                <li>Standardized battery health reports</li>
+                <li>Escrow transaction protection</li>
+                <li>Linked service plan from day one</li>
+                <li>Marketplace warranty on certified vehicles</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TRUST STRIP ── -->
+      <section class="page-section" style="background:#f7f5f2;">
+        <div class="container">
+          <div class="stats-row">
+            <div class="stat-box">
+              <div class="stat-number">100%</div>
+              <span class="stat-label">BEV Only</span>
+              <span class="stat-desc">No ICE. No hybrids. Pure EVs only.</span>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">6</div>
+              <span class="stat-label">GCC Markets</span>
+              <span class="stat-desc">One platform. Full regional reach.</span>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">150+</div>
+              <span class="stat-label">Inspection Points</span>
+              <span class="stat-desc">EV-specific CPO certification standard</span>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number">Jan 1</div>
+              <span class="stat-label">2027 Launch</span>
+              <span class="stat-desc">GCC's first EV automotive ecosystem</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── ECOSYSTEM CHAIN ── -->
+      <section class="page-section" style="background:#fff;">
+        <div class="container">
+          <div class="section-intro">
+            <span class="section-label">Full Ecosystem</span>
+            <h2>The Complete EV Ownership Chain</h2>
+            <p>
+              From discovery to trade-in, NEV3S covers every step of the EV lifecycle
+              on a single, integrated platform.
+            </p>
+          </div>
+          <div class="ecosystem-chain" role="list" aria-label="EV ownership journey stages">
+            <div class="chain-link" role="listitem">
+              <span class="chain-icon" aria-hidden="true">🔍</span>
+              <span class="chain-label">Discover</span>
+              <span class="chain-sub">Browse &amp; compare</span>
+            </div>
+            <div class="chain-link" role="listitem">
+              <span class="chain-icon" aria-hidden="true">📊</span>
+              <span class="chain-label">Verify</span>
+              <span class="chain-sub">Battery &amp; CPO reports</span>
+            </div>
+            <div class="chain-link" role="listitem">
+              <span class="chain-icon" aria-hidden="true">🔒</span>
+              <span class="chain-label">Transact</span>
+              <span class="chain-sub">Escrow &amp; secure payment</span>
+            </div>
+            <div class="chain-link" role="listitem">
+              <span class="chain-icon" aria-hidden="true">🔧</span>
+              <span class="chain-label">Service</span>
+              <span class="chain-sub">NEV3S franchise network</span>
+            </div>
+            <div class="chain-link" role="listitem">
+              <span class="chain-icon" aria-hidden="true">🔋</span>
+              <span class="chain-label">Warranty</span>
+              <span class="chain-sub">Marketplace protection</span>
+            </div>
+            <div class="chain-link" role="listitem">
+              <span class="chain-icon" aria-hidden="true">🔄</span>
+              <span class="chain-label">Upgrade</span>
+              <span class="chain-sub">Trade-in program</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── FEATURES ── -->
+      <section class="page-section" id="features" style="background:#f7f5f2;">
+        <div class="container">
+          <div class="section-intro">
+            <span class="section-label">Platform Features</span>
+            <h2>Six Pillars of the NEV3S EV Ecosystem</h2>
+            <p>
+              NEV3S is built around six interconnected capabilities that make it
+              indispensable for dealers and confidence-building for consumers — far
+              beyond what any classifieds site can offer.
+            </p>
+          </div>
+          <div class="features-grid">
+            <article class="feature-card">
+              <span class="tag">Liquidity</span>
+              <h3>Unified EV Marketplace</h3>
+              <p>
+                The GCC's first dedicated EV marketplace — attracting the largest
+                concentration of verified EV buyers and sellers in the region. Every
+                listing is EV-verified; no ICE, no hybrids, ever.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Software</span>
+              <h3>Dealer Intelligence Platform</h3>
+              <p>
+                Purpose-built software that makes NEV3S operationally indispensible
+                for EV dealers — AI pricing intelligence, inventory analytics,
+                buyer demand data, and cross-GCC listing syndication in one dashboard.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Ownership</span>
+              <h3>Complete Ownership Journey</h3>
+              <p>
+                Service plans, battery care, spare parts, and warranty — linked
+                automatically to every vehicle purchased on the platform. NEV3S
+                is the beginning of ownership, not just the transaction.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Intelligence</span>
+              <h3>Market Data &amp; Pricing</h3>
+              <p>
+                AI-powered pricing recommendations based on real GCC market
+                comparables, battery health data, mileage, and model-specific
+                demand signals. Know exactly what any EV is worth in the region.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Trust</span>
+              <h3>Transaction Infrastructure</h3>
+              <p>
+                Escrow payment protection, VIN verification, identity checks, and
+                optional Marketplace Warranty on certified vehicles. Fraud protection
+                that generic classifieds simply cannot match.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Regional</span>
+              <h3>Cross-GCC Platform</h3>
+              <p>
+                One platform, six GCC markets. Inter-GCC delivery coordination,
+                cross-border registration support, and GCC-compliant vehicle
+                specifications — all handled by NEV3S logistics and compliance.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Certification</span>
+              <h3>Certified Pre-Owned Program</h3>
+              <p>
+                NEV3S CPO vehicles pass a 150-point EV-specific inspection —
+                covering high-voltage systems, battery health, thermal management,
+                charging capability, and more. Standards set by NEV3S, not OEM.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Trade-In</span>
+              <h3>EV Trade-In Program</h3>
+              <p>
+                Competitive trade-in valuations backed by battery health analysis.
+                Upgrade to a newer EV while NEV3S handles the assessment, offer,
+                and ownership transfer — keeping the ecosystem intact.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="tag">Financing</span>
+              <h3>EV-Specific Financing</h3>
+              <p>
+                Green loan programs and EV-specific payment plans from regional
+                financial partners. Financing integrated directly into the checkout
+                flow — making EV ownership accessible and the process seamless.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── BUYER / SELLER SPLIT ── -->
+      <section class="page-section" style="background:#fff;">
+        <div class="container">
+          <div class="section-intro">
+            <span class="section-label">Two Sides, One Ecosystem</span>
+            <h2>Built for Dealers Who Need It &amp; Buyers Who Deserve It</h2>
+          </div>
+          <div class="buyer-seller-grid">
+            <div class="buyer-seller-col sellers">
+              <span class="col-tag">For Dealers &amp; Sellers</span>
+              <h3>The Software Platform You Won&apos;t Quit</h3>
+              <ul>
+                <li>AI pricing intelligence based on live GCC market data</li>
+                <li>Inventory analytics and buyer demand signal dashboards</li>
+                <li>Cross-GCC listing reach — sell to buyers in all 6 markets</li>
+                <li>Integrated escrow payments — no outstanding invoices, no disputes</li>
+                <li>NEV3S inspection and CPO certification to justify premium pricing</li>
+                <li>Trade-in intake to source vehicles for your inventory</li>
+                <li>Marketing exposure across the NEV3S ecosystem and partner channels</li>
+                <li>Dedicated dealer support and onboarding from the NEV3S team</li>
+              </ul>
+            </div>
+            <div class="buyer-seller-col buyers">
+              <span class="col-tag">For Consumers &amp; Buyers</span>
+              <h3>Buy an EV. Own It with Confidence.</h3>
+              <ul>
+                <li>Browse the GCC's largest selection of verified, EV-only listings</li>
+                <li>Standardized battery health reports on every certified vehicle</li>
+                <li>AI-powered pricing comparisons — know you&apos;re paying the right price</li>
+                <li>Escrow transaction protection — funds released only on confirmed delivery</li>
+                <li>NEV3S Marketplace Warranty on certified vehicles</li>
+                <li>EV-specific financing options integrated into checkout</li>
+                <li>Service plan linked from day one of ownership</li>
+                <li>Cross-GCC registration support and delivery coordination</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── HOW IT WORKS ── -->
+      <section class="page-section steps-section" id="how-it-works">
+        <div class="container">
+          <div class="section-intro">
+            <span class="section-label">The Process</span>
+            <h2>How the NEV3S Ecosystem Works</h2>
+            <p>Whether you&apos;re a dealer managing inventory or a consumer buying your first EV — the process is transparent, secure, and backed by data.</p>
+          </div>
+          <div class="steps">
+            <article class="step-card">
+              <span class="step-number">1</span>
+              <h3>Discover &amp; Verify</h3>
+              <p>
+                Browse EV-only listings across the GCC. Every vehicle comes with
+                standardized battery health reports and NEV3S inspection data.
+              </p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">2</span>
+              <h3>Price &amp; Finance</h3>
+              <p>
+                AI pricing guidance shows fair market value. EV-specific financing
+                and trade-in options are available directly through the platform.
+              </p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">3</span>
+              <h3>Transact with Trust</h3>
+              <p>
+                Escrow payment infrastructure holds funds securely. VIN verification,
+                identity checks, and optional CPO certification protect both sides.
+              </p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">4</span>
+              <h3>Own &amp; Continue</h3>
+              <p>
+                Your NEV3S service plan activates on delivery. Service, warranty,
+                and trade-in support continue the ecosystem cycle.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── COMPARISON ── -->
+      <section class="page-section" style="background:#f7f5f2;">
+        <div class="container">
+          <div class="section-intro">
+            <span class="section-label">Why NEV3S</span>
+            <h2>Not a Classifieds Site. A Complete Ecosystem Platform.</h2>
+            <p>Generic marketplaces offer listing pages. NEV3S offers a full automotive ecosystem built exclusively for electric vehicles.</p>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th class="col-marketplace">NEV3S Ecosystem</th>
+                  <th>Generic Classifieds</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Pure BEV listings only — no ICE, no hybrids</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Battery health reports on every listing</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>150-point CPO EV inspection certification</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Escrow transaction protection</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Dealer software platform (pricing, analytics, inventory)</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>AI-powered GCC market pricing intelligence</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>EV-specific financing integrated into checkout</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Complete ownership journey (service, warranty, spare parts)</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Trade-in program for EV upgrades</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Cross-GCC inter-market delivery &amp; registration support</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Marketplace warranty on certified vehicles</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+                <tr><td>Regional data intelligence for GCC market pricing</td><td><span class="check">✓ Yes</span></td><td><span class="cross">✗ No</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TESTIMONIALS ── -->
+      <section class="page-section" style="background:#fff;">
+        <div class="container">
+          <div class="section-intro">
+            <span class="section-label">Early Voices</span>
+            <h2>What the Market Is Saying</h2>
+          </div>
+          <div class="testimonials-grid">
+            <article class="testimonial-card">
+              <blockquote>
+                "What sets NEV3S apart is that it doesn&apos;t end at the sale. The service network, warranty, and trade-in pathway make it a complete ecosystem — not just another place to list a car."
+              </blockquote>
+              <footer>
+                <cite>Ahmed Al-Saud</cite>
+                <div class="role">EV Enthusiast &amp; EV6 Owner, Riyadh</div>
+              </footer>
+            </article>
+            <article class="testimonial-card">
+              <blockquote>
+                "For dealers, NEV3S is the first platform that actually gives us the data tools we need — real-time pricing intelligence, demand analytics, and cross-GCC reach. This changes how we operate."
+              </blockquote>
+              <footer>
+                <cite>Fatima Al-Mansoori</cite>
+                <div class="role">EV Dealer &amp; NEV3S Partner, Dubai</div>
+              </footer>
+            </article>
+            <article class="testimonial-card">
+              <blockquote>
+                "Battery health transparency changes the trust dynamic entirely. As a buyer, I can see exactly what I&apos;m getting. As a seller, my well-maintained EV stands out and commands the right price."
+              </blockquote>
+              <footer>
+                <cite>Khalid Al-Rashid</cite>
+                <div class="role">BYD SEAL Owner &amp; Early Access Registrant, Doha</div>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── FAQ ── -->
+      <section class="page-section" style="background:#f7f5f2;">
+        <div class="container" style="max-width: 760px; margin: 0 auto;">
+          <div class="section-intro">
+            <span class="section-label">Common Questions</span>
+            <h2>Marketplace FAQs</h2>
+          </div>
+          <div class="faq-section">
+            <div class="faq-item">
+              <h4>When does NEV3S Marketplace officially launch?</h4>
+              <p>NEV3S Marketplace launches on <strong>January 1, 2027</strong>. Early access registration is open now — the first 1,000 registrants receive priority listing placement and reduced platform fees for the first 6 months.</p>
+            </div>
+            <div class="faq-item">
+              <h4>How is NEV3S different from other EV classifieds sites?</h4>
+              <p>NEV3S is not a classifieds site. It is the GCC&apos;s first <strong>EV automotive ecosystem</strong> — combining a trust-first marketplace, dealer software tools, and complete ownership services (service, warranty, trade-in, spare parts) into one integrated platform. Generic classifieds offer listing pages. NEV3S offers a full automotive lifecycle platform.</p>
+            </div>
+            <div class="faq-item">
+              <h4>What vehicle types can be listed on NEV3S?</h4>
+              <p>Only pure battery electric vehicles (BEVs) are accepted. Plug-in hybrids and ICE vehicles are not permitted. Every listing is verified to ensure every vehicle on the platform is a genuine electric vehicle.</p>
+            </div>
+            <div class="faq-item">
+              <h4>How does NEV3S protect buyers and sellers in transactions?</h4>
+              <p>All transactions on NEV3S Marketplace are protected by <strong>escrow payment infrastructure</strong> — funds are held securely and released only when the vehicle is confirmed delivered in agreed condition. Combined with VIN verification, identity checks, and optional Marketplace Warranty on certified listings, both parties are fully protected throughout the transaction.</p>
+            </div>
+            <div class="faq-item">
+              <h4>What dealer software tools does NEV3S provide?</h4>
+              <p>NEV3S provides EV dealers with a <strong>purpose-built software platform</strong> including AI-powered pricing intelligence, real-time listing performance analytics, inventory management, buyer demand analytics, and cross-market reach across all six GCC countries. It is designed to be operationally indispensible for professional EV dealers.</p>
+            </div>
+            <div class="faq-item">
+              <h4>How does the ownership journey work after purchasing on NEV3S?</h4>
+              <p>Every vehicle purchased on NEV3S Marketplace is connected to NEV3S service centers across the GCC. Buyers gain access to high-voltage certified workshops, genuine spare parts supply, battery care programs, and optional extended warranty — making NEV3S the beginning of a <strong>complete ownership journey</strong>, not just a one-time transaction.</p>
+            </div>
+            <div class="faq-item">
+              <h4>Does NEV3S offer EV-specific financing?</h4>
+              <p>Yes. NEV3S has partnered with regional financial institutions to provide <strong>EV-specific financing products</strong> — including green loan programs with favorable terms for electric vehicle purchases. Financing options are integrated directly into the marketplace checkout flow.</p>
+            </div>
+            <div class="faq-item">
+              <h4>Can EVs be sold across different GCC countries on NEV3S?</h4>
+              <p>Yes. NEV3S Marketplace supports <strong>inter-GCC listings and cross-border delivery</strong> coordination. We handle logistics, documentation, and registration transfer so sellers can reach buyers in any of the six GCC markets.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── HIGHLIGHT CTA ── -->
+      <section class="page-section" style="background:#fff;">
+        <div class="container">
+          <div class="highlight-box">
+            <span class="launch-badge">Early Access Now Open</span>
+            <h2>Join the GCC&apos;s First<br><span>EV Automotive Ecosystem</span></h2>
+            <p>
+              Whether you&apos;re a dealer looking for software indispensability or a
+              consumer who wants ownership confidence — NEV3S is built for you.
+              Register now for priority access and launch-day perks.
+            </p>
+            <a class="button primary" href="../index.html#contact">Register for Early Access →</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© 2026 NEV3S. GCC EV sales, service &amp; spare parts platform.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#proof-panel">Why NEV3S</a>
+          <a href="service-network.html">Service Network</a>
+          <a href="brands.html">Brands</a>
+          <a href="marketplace.html">Marketplace</a>
+          <a href="../index.html#faq">FAQ</a>
+          <a href="../index.html#contact">Contact</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      // ── Countdown to January 1, 2027 ──
+      (function () {
+        var target = new Date('2027-01-01T00:00:00Z');
+        var elDays = document.getElementById('cd-days');
+        var elHours = document.getElementById('cd-hours');
+        var elMins = document.getElementById('cd-mins');
+        var elSecs = document.getElementById('cd-secs');
+        if (!elDays) return;
+
+        function pad(n) { return n < 10 ? '0' + n : n; }
+
+        function update() {
+          var diff = target - Date.now();
+          if (diff <= 0) {
+            elDays.textContent = elHours.textContent = elMins.textContent = elSecs.textContent = '0';
+            return;
+          }
+          elDays.textContent = Math.floor(diff / 86400000);
+          elHours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+          elMins.textContent = pad(Math.floor((diff % 3600000) / 60000));
+          elSecs.textContent = pad(Math.floor((diff % 60000) / 1000));
+        }
+
+        update();
+        setInterval(update, 1000);
+      })();
+    </script>
+  </body>
+</html>

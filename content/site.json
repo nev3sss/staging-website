@@ -36,6 +36,10 @@
       "href": "pages/brands.html"
     },
     {
+      "label": "Marketplace",
+      "href": "pages/marketplace.html"
+    },
+    {
       "label": "FAQ",
       "href": "#faq"
     },
@@ -78,6 +82,11 @@
     {
       "path": "pages/brands.html",
       "label": "Brands",
+      "public": true
+    },
+    {
+      "path": "pages/marketplace.html",
+      "label": "Marketplace",
       "public": true
     },
     {
