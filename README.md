@@ -9,14 +9,36 @@ This repository keeps the site easy to review and ship: plain HTML/CSS, a simple
 The production-facing site includes:
 
 - a premium homepage and hero structure in `index.html`
-- supporting public pages under `pages/`
+- 9 supporting public pages under `pages/` (services, solutions, brands, marketplace, offices, legal)
 - route metadata and nav source-of-truth in `content/site.json`
 - shared styling and design tokens in `styles/`
 - generated homepage navigation and `sitemap.xml` via `scripts/build.py`
+- audit-compliant page generator at `scripts/new-page.py` (OG, Twitter, JSON-LD, skip-link, main#main-content, all in one)
 - a HubSpot-form lead capture flow for the static site
 - updated GCC contact details and clearer presence cards
+- full SEO stack (meta, OG, Twitter, canonical, JSON-LD) on every page
 
 ## What was recently improved
+
+### SEO completeness — all 10 pages
+
+Every page now has the full SEO stack:
+
+- `<meta name="description">` 70–165 characters
+- `<link rel="canonical">` with absolute URL
+- `<meta property="og:title">`, `og:description`, `og:type`, `og:url`, `og:image`, `og:image:width/height`
+- `<meta name="twitter:card">` with card content
+- `<meta name="viewport">`
+- `<script type="application/ld+json">` with `WebPage`, `AboutPage`, or `FAQPage` schema
+- `<meta name="robots">` set appropriately per page
+
+### Accessibility — legal pages
+
+- Skip-to-main-content link added to `privacy-policy.html` and `cookie-policy.html`
+- `<main id="main-content">` added to both legal pages for skip-link target
+- Full keyboard focus styles on the skip link
+
+### Other fixes
 
 - **Cookie/Privacy nav path fix** — corrected nav links in `pages/cookie-policy.html` and `pages/privacy-policy.html` from `../pages/brands.html` to `brands.html` for proper relative path resolution.
 - **YouTube channel link** — updated footer YouTube link from generic `youtube.com/` to the official NEV3S channel.
@@ -63,8 +85,13 @@ The production-facing site includes:
 The site currently contains the following registered pages:
 
 - `/` — Home
+- `/pages/service-network.html` — Service Network
+- `/pages/franchise-opportunities.html` — Franchise Opportunities
+- `/pages/spare-parts.html` — Spare Parts
+- `/pages/solutions.html` — EV Solutions
+- `/pages/offices.html` — GCC Offices
 - `/pages/brands.html` — Brands
-- `/pages/offices.html` — Offices
+- `/pages/marketplace.html` — Marketplace
 - `/pages/privacy-policy.html` — Privacy Policy
 - `/pages/cookie-policy.html` — Cookie Policy
 
