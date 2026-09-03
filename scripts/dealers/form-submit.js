@@ -7,7 +7,7 @@
   "use strict";
 
   /** Turnstile callbacks — invoked by the Turnstile widget */
-  window.onTurnstileSuccess = function (token) {
+  window.onTurnstileSuccess = function () {
     document.getElementById("submit-btn").disabled = false;
   };
 
@@ -100,12 +100,12 @@
 
       if (response.ok) {
         var result = {};
-        try { result = await response.json(); } catch (_) { /* ignore */ }
+        try { result = await response.json(); } catch (e) { void e; }
         showSuccess(form, result);
       } else if (response.status === 422) {
         // Server validation errors
         var errData = {};
-        try { errData = await response.json(); } catch (_) { /* ignore */ }
+        try { errData = await response.json(); } catch (e) { void e; }
         if (errData.errors && Array.isArray(errData.errors)) {
           errData.errors.forEach(function (e) {
             var el = document.querySelector('[data-for="' + e.field + '"]');

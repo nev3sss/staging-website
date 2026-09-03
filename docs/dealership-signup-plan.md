@@ -5,6 +5,7 @@
 > **Worker (separate):** `workers/` folder in `staging-website` — deployed via `wrangler`
 
 ## Sections
+
 1. Marketing & Sales Pitch
 2. 8-Email Transactional Sequence
 3. Technical Parameters (A–L)

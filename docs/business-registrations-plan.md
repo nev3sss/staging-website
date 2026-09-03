@@ -72,23 +72,24 @@ The Worker (which receives the form, validates, writes to D1, sends email) is bu
 
 **Sections (in order):**
 
-| # | Section | Purpose |
-|---|---------|---------|
-| 1 | Hero | Dark, dramatic. Headline, sub-headline, 4-stat trust strip, CTA → scrolls to form |
-| 2 | Why Register | 6 benefits of becoming a verified NEV3S dealer |
-| 3 | Registration Steps | 4-step visual process (Apply → Review → Approve → List) |
-| 4 | **Application Form** | The actual `<form>` — fields below in §4 |
-| 5 | Required Documents | B2B checklist: trade licence, authorization, identity docs |
-| 6 | Dealer Tiers | Authorised / Importer / Independent — what each tier unlocks |
-| 7 | Comparison Table | NEV3S Verified Dealer vs. Generic Listing — 8 rows |
-| 8 | FAQ | 6–8 questions about the process, timelines, costs |
-| 9 | CTA Block | Highlighted dark box — fallback contact (until Worker is live) |
+| #   | Section              | Purpose                                                                           |
+| --- | -------------------- | --------------------------------------------------------------------------------- |
+| 1   | Hero                 | Dark, dramatic. Headline, sub-headline, 4-stat trust strip, CTA → scrolls to form |
+| 2   | Why Register         | 6 benefits of becoming a verified NEV3S dealer                                    |
+| 3   | Registration Steps   | 4-step visual process (Apply → Review → Approve → List)                           |
+| 4   | **Application Form** | The actual `<form>` — fields below in §4                                          |
+| 5   | Required Documents   | B2B checklist: trade licence, authorization, identity docs                        |
+| 6   | Dealer Tiers         | Authorised / Importer / Independent — what each tier unlocks                      |
+| 7   | Comparison Table     | NEV3S Verified Dealer vs. Generic Listing — 8 rows                                |
+| 8   | FAQ                  | 6–8 questions about the process, timelines, costs                                 |
+| 9   | CTA Block            | Highlighted dark box — fallback contact (until Worker is live)                    |
 
 ---
 
 ## 2. Content Outline (Marketing Sections)
 
 ### 2a. Hero
+
 - **Eyebrow:** `Dealership Verification — GCC EV Marketplace`
 - **H1:** `Become a Verified GCC EV Dealer`
 - **Sub:** NEV3S is the GCC's first EV automotive ecosystem. Before your first listing goes live, we verify your business, validate your credentials, and issue your dealer profile — so buyers know exactly who they're dealing with.
@@ -97,6 +98,7 @@ The Worker (which receives the form, validates, writes to D1, sends email) is bu
 - **Secondary CTA:** `View Marketplace`
 
 ### 2b. Why Register (6-card grid)
+
 1. **Trust Verification** — every dealer reviewed before going live; verified badges shown to buyers.
 2. **Marketplace Access** — list inventory on the GCC's first dedicated EV marketplace.
 3. **AI Pricing Intelligence** — real-time GCC market pricing tools.
@@ -105,36 +107,45 @@ The Worker (which receives the form, validates, writes to D1, sends email) is bu
 6. **Service Network Integration** — link to NEV3S GCC-wide service network.
 
 ### 2c. Registration Steps (4-step flow)
+
 1. **Submit Application** — fill the form below (~10 minutes).
 2. **Upload Documents** — trade licence, authorization letter, primary contact ID.
 3. **NEV3S Review** — most applications reviewed within 5 business days.
 4. **Get Verified & List** — dealer profile goes live; start listing verified EVs.
 
 ### 2d. Required Documents (Section 5 — between Form and Tiers)
+
 **All applicants must provide:**
+
 - Trade licence (PDF/JPG/PNG, max 10MB)
 - Primary contact government-issued ID (passport, national ID, or driving licence)
 - Business email and GCC phone number verification
 
 **Authorised distributors / importers must also provide:**
+
 - Official authorization letter from OEM
 - Distributor agreement or certificate of appointment
 - Customs/import clearance evidence (if applicable)
 
 ### 2e. Dealer Tiers (Section 6)
+
 3-column tier comparison:
+
 - **Independent Dealer** — grey `#6f6f6f` top border
 - **Importer / Trader** — blue-grey `#4a5568` top border
 - **Authorised Distributor** — red `#d30100` top border
 
 ### 2f. Comparison Table (Section 7)
+
 8 rows matching the marketplace page's `.comparison-table` style:
 NEV3S Verified Dealer vs. Generic Listing Platform
 
 ### 2g. FAQ (Section 8)
+
 6–8 questions — approval time, cost, reapply rules, GCC coverage, brand eligibility.
 
 ### 2h. CTA Block (Section 9)
+
 Dark highlight box — until Worker is live, this shows a "Coming soon — register interest via `#contact`" message. Once Worker is live, the form below takes over.
 
 ---
@@ -142,6 +153,7 @@ Dark highlight box — until Worker is live, this shows a "Coming soon — regis
 ## 3. Site Integration
 
 ### 3a. Navigation — `content/site.json`
+
 Add to `navigation` array (after Marketplace):
 
 ```json
@@ -162,12 +174,15 @@ Add to `pages` array:
 ```
 
 ### 3b. Navigation HTML — `pages/business-registrations.html`
+
 Update `<nav class="nav-links">` to add the new link, matching the marketplace page's pattern (line 708).
 
 ### 3c. Cross-link from `pages/marketplace.html`
+
 Add "Are you a dealer? Register your business →" link in the marketplace CTA section.
 
 ### 3d. Footer
+
 Add `Business Registrations` to the footer link list on all pages (matching the marketplace footer pattern, line 1213).
 
 ---
@@ -179,6 +194,7 @@ Add `Business Registrations` to the footer link list on all pages (matching the 
 Required fields, grouped into 5 fieldset sections:
 
 **Section A — Business Identity**
+
 - `legal_company_name` (text, required)
 - `trading_name` (text, required)
 - `business_type` (select: sole_proprietorship / llc / partnership / corporation)
@@ -192,23 +208,27 @@ Required fields, grouped into 5 fieldset sections:
 - `trade_licence_expiry_date` (date, required)
 
 **Section B — Primary Contact**
+
 - `contact_name` (text, required)
 - `contact_position` (text, required)
 - `contact_email` (email, required, verified via email OTP later — for now just regex-validated)
 - `contact_phone` (tel, required, GCC format)
 
 **Section C — EV Capability**
+
 - `ev_brands` (text + tags, required — comma-separated or tag input)
 - `relationship_type` (radio: authorised / independent / importer, required)
 - `inventory_type` (checkbox: new / pre_owned, at least one required)
 - `ev_speciality` (textarea, optional — describe EV capability, charging, high-voltage certified techs)
 
 **Section D — Documents (file uploads)**
+
 - `trade_licence_file` (file, required, PDF/JPG/PNG, max 10MB)
 - `authorization_file` (file, conditional — required if `relationship_type === 'authorised'`)
 - `contact_id_file` (file, required, PDF/JPG/PNG, max 10MB)
 
 **Section E — Consents**
+
 - `accepts_dealer_terms` (checkbox, required)
 - `accuracy_declaration` (checkbox, required)
 
@@ -224,12 +244,14 @@ Required fields, grouped into 5 fieldset sections:
 3. **Anti-bot:** If the other window provides a Turnstile site key, render `<div class="cf-turnstile">` before submit. If not yet, skip.
 
 ### 4c. Form State UI
+
 - **Idle:** form visible, submit button enabled
 - **Submitting:** button disabled, spinner shown
 - **Success:** form replaced with success panel — "Application received. Reference: {application_id}. You'll hear from NEV3S within 5 business days."
 - **Error:** inline error banner above form, fields preserved, submit re-enabled
 
 ### 4d. Client-side validation rules
+
 - Email regex (RFC 5322 simplified)
 - GCC phone regex (per-country)
 - Date sanity (issue_date < expiry_date, issue_date not in future)
@@ -245,6 +267,7 @@ Required fields, grouped into 5 fieldset sections:
 **Overrides:** Scoped `<style>` block inside the page, PLUS optional `styles/dealers.css` if overrides grow large.
 
 Custom classes:
+
 - `.reg-hero` — dark hero with red radial glow
 - `.trust-strip` — 4-stat row
 - `.dealer-tiers` — 3-column grid
@@ -259,6 +282,7 @@ Custom classes:
 - `.form-error` — inline error banner
 
 Color tokens (already in brands.css):
+
 - `--red: #d30100`
 - `--ink: #171717`
 - `--paper: #f7f5f2`
@@ -269,14 +293,19 @@ Color tokens (already in brands.css):
 ## 6. JavaScript Strategy
 
 ### 6a. `scripts/dealers/config.js`
+
 Single source of truth for the Worker endpoint:
+
 ```js
-export const WORKER_URL = 'https://PLACEHOLDER.workers.dev/api/v1/dealer-applications';
-export const TURNSTILE_SITE_KEY = null;  // empty until other window provides
+export const WORKER_URL =
+  "https://PLACEHOLDER.workers.dev/api/v1/dealer-applications";
+export const TURNSTILE_SITE_KEY = null; // empty until other window provides
 ```
+
 When other window supplies the URL, update this one file. Page re-deploy picks it up.
 
 ### 6b. `scripts/dealers/form-validation.js`
+
 - Listen on `submit` event
 - Validate each field per rules in §4d
 - Show inline error messages under each invalid field
@@ -284,12 +313,14 @@ When other window supplies the URL, update this one file. Page re-deploy picks i
 - Clear errors as user fixes them
 
 ### 6c. `scripts/dealers/submit-to-worker.js`
+
 - Build payload from form data
 - Call `fetch(WORKER_URL, ...)` with method POST
 - Handle response: success → show success panel; error → show error banner
 - Loading state management
 
 ### 6d. Loading
+
 - Pages load `config.js` first, then `form-validation.js`, then `submit-to-worker.js`
 - Use `<script type="module">` for ES module imports
 
@@ -297,18 +328,18 @@ When other window supplies the URL, update this one file. Page re-deploy picks i
 
 ## 7. File Changes
 
-| Action | File |
-|--------|------|
-| **CREATE** | `pages/business-registrations.html` |
-| **CREATE** | `scripts/dealers/config.js` |
-| **CREATE** | `scripts/dealers/form-validation.js` |
-| **CREATE** | `scripts/dealers/submit-to-worker.js` |
-| **CREATE** | `styles/dealers.css` (if overrides grow) |
+| Action     | File                                                                |
+| ---------- | ------------------------------------------------------------------- |
+| **CREATE** | `pages/business-registrations.html`                                 |
+| **CREATE** | `scripts/dealers/config.js`                                         |
+| **CREATE** | `scripts/dealers/form-validation.js`                                |
+| **CREATE** | `scripts/dealers/submit-to-worker.js`                               |
+| **CREATE** | `styles/dealers.css` (if overrides grow)                            |
 | **CREATE** | `docs/email-templates/` (8 markdown files for designer/copy review) |
-| **EDIT** | `content/site.json` — add nav + pages entries |
-| **EDIT** | `pages/marketplace.html` — add dealer cross-link |
-| **EDIT** | All page footers — add Business Registrations link |
-| **RUN** | `py scripts/build.py` — validate + sitemap |
+| **EDIT**   | `content/site.json` — add nav + pages entries                       |
+| **EDIT**   | `pages/marketplace.html` — add dealer cross-link                    |
+| **EDIT**   | All page footers — add Business Registrations link                  |
+| **RUN**    | `py scripts/build.py` — validate + sitemap                          |
 
 ---
 
@@ -372,6 +403,7 @@ py -m http.server 4173
 ## 11. Success Criteria
 
 The feature is complete when:
+
 1. `pages/business-registrations.html` exists with all 9 sections including a working `<form>`
 2. `content/site.json` has nav + pages entries
 3. `py scripts/build.py` passes; `sitemap.xml` includes the new page

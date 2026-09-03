@@ -22,24 +22,24 @@ python scripts/new-page.py <slug> <label> \
 
 ### Required Arguments
 
-| Argument | Description |
-|---|---|
-| `slug` | URL slug (e.g. `insights`) — must match `^[a-z0-9]+(?:-[a-z0-9]+)*$` |
-| `label` | Navigation label (e.g. `Insights`) — must be unique |
-| `--title` | Page title, max 70 characters |
-| `--description` | Meta description, 70–165 characters |
+| Argument        | Description                                                          |
+| --------------- | -------------------------------------------------------------------- |
+| `slug`          | URL slug (e.g. `insights`) — must match `^[a-z0-9]+(?:-[a-z0-9]+)*$` |
+| `label`         | Navigation label (e.g. `Insights`) — must be unique                  |
+| `--title`       | Page title, max 70 characters                                        |
+| `--description` | Meta description, 70–165 characters                                  |
 
 ### Optional Flags
 
-| Flag | Default | Notes |
-|---|---|---|
-| `--section` | `top` | `top` (after Brands) / `company` (submenu) / `solutions` (submenu) |
-| `--schema` | `organization` | `organization` / `webpage` / `autodealer` / `faqpage` |
-| `--keywords` | NEV3S defaults | Comma-separated meta keywords |
-| `--public` | true | Include in sitemap, set `index, follow` |
-| `--private` | — | Exclude from sitemap, set `noindex, nofollow` |
-| `--dry-run` | — | Print generated HTML to stdout; no files written |
-| `--no-build` | — | Skip `build.py` after generation |
+| Flag         | Default        | Notes                                                              |
+| ------------ | -------------- | ------------------------------------------------------------------ |
+| `--section`  | `top`          | `top` (after Brands) / `company` (submenu) / `solutions` (submenu) |
+| `--schema`   | `organization` | `organization` / `webpage` / `autodealer` / `faqpage`              |
+| `--keywords` | NEV3S defaults | Comma-separated meta keywords                                      |
+| `--public`   | true           | Include in sitemap, set `index, follow`                            |
+| `--private`  | —              | Exclude from sitemap, set `noindex, nofollow`                      |
+| `--dry-run`  | —              | Print generated HTML to stdout; no files written                   |
+| `--no-build` | —              | Skip `build.py` after generation                                   |
 
 ### What gets generated
 
