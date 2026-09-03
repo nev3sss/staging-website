@@ -1,0 +1,12 @@
+# Local development secrets — NEVER commit this file
+.dev.vars
+
+# Wrangler build output
+.wrangler/
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db

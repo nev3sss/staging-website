@@ -40,16 +40,20 @@ jobs:
 
       - name: Deploy Worker
         run: |
-          if [[ "${{ github.event.inputs.env || 'production' }}" == "staging" ]]; then
+          # Push to main (no env input) → deploy to top-level (production)
+          # workflow_dispatch env=staging → --env staging
+          # workflow_dispatch env=production → deploy top-level (no --env flag)
+          if [[ "${{ github.event.inputs.env }}" == "staging" ]]; then
             npx wrangler deploy --env staging
           else
-            npx wrangler deploy --env production
+            npx wrangler deploy
           fi
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
 
-      # D1 migrations run only on production workflow_dispatch.
+      # D1 migrations run only on production (no env = push to main,
+      # or explicit workflow_dispatch env=production).
       # NOT on every push — migrations are irreversible.
       - name: Run D1 migrations (production only)
         if: github.event.inputs.env == '' || github.event.inputs.env == 'production'

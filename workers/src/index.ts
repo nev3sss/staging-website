@@ -4,9 +4,13 @@
  * Route map:
  *   POST   /api/v1/dealer-applications       Create draft / submit
  *   GET    /api/v1/dealer-applications/me    Get own application
- *   POST   /api/v1/documents/presign         R2 presigned PUT URL
+ *   POST   /api/v1/documents/upload          Upload to DEALER_DOCS R2
+ *   POST   /api/v1/documents/presign         R2 presigned PUT URL (legacy)
+ *   GET    /api/v1/documents/:key            Get signed URL for document
+ *   DELETE /api/v1/documents/:key            Delete document
  *   GET    /api/v1/admin/applications        List all (admin)
- *   PATCH  /api/v1/admin/applications/:id    Approve/reject/request_changes (admin)
+ *   PATCH  /api/v1/admin/applications/:id    Approve/reject (admin)
+ *   GET    /api/v1/admin/analytics           Admin analytics (admin)
  *   POST   /api/v1/enquiries                 Buyer enquiry on a listing
  *
  * Scheduled (cron):
@@ -15,12 +19,11 @@
  */
 
 import { handleDealerApplication, handleGetMyApplication } from "./routes/dealer-applications";
-import { handleDocumentPresign } from "./routes/documents";
-import { handleAdminList, handleAdminPatch } from "./routes/admin";
+import { handleDocumentUpload, handleDocumentGet, handleDocumentDelete, handleDocumentPresign } from "./routes/documents";
+import { handleListApplications, handleUpdateApplication, handleAnalytics } from "./routes/admin";
 import { handleEnquiry } from "./routes/enquiries";
 import { runDailyNudge, runMonthlyCheckin } from "./lib/cron";
-import { jsonResponse, errorResponse } from "./lib/responses";
-import { corsHeaders } from "./lib/cors";
+import { jsonResponse, errorResponse, corsHeaders } from "./lib/responses";
 
 export interface Env {
   /** D1 database — schema uses prefixes: organization_*, seller_*, listing_*, admin_*, public_* */
@@ -35,7 +38,7 @@ export interface Env {
   CONFIG: KVNamespace;          // read-only runtime config
 
   /** Secrets — set via `wrangler secret put` */
-  TURNSTILE_SECRET: string;
+  TURNSTILE_SECRET_KEY: string;
   EMAIL_API_KEY: string;
   RESEND_API_KEY: string;
   ADMIN_API_TOKEN: string;
@@ -51,42 +54,74 @@ export default {
       return new Response(null, { status: 204, headers: corsHeaders(req) });
     }
 
+    // Construct shared route context
+    const routeCtx = {
+      request: req,
+      env: env as any,
+      params: {} as Record<string, string>,
+    };
+
     try {
       // ── Public form submission ─────────────────────────────────────────
       if (url.pathname === "/api/v1/dealer-applications" && req.method === "POST") {
-        return handleDealerApplication(req, env, ctx);
+        const body = await req.json().catch(() => ({}));
+        return handleDealerApplication(body as any, routeCtx);
       }
 
-      // ── Document upload (presign) ──────────────────────────────────────
+      if (url.pathname === "/api/v1/dealer-applications/me" && req.method === "GET") {
+        return handleGetMyApplication(req, routeCtx);
+      }
+
+      // ── Document routes ─────────────────────────────────────────────────
+      if (url.pathname === "/api/v1/documents/upload" && req.method === "POST") {
+        const body = await req.json().catch(() => ({}));
+        return handleDocumentUpload(body as any, routeCtx);
+      }
+
       if (url.pathname === "/api/v1/documents/presign" && req.method === "POST") {
         return handleDocumentPresign(req, env);
       }
 
+      if (url.pathname.startsWith("/api/v1/documents/") && (req.method === "GET" || req.method === "DELETE")) {
+        const parts = url.pathname.split("/").filter(Boolean);
+        if (parts.length === 4) {
+          const key = parts[3];
+          if (req.method === "GET") return handleDocumentGet(key, routeCtx);
+          if (req.method === "DELETE") return handleDocumentDelete(key, routeCtx);
+        }
+      }
+
       // ── Admin ─────────────────────────────────────────────────────────
       if (url.pathname === "/api/v1/admin/applications" && req.method === "GET") {
-        return handleAdminList(req, env);
+        return handleListApplications(url.searchParams, routeCtx);
       }
 
       const adminPatchMatch = url.pathname.match(/^\/api\/v1\/admin\/applications\/([a-zA-Z0-9-]+)$/);
       if (adminPatchMatch && req.method === "PATCH") {
-        return handleAdminPatch(req, env, adminPatchMatch[1]);
+        const body = await req.json().catch(() => ({}));
+        return handleUpdateApplication(adminPatchMatch[1], body as any, routeCtx);
+      }
+
+      if (url.pathname === "/api/v1/admin/analytics" && req.method === "GET") {
+        return handleAnalytics(routeCtx);
       }
 
       // ── Enquiries (buyer) ─────────────────────────────────────────────
       if (url.pathname === "/api/v1/enquiries" && req.method === "POST") {
-        return handleEnquiry(req, env, ctx);
+        const body = await req.json().catch(() => ({}));
+        return handleEnquiry(body as any, routeCtx);
       }
 
       // ── Health check ──────────────────────────────────────────────────
       if (url.pathname === "/api/v1/health") {
-        return jsonResponse({ status: "ok", time: new Date().toISOString() });
+        return jsonResponse({ status: "ok", time: new Date().toISOString() }, 200, req);
       }
 
-      return errorResponse("Not found", 404);
+      return errorResponse("Not found", 404, req);
     } catch (err) {
       // Never crash the Worker on unexpected errors.
       console.error("Unhandled error:", err);
-      return errorResponse("Internal server error", 500);
+      return errorResponse("Internal server error", 500, req);
     }
   },
 

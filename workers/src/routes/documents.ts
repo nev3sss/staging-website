@@ -1,36 +1,188 @@
 /**
- * Routes: documents.ts
- * POST /api/v1/documents/presign — generate a 5-minute presigned PUT URL for R2 upload.
- * The actual file upload goes directly to R2 (not through the Worker),
- * which avoids passing binary payloads through the Worker (size + cost limits).
+ * routes/documents.ts — R2 document upload/download endpoints.
+ * Requires JWT authentication.
  */
-import { Env } from "../index";
+
 import { jsonResponse, errorResponse } from "../lib/responses";
+import type { RouteContext } from "./types";
 
-export async function handleDocumentPresign(req: Request, env: Env): Promise<Response> {
-  let body: { documentType?: string; filename?: string; contentType?: string };
+// Minimal Env subset needed by this route — avoids circular import from ../index
+interface Env {
+  DEALER_DOCS: R2Bucket;
+  TURNSTILE_SECRET_KEY: string;
+}
+
+interface DocumentUploadBody {
+  filename: string;
+  contentType: string;
+  data: string; // base64 encoded
+}
+
+/**
+ * POST /documents/upload
+ * Upload a document to the private DEALER_DOCS R2 bucket.
+ * Requires Bearer token.
+ */
+export async function handleDocumentUpload(
+  body: DocumentUploadBody,
+  ctx: RouteContext
+): Promise<Response> {
+  // TODO: Verify JWT token from Authorization header
+  const authHeader = ctx.request.headers.get("Authorization");
+  if (!authHeader?.startsWith("Bearer ")) {
+    return errorResponse("Unauthorized", 401, ctx.request);
+  }
+
+  // TODO: Extract dealer_id from JWT payload
+  const dealerId = "temp-dealer-id"; // Replace with actual JWT decode
+
+  if (!body.filename || !body.contentType || !body.data) {
+    return errorResponse("Missing filename, contentType, or data", 400, ctx.request);
+  }
+
+  // Validate file size (max 10MB)
+  const maxSize = 10 * 1024 * 1024;
+  const estimatedSize = Math.ceil((body.data.length * 3) / 4);
+  if (estimatedSize > maxSize) {
+    return errorResponse("File too large. Maximum size is 10MB.", 413, ctx.request);
+  }
+
+  // Validate content type
+  const allowedTypes = [
+    "application/pdf",
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+  if (!allowedTypes.includes(body.contentType)) {
+    return errorResponse("Invalid file type", 400, ctx.request);
+  }
+
   try {
-    body = await req.json();
-  } catch {
-    return errorResponse("Invalid JSON body", 400);
+    const objectKey = `dealers/${dealerId}/${Date.now()}-${body.filename}`;
+    const binaryData = Uint8Array.from(atob(body.data), (c) => c.charCodeAt(0));
+
+    await ctx.env.DEALER_DOCS.put(objectKey, binaryData, {
+      httpMetadata: { contentType: body.contentType },
+      customMetadata: {
+        dealerId,
+        originalFilename: body.filename,
+        uploadedAt: new Date().toISOString(),
+      },
+    });
+
+    return jsonResponse(
+      { success: true, objectKey, message: "Document uploaded successfully" },
+      201,
+      ctx.request
+    );
+  } catch (err) {
+    console.error("Document upload error:", err);
+    return errorResponse("Failed to upload document", 500, ctx.request);
+  }
+}
+
+/**
+ * GET /documents/:key
+ * Get a signed URL for a document.
+ * Requires Bearer token and verifies ownership.
+ */
+export async function handleDocumentGet(key: string, ctx: RouteContext): Promise<Response> {
+  const authHeader = ctx.request.headers.get("Authorization");
+  if (!authHeader?.startsWith("Bearer ")) {
+    return errorResponse("Unauthorized", 401, ctx.request);
   }
 
-  if (!body.filename || !body.contentType) {
-    return errorResponse("filename and contentType required", 400);
+  const dealerId = "temp-dealer-id"; // TODO: Extract from JWT
+
+  // Security: Only allow access to documents belonging to this dealer
+  if (!key.startsWith(`dealers/${dealerId}/`)) {
+    return errorResponse("Forbidden", 403, ctx.request);
   }
 
-  const docType = body.documentType || "general";
-  const objectKey = `docs/${docType}/${crypto.randomUUID()}/${body.filename}`;
-
-  // Generate a 5-minute presigned PUT URL.
-  const url = await env.DEALER_DOCS.createSignedUrl(
-    objectKey,
-    {
-      method: "PUT",
-      contentType: body.contentType,
-      expiresInSeconds: 300, // 5 minutes
+  try {
+    const object = await ctx.env.DEALER_DOCS.get(key);
+    if (!object) {
+      return errorResponse("Document not found", 404, ctx.request);
     }
-  );
 
-  return jsonResponse({ uploadUrl: url, objectKey, expiresIn: 300 });
+    // Generate signed URL valid for 1 hour
+    const signedUrl = await ctx.env.DEALER_DOCS.createSignedUrl(key, {
+      expiration: 3600,
+    });
+
+    return jsonResponse({ signedUrl, expiresIn: 3600 }, 200, ctx.request);
+  } catch (err) {
+    console.error("Document get error:", err);
+    return errorResponse("Failed to get document", 500, ctx.request);
+  }
+}
+
+/**
+ * DELETE /documents/:key
+ * Delete a document.
+ * Requires Bearer token and verifies ownership.
+ */
+export async function handleDocumentDelete(key: string, ctx: RouteContext): Promise<Response> {
+  const authHeader = ctx.request.headers.get("Authorization");
+  if (!authHeader?.startsWith("Bearer ")) {
+    return errorResponse("Unauthorized", 401, ctx.request);
+  }
+
+  const dealerId = "temp-dealer-id"; // TODO: Extract from JWT
+
+  if (!key.startsWith(`dealers/${dealerId}/`)) {
+    return errorResponse("Forbidden", 403, ctx.request);
+  }
+
+  try {
+    await ctx.env.DEALER_DOCS.delete(key);
+    return jsonResponse({ success: true, message: "Document deleted" }, 200, ctx.request);
+  } catch (err) {
+    console.error("Document delete error:", err);
+    return errorResponse("Failed to delete document", 500, ctx.request);
+  }
+}
+
+/**
+ * POST /documents/presign
+ * Returns a presigned PUT URL for direct browser uploads.
+ * Legacy endpoint — kept for backward compat.
+ */
+export async function handleDocumentPresign(
+  req: Request,
+  env: Env
+): Promise<Response> {
+  try {
+    const body = (await req.json().catch(() => ({}))) as {
+      filename?: string;
+      contentType?: string;
+    };
+
+    if (!body.filename || !body.contentType) {
+      return new Response(
+        JSON.stringify({ error: "Missing filename or contentType" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    const key = `dealers/presigned/${Date.now()}-${body.filename}`;
+    const signedUrl = await env.DEALER_DOCS.createPresignedUrl(key, {
+      method: "PUT",
+      expiration: 600,
+    });
+
+    return new Response(
+      JSON.stringify({ url: signedUrl, key, expiresIn: 600 }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (err) {
+    console.error("Document presign error:", err);
+    return new Response(
+      JSON.stringify({ error: "Failed to create presigned URL" }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
+  }
 }

@@ -14,7 +14,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "nev3s-dealership-db"
-database_id = "REPLACE_WITH_D1_ID_AFTER_CREATING_DATABASE"
+database_id = "9c191f9f-f450-463d-a42f-7875610e0e04"
 
 # ── R2 Buckets ─────────────────────────────────────────────────────────────
 # Private bucket — trade licences, authorization docs, ownership evidence.
@@ -34,11 +34,11 @@ bucket_name = "nev3s-marketplace-media"
 # config        — read-only runtime config (email from, launch window end)
 [[kv_namespaces]]
 binding = "FEATURE_FLAGS"
-id = "REPLACE_WITH_KV_ID"
+id = "085e663fe176408eb98511b93c7daf92"
 
 [[kv_namespaces]]
 binding = "CONFIG"
-id = "REPLACE_WITH_KV_ID"
+id = "e147a338252345f6a331324abe88405a"
 
 # ── Cron Triggers ──────────────────────────────────────────────────────────
 # Daily 6 AM UTC — 48h first-listing nudge (Email 6)
@@ -55,16 +55,16 @@ crons = ["0 6 * * *", "0 7 1 * *"]
 [env.staging]
 name = "nev3s-dealership-api-staging"
 
-[env.staging.d1_databases]
+[[env.staging.d1_databases]]
 binding = "DB"
 database_name = "nev3s-dealership-db-staging"
 database_id = "REPLACE_WITH_STAGING_D1_ID"
 
-[env.staging.r2_buckets]
+[[env.staging.r2_buckets]]
 binding = "DEALER_DOCS"
 bucket_name = "nev3s-dealership-docs-staging"
 
-[env.staging.r2_buckets]
+[[env.staging.r2_buckets]]
 binding = "LISTING_MEDIA"
 bucket_name = "nev3s-marketplace-media-staging"
 

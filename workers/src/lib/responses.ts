@@ -10,13 +10,38 @@ export const corsHeaders = (req: Request): Record<string, string> => ({
   "Vary": "Origin",
 });
 
-export function jsonResponse(data: unknown, status = 200): Response {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { ...corsHeaders(new Request("https://www.nev3s.com")), "Content-Type": "application/json" },
+/**
+ * Wraps a Response with CORS headers.
+ * Use this for existing Response objects or when you can't pass a Request.
+ */
+export function wrapWithCors(res: Response, origin?: string): Response {
+  const newHeaders = new Headers(res.headers);
+  newHeaders.set("Access-Control-Allow-Origin", origin || "https://www.nev3s.com");
+  newHeaders.set("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS");
+  newHeaders.set("Access-Control-Allow-Headers", "Content-Type, Authorization, x-turnstile-token");
+  newHeaders.set("Access-Control-Allow-Credentials", "true");
+  newHeaders.set("Vary", "Origin");
+
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers: newHeaders,
   });
 }
 
-export function errorResponse(message: string, status = 500): Response {
-  return jsonResponse({ error: message, status }, status);
+export function jsonResponse(data: unknown, status = 200, req?: Request): Response {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+
+  if (req) {
+    Object.assign(headers, corsHeaders(req));
+  } else {
+    // Fallback if no request is provided, using the default origin
+    Object.assign(headers, corsHeaders(new Request("https://www.nev3s.com")));
+  }
+
+  return new Response(JSON.stringify(data), { status, headers });
+}
+
+export function errorResponse(message: string, status = 500, req?: Request): Response {
+  return jsonResponse({ error: message, status }, status, req);
 }

@@ -11,13 +11,13 @@
  */
 window.NEV3S_CONFIG = {
   /** Cloudflare Turnstile site key — get from Cloudflare dashboard → Turnstile */
-  turnstileSiteKey: "1x0000000000000000000000000000000AA", // REPLACE with your real site key
+  turnstileSiteKey: "0x4AAAAAAEk4H-qpKNXpT5Q-",
 
   /** Cloudflare Worker API base URL — the Worker handles /api/v1/* routes */
-  apiBase: "https://api.nev3s.com",                      // REPLACE with your custom domain or .workers.dev URL
+  apiBase: "https://nev3s-dealership-api.nev3s-dev.workers.dev",
 
   /** Application form endpoint */
-  applicationEndpoint: "https://api.nev3s.com/api/v1/dealer-applications", // REPLACE
+  applicationEndpoint: "https://nev3s-dealership-api.nev3s-dev.workers.dev/api/v1/dealer-applications",
 
   /** Application review window (business days) */
   reviewWindowDays: 3,
