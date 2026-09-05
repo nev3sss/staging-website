@@ -83,9 +83,11 @@ export default {
       }
 
       if (url.pathname.startsWith("/api/v1/documents/") && (req.method === "GET" || req.method === "DELETE")) {
-        const parts = url.pathname.split("/").filter(Boolean);
-        if (parts.length === 4) {
-          const key = parts[3];
+        // Object keys contain slashes (e.g. "dealers/<id>/<ts>-<filename>"), so
+        // capture everything after the prefix rather than a single path segment.
+        const encodedKey = url.pathname.slice("/api/v1/documents/".length);
+        if (encodedKey) {
+          const key = decodeURIComponent(encodedKey);
           if (req.method === "GET") return handleDocumentGet(key, routeCtx);
           if (req.method === "DELETE") return handleDocumentDelete(key, routeCtx);
         }
