@@ -50,9 +50,10 @@ export interface Env {
   FEATURE_FLAGS: KVNamespace;  // runtime toggles
   CONFIG: KVNamespace;          // read-only runtime config
 
-  /** Secrets — set via `wrangler secret put` */
+  /** Secrets — set via `wrangler secret put`. Optional where a local-dev
+   *  fallback exists (e.g. RESEND_API_KEY → console.log instead of send). */
   TURNSTILE_SECRET_KEY: string;
-  RESEND_API_KEY: string;
+  RESEND_API_KEY: string | undefined;
   JWT_SECRET: string;
 }
 
