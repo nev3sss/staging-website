@@ -59,6 +59,7 @@ export default {
       request: req,
       env: env as any,
       params: {} as Record<string, string>,
+      executionCtx: ctx,
     };
 
     try {

@@ -6,6 +6,7 @@
 import { jsonResponse, errorResponse } from "../lib/responses";
 import { generateId } from "../lib/ids";
 import { verifyTurnstileToken } from "../lib/turnstile";
+import { sendEmail } from "../lib/email";
 import type { RouteContext } from "./types";
 
 interface EnquiryBody {
@@ -61,6 +62,13 @@ export async function handleEnquiry(
       )
       .run();
 
+    // Notify the dealer (Email 7) — best-effort, does not block/fail the enquiry.
+    ctx.executionCtx.waitUntil(
+      notifyDealerOfEnquiry(ctx, body).catch((err) =>
+        console.error("[enquiries] dealer notification failed:", err)
+      )
+    );
+
     return jsonResponse(
       { message: "Enquiry sent to dealer.", enquiryId },
       201,
@@ -70,4 +78,36 @@ export async function handleEnquiry(
     console.error("Enquiry insert error:", err);
     return errorResponse("Failed to submit enquiry", 500, ctx.request);
   }
+}
+
+/**
+ * Looks up the dealer's contact email from D1 (via dealer_applications, keyed
+ * on the org's application id) and sends the Email 7 buyer-enquiry alert.
+ * No-op if the dealer can't be resolved — a missing lookup should never
+ * surface as an error to the buyer.
+ */
+async function notifyDealerOfEnquiry(ctx: RouteContext, body: EnquiryBody): Promise<void> {
+  if (!body.dealerOrgId) return;
+
+  const dealer = await ctx.env.DB
+    .prepare("SELECT email, full_name FROM dealer_applications WHERE id = ?")
+    .bind(body.dealerOrgId)
+    .first<{ email: string; full_name: string }>();
+
+  if (!dealer?.email) {
+    console.warn(`[enquiries] no dealer email found for dealerOrgId=${body.dealerOrgId}`);
+    return;
+  }
+
+  await sendEmail(ctx.env, {
+    to: dealer.email,
+    template: "email_7_enquiry",
+    variables: {
+      applicant_name: dealer.full_name,
+      buyer_name: body.buyerName || "Anonymous",
+      buyer_email: body.buyerEmail || "",
+      message: body.message || "",
+      listing_id: body.listingId || "",
+    },
+  });
 }

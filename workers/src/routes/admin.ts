@@ -4,6 +4,7 @@
  */
 
 import { jsonResponse, errorResponse } from "../lib/responses";
+import { sendEmail } from "../lib/email";
 import type { RouteContext } from "./types";
 
 /**
@@ -99,6 +100,16 @@ export async function handleUpdateApplication(
       return errorResponse("Application not found", 404, ctx.request);
     }
 
+    // Notify the applicant on approval/rejection (Emails 4/5). "reviewed" has no
+    // dedicated template yet, so skip it. Best-effort — never fail the admin action.
+    if (body.status === "approved" || body.status === "rejected") {
+      ctx.executionCtx.waitUntil(
+        notifyApplicantOfDecision(ctx, id, body.status).catch((err) =>
+          console.error("[admin] applicant notification failed:", err)
+        )
+      );
+    }
+
     return jsonResponse({
       success: true,
       message: `Application ${body.status}`,
@@ -107,6 +118,35 @@ export async function handleUpdateApplication(
     console.error("Update application error:", err);
     return errorResponse("Failed to update application", 500, ctx.request);
   }
+}
+
+/**
+ * Looks up the applicant's contact info and sends the approval/rejection
+ * email (Email 4/5). No-op if the application can't be found.
+ */
+async function notifyApplicantOfDecision(
+  ctx: RouteContext,
+  applicationId: string,
+  status: "approved" | "rejected"
+): Promise<void> {
+  const app = await ctx.env.DB
+    .prepare("SELECT email, full_name, business_name FROM dealer_applications WHERE id = ?")
+    .bind(applicationId)
+    .first<{ email: string; full_name: string; business_name: string | null }>();
+
+  if (!app?.email) {
+    console.warn(`[admin] no applicant email found for application id=${applicationId}`);
+    return;
+  }
+
+  await sendEmail(ctx.env, {
+    to: app.email,
+    template: status === "approved" ? "email_4_approved" : "email_5_rejected",
+    variables: {
+      applicant_name: app.full_name,
+      business_name: app.business_name ?? "",
+    },
+  });
 }
 
 /**
