@@ -1,26 +1,93 @@
 # NEV3S Staging Website
 
-Static marketing website for NEV3S, built as a lightweight, dependency-light corporate landing experience for EV brand partnerships, GCC market expansion, service infrastructure, and lead capture.
+Static marketing website for NEV3S — GCC's first dedicated EV sales, service, and spare parts platform. Built as a lightweight, dependency-light corporate experience for brand partnerships, market expansion, service infrastructure, and lead capture.
 
-This repository keeps the site easy to review and ship: plain HTML/CSS, a simple content registry, and a small Python build script instead of a heavier frontend framework. The goal is fast iteration, reliable route generation, and a clean staging flow for approved marketing changes.
+This repository keeps the site easy to review and ship: plain HTML/CSS, a content registry, and Python build scripts instead of a heavier frontend framework. The goal is fast iteration, reliable route generation, and a clean staging flow for approved marketing changes.
 
 ## Current status
 
-The production-facing site includes:
+The production-facing site covers:
 
-- a premium homepage and hero structure in `index.html`
-- 9 supporting public pages under `pages/` (services, solutions, brands, marketplace, offices, legal)
+- a premium homepage and hero in `index.html`
+- 9 supporting public pages under `pages/` (plus 3 dealer-portal pages under `pages/dealers/`)
+- a bilingual dealer application portal under `pages/dealers/` (EN + AR)
+- a Cloudflare Worker API powering the dealer application endpoint
 - route metadata and nav source-of-truth in `content/site.json`
 - shared styling and design tokens in `styles/`
 - generated homepage navigation and `sitemap.xml` via `scripts/build.py`
 - audit-compliant page generator at `scripts/new-page.py` (OG, Twitter, JSON-LD, skip-link, main#main-content, all in one)
-- a HubSpot-form lead capture flow for the static site
-- updated GCC contact details and clearer presence cards
+- a HubSpot-form lead capture flow
+- updated GCC contact details across all pages
 - full SEO stack (meta, OG, Twitter, canonical, JSON-LD) on every page
 
-## What was recently improved
+## What was recently done
 
-### SEO completeness — all 10 pages
+### Dealer Application Portal (feature/dealership-signup branch)
+
+- **Cloudflare Worker** (`workers/`) — deployed and live at `https://nev3s-dealership-api.nev3s-dev.workers.dev`
+  - `POST /api/v1/dealer-applications` — Turnstile-verified application submission → D1 insert
+  - `GET /api/v1/health` — health check (no auth)
+  - 8 email templates defined in `workers/src/lib/email.ts`; `sendEmail()` is currently a stub (logs to console — wire to Resend before going live)
+  - Admin auth stub: `requireAdmin` middleware in `routes/admin.ts` is a placeholder pending JWT verification
+  - R2 document storage, D1 database, KV feature flags
+  - Cron stubs in `workers/src/lib/cron.ts` (daily 06:00 UTC, 1st of month 07:00 UTC) — handlers log only
+  - All secrets set via `wrangler secret put`; `.dev.vars` gitignored
+  - CI/CD via `.github/workflows/deploy-worker.yml` (auto-deploys on push to `main`)
+- **`pages/dealers/apply.html`** — full bilingual dealer application page
+  - Cloudflare Turnstile anti-bot widget
+  - Complete 3-section form (contact details, business details, dealer profile)
+  - Live client-side validation + server-side 422 error display
+  - Launch incentive callout, trust strip, 4-step journey, value props, FAQ, comparison table
+  - Posts to Worker endpoint via `fetch()` with `x-turnstile-token` header
+- **`pages/dealers/apply-ar.html`** — Arabic RTL placeholder (directs to EN version)
+- **`pages/dealers/dashboard.html`** — dealer portal placeholder (Phase 2, launching Jan 1 2027)
+- **`scripts/dealers/`** — `config.js` (Turnstile sitekey + API URL), `form-validation.js`, `form-submit.js`
+- **`styles/dealers/`** — `dealers.css`, `dealers-ar.css` — NEV3S design tokens throughout
+- `content/site.json` — nav entry "Dealers" → `pages/dealers/apply.html`; 3 dealer page registrations
+- Sitemap regenerated with both dealer page URLs
+
+**CI/CD prerequisite** (before merging to `main`):
+
+- Set GitHub secret `CLOUDFLARE_API_TOKEN` = `cfut_...`
+- Set GitHub variable `CLOUDFLARE_ACCOUNT_ID` = account ID from `wrangler whoami`
+
+See `workers/SETUP.md` for the full resource map and endpoint table.
+
+### Marketplace Page (merged to main)
+
+- **`pages/marketplace.html`** — GCC's first EV marketplace landing page, launching January 1, 2027
+  - Live countdown to launch, trust stats, 12-card feature grid, buyer/seller split, 4-step flow
+  - 12-row comparison table (NEV3S vs. general classifieds), testimonials, 8 FAQs, highlight CTA
+- Homepage ecosystem section updated: 6th pillar "EV Marketplace & Dealer Software" with launch badge
+
+### Homepage Ecosystem & Navigation
+
+- 6 ecosystem pillars covering charging infrastructure, workshop setup, battery repair, HV training, aftermarket, and EV marketplace
+- Homepage "Dealers" nav link → `pages/dealers/apply.html`
+- Nav auto-generated by `scripts/build.py` from `content/site.json`
+
+### UX & Accessibility
+
+- Mobile navigation submenu fix — parent links expand submenus on tap
+- Hover gap bridge — invisible hit area between nav items and dropdowns prevents accidental close
+- Section anchors: `id="top"` on `<header>`, `id="proof-panel"` on business-value section
+- HubSpot lead form with fetch, JSON payload, inline messaging, disabled submit state
+- Emoji country flags replaced with inline SVGs in office presence cards and footer
+
+### SEO & Meta
+
+- Full Open Graph + Twitter Card meta on all pages
+- JSON-LD structured data (Organization on homepage; per-page WebPage/AutoDealer/FAQPage schemas)
+- Canonical URLs, robots meta, keywords meta on every page
+- `sitemap.xml` auto-generated from `content/site.json`
+
+### Contact & Copy
+
+- Standardized phone: `+966 56 556 920` across all pages
+- YouTube link updated to official NEV3S channel
+- Cookie/Privacy nav path corrected to `brands.html` (was `../pages/brands.html`)
+
+### SEO completeness — all pages
 
 Every page now has the full SEO stack:
 
@@ -38,62 +105,89 @@ Every page now has the full SEO stack:
 - `<main id="main-content">` added to both legal pages for skip-link target
 - Full keyboard focus styles on the skip link
 
-### Other fixes
-
-- **Cookie/Privacy nav path fix** — corrected nav links in `pages/cookie-policy.html` and `pages/privacy-policy.html` from `../pages/brands.html` to `brands.html` for proper relative path resolution.
-- **YouTube channel link** — updated footer YouTube link from generic `youtube.com/` to the official NEV3S channel.
-- **Trailing whitespace cleanup** — removed stray whitespace from `pages/brands.html`.
-- **Mobile navigation submenu fix** — tapping a parent nav link on mobile now expands its submenu in place, so links remain visible and tappable.
-- **Hover gap bridge** — added invisible hit area between desktop nav items and their dropdowns to prevent the menu from accidentally closing.
-- **Section anchors** — added `id="top"` to `<header>` and `id="proof-panel"` to the business-value section for reliable in-page navigation.
-- HubSpot lead form integration using the Forms API with fetch, JSON payloads, validation, inline messaging, and disabled submit state
-- standardized phone contact details to `+966 56 556 920`
-- improved homepage visual hierarchy and presence card contrast for better readability
-- verified linting, formatting, and route-level build integrity
-
 ## Repository structure
 
 ```text
 .
-├── index.html              # Main landing page and site content
-├── pages/                  # Public pages and legal/brand pages
+├── index.html                    # Main landing page and site content
+├── pages/                       # Public pages
+│   ├── brands.html               # Brand partner showcase
+│   ├── marketplace.html          # EV Marketplace landing (launching Jan 1, 2027)
+│   ├── offices.html              # GCC office locations
+│   ├── solutions.html            # EV solutions overview
+│   ├── service-network.html      # Service & aftermarket
+│   ├── franchise-opportunities.html
+│   ├── spare-parts.html
+│   ├── privacy-policy.html
+│   ├── cookie-policy.html
+│   └── dealers/                  # Dealer application portal
+│       ├── apply.html            # Dealer application form (EN)
+│       ├── apply-ar.html         # Dealer application form (AR — placeholder)
+│       └── dashboard.html        # Dealer portal (Phase 2 — placeholder)
 ├── assets/
-│   ├── images/             # Approved photography and media
-│   ├── logos/              # Brand and partner logo assets
-│   └── icons/              # Favicons and UI assets
+│   ├── images/
+│   ├── logos/
+│   └── icons/
 ├── content/
-│   └── site.json           # Source of truth for route metadata and nav
-├── styles/                 # Shared CSS and design system styles
+│   └── site.json                # Source of truth for route metadata and nav
+├── styles/
+│   ├── page-shell.css           # Homepage styles + design tokens
+│   ├── brands.css               # Brand card styles
+│   ├── offices.css              # Office/contact styles
+│   └── dealers/                 # Dealer portal styles
+│       ├── dealers.css          # EN styles
+│       └── dealers-ar.css       # AR RTL styles
 ├── scripts/
-│   ├── build.py            # Validates pages and regenerates nav + sitemap
-│   └── new-page.py         # Creates and registers a new page
-├── sitemap.xml             # Generated XML sitemap
-├── robots.txt              # Basic crawler instructions
-├── package.json            # Lint and format scripts
-├── eslint.config.js        # ESLint configuration
-├── README.md               # Project documentation
-├── .gitignore              # Ignore rules for local and generated artifacts
-├── package-lock.json       # NPM lockfile
-├── node_modules/           # Installed dependencies (ignored by Git)
+│   ├── build.py                 # Validates pages + regenerates nav + sitemap
+│   ├── new-page.py              # Creates and registers a new page
+│   └── dealers/                 # Dealer portal JS
+│       ├── config.js            # Turnstile sitekey + API URL (safe to commit)
+│       ├── form-validation.js    # Client-side validation
+│       └── form-submit.js       # Form POST to Cloudflare Worker
+├── workers/                     # Cloudflare Worker (dealer API)
+│   ├── wrangler.toml            # Bindings (committed; no secrets)
+│   ├── .dev.vars                # Local secrets (gitignored)
+│   ├── .dev.vars.example        # Template without secrets
+│   ├── SETUP.md                 # Live URL, resource IDs, secrets, API table
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── migrations/
+│   │   └── 0001_initial_schema.sql
+│   └── src/
+│       ├── index.ts
+│       ├── lib/ (responses, turnstile, ids, cron, email)
+│       └── routes/ (dealer-applications, enquiries, documents, admin)
+├── docs/                        # Feature planning & documentation
 ├── .github/
-│   └── copilot-instructions.md
-└── .vscode/                # Optional editor settings, if present
+│   └── workflows/
+│       └── deploy-worker.yml    # CI/CD: auto-deploys Worker on push to main
+├── sitemap.xml                  # Generated XML sitemap
+├── robots.txt
+├── package.json                 # Lint and format scripts
+├── eslint.config.js
+├── README.md
+└── .gitignore
 ```
 
 ## Public routes
 
-The site currently contains the following registered pages:
+All registered in `content/site.json` and generated into `sitemap.xml` and homepage nav:
 
-- `/` — Home
-- `/pages/service-network.html` — Service Network
-- `/pages/franchise-opportunities.html` — Franchise Opportunities
-- `/pages/spare-parts.html` — Spare Parts
-- `/pages/solutions.html` — EV Solutions
-- `/pages/offices.html` — GCC Offices
-- `/pages/brands.html` — Brands
-- `/pages/marketplace.html` — Marketplace
-- `/pages/privacy-policy.html` — Privacy Policy
-- `/pages/cookie-policy.html` — Cookie Policy
+| Route                                 | Label                   | Notes                                               |
+| ------------------------------------- | ----------------------- | --------------------------------------------------- |
+| `/`                                   | Home                    | Homepage with ecosystem pillars + HubSpot lead form |
+| `/pages/brands.html`                  | Brands                  | Brand partner showcase                              |
+| `/pages/marketplace.html`             | Marketplace             | EV marketplace landing (Jan 1, 2027)                |
+| `/pages/offices.html`                 | Offices                 | GCC office locations                                |
+| `/pages/solutions.html`               | Solutions               | EV solutions overview                               |
+| `/pages/service-network.html`         | Service Network         | Service & aftermarket                               |
+| `/pages/franchise-opportunities.html` | Franchise Opportunities | Franchise program                                   |
+| `/pages/spare-parts.html`             | Spare Parts             | Regional spare parts                                |
+| `/pages/privacy-policy.html`          | Privacy Policy          | Legal                                               |
+| `/pages/cookie-policy.html`           | Cookie Policy           | Legal                                               |
+| `/pages/dealers/apply.html`           | Dealership Application  | Dealer signup form (EN)                             |
+| `/pages/dealers/apply-ar.html`        | تقديم طلب وكالة         | Dealer signup form (AR)                             |
+| `/pages/dealers/dashboard.html`       | Dealer Portal           | Phase 2 (not indexed)                               |
 
 If pages are added, removed, or renamed, run the build so the generated navigation and sitemap stay aligned.
 
@@ -113,7 +207,7 @@ py -m http.server 4173
 
 Open the site in a browser at:
 
-```text
+```
 http://localhost:4173/
 ```
 
@@ -122,7 +216,7 @@ http://localhost:4173/
 Create a registered page with the helper script:
 
 ```bash
-py scripts/new-page.py insights "Insights" "NEV3S Insights"
+py scripts/new-page.py insights "Insights" --title "NEV3S Insights" --description "..."
 ```
 
 After any page or route change, regenerate the homepage navigation and sitemap:
@@ -158,7 +252,10 @@ These checks validate formatting, linting, and static route integrity.
 - Use relative paths between pages and root assets.
 - Keep content factual, approved, and aligned with actual NEV3S operations.
 - Preserve semantic HTML, accessible focus indicators, readable contrast, and reduced-motion support.
-- Keep the site lightweight; avoid adding framework overhead unless there is a clear product need.
-- HubSpot form submission depends on the form’s CRM configuration. If API submissions are rejected, check the HubSpot form settings for spam/captcha restrictions.
+- Keep the site lightweight; avoid adding frontend framework overhead unless there is a clear product need.
+- HubSpot form submission depends on the form's CRM configuration. If API submissions are rejected, check the HubSpot form settings for spam/captcha restrictions.
+- Dealer application form submissions are handled by the Cloudflare Worker at `https://nev3s-dealership-api.nev3s-dev.workers.dev`. Do not hard-code secrets in client-side scripts.
+- `scripts/dealers/config.js` contains only the Turnstile **site key** (not secret) and the Worker **public URL** — safe to commit.
+- The `dashboard.html` dealer portal is Phase 2 work planned for launch alongside the marketplace on January 1, 2027.
 
 This repo is intentionally lightweight and deterministic. The generated navigation and sitemap are build outputs, not source-of-truth content.

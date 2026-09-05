@@ -1,0 +1,34 @@
+name: Deploy — Pages (static site)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Permissions: principle of least privilege.
+# write一阵 because pages-action needs it.
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build static site
+        run: python scripts/build.py
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: nev3s-staging-website
+          directory: .
+          wranglerVersion: "3"

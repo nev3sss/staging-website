@@ -1,2 +1,22 @@
 node_modules/
 node_modules/.verify/
+*.verify/
+
+# Worker (local build / secrets)
+workers/node_modules/
+workers/dist/
+workers/.dev.vars
+workers/.wrangler/
+
+# Python / build artifacts
+*.db
+*.db-shm
+*.db-wal
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Never commit secrets — keep .dev.vars out; keep wrangler.toml in (non-secret bindings only)
+# See docs/dealership-config.md for config reference.

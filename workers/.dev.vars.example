@@ -1,0 +1,9 @@
+# Local development secrets — NEVER commit this file.
+# Copy to .dev.vars and fill in real values:
+#   cp .dev.vars.example .dev.vars
+
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+EMAIL_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
+ADMIN_API_TOKEN=your-admin-token-here
+JWT_SECRET=change-this-to-a-64-char-random-string-in-production

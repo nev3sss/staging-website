@@ -1,0 +1,73 @@
+/**
+ * Routes: enquiries.ts
+ * POST /api/v1/enquiries — buyer submits enquiry on a dealer listing.
+ * Triggers Email 7 to the dealer.
+ */
+import { jsonResponse, errorResponse } from "../lib/responses";
+import { generateId } from "../lib/ids";
+import { verifyTurnstileToken } from "../lib/turnstile";
+import type { RouteContext } from "./types";
+
+interface EnquiryBody {
+  dealerOrgId?: string;
+  listingId?: string;
+  message?: string;
+  buyerName?: string;
+  buyerEmail?: string;
+  turnstileToken?: string;
+}
+
+export async function handleEnquiry(
+  body: EnquiryBody,
+  ctx: RouteContext
+): Promise<Response> {
+  if (!body.dealerOrgId || !body.message) {
+    return errorResponse("dealerOrgId and message required", 400, ctx.request);
+  }
+
+  if (!body.buyerEmail) {
+    return errorResponse("buyerEmail required", 400, ctx.request);
+  }
+
+  // Verify Turnstile
+  const remoteip = ctx.request.headers.get("cf-connecting-ip") || undefined;
+  const turnstileValid = await verifyTurnstileToken(
+    body.turnstileToken || null,
+    remoteip,
+    ctx.env.TURNSTILE_SECRET_KEY
+  );
+
+  if (!turnstileValid) {
+    return errorResponse("Turnstile verification failed", 403, ctx.request);
+  }
+
+  const enquiryId = generateId("enq");
+
+  try {
+    await ctx.env.DB
+      .prepare(
+        `INSERT INTO enquiries (id, type, email, full_name, message, metadata, turnstile_token, ip_address)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      )
+      .bind(
+        enquiryId,
+        "general",
+        body.buyerEmail,
+        body.buyerName || "Anonymous",
+        body.message,
+        JSON.stringify({ dealerOrgId: body.dealerOrgId, listingId: body.listingId }),
+        body.turnstileToken || "",
+        remoteip || ""
+      )
+      .run();
+
+    return jsonResponse(
+      { message: "Enquiry sent to dealer.", enquiryId },
+      201,
+      ctx.request
+    );
+  } catch (err) {
+    console.error("Enquiry insert error:", err);
+    return errorResponse("Failed to submit enquiry", 500, ctx.request);
+  }
+}
