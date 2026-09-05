@@ -3,7 +3,7 @@
  * Requires JWT authentication.
  */
 
-import { jsonResponse, errorResponse } from "../lib/responses";
+import { corsHeaders, jsonResponse, errorResponse } from "../lib/responses";
 import type { RouteContext } from "./types";
 
 // Minimal Env subset needed by this route — avoids circular import from ../index
@@ -108,12 +108,15 @@ export async function handleDocumentGet(key: string, ctx: RouteContext): Promise
       return errorResponse("Document not found", 404, ctx.request);
     }
 
-    // Generate signed URL valid for 1 hour
-    const signedUrl = await ctx.env.DEALER_DOCS.createSignedUrl(key, {
-      expiration: 3600,
+    return new Response(object.body, {
+      status: 200,
+      headers: {
+        "Content-Type": object.httpMetadata?.contentType || "application/octet-stream",
+        "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(key.split("/").pop() || "document")}`,
+        "Cache-Control": "private, max-age=0, no-store",
+        ...corsHeaders(ctx.request),
+      },
     });
-
-    return jsonResponse({ signedUrl, expiresIn: 3600 }, 200, ctx.request);
   } catch (err) {
     console.error("Document get error:", err);
     return errorResponse("Failed to get document", 500, ctx.request);
@@ -168,15 +171,11 @@ export async function handleDocumentPresign(
       );
     }
 
-    const key = `dealers/presigned/${Date.now()}-${body.filename}`;
-    const signedUrl = await env.DEALER_DOCS.createPresignedUrl(key, {
-      method: "PUT",
-      expiration: 600,
-    });
-
     return new Response(
-      JSON.stringify({ url: signedUrl, key, expiresIn: 600 }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
+      JSON.stringify({
+        error: "Presigned uploads are not enabled. Use the authenticated upload endpoint.",
+      }),
+      { status: 501, headers: { "Content-Type": "application/json" } }
     );
   } catch (err) {
     console.error("Document presign error:", err);

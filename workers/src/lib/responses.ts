@@ -3,12 +3,23 @@
  */
 
 export const corsHeaders = (req: Request): Record<string, string> => ({
-  "Access-Control-Allow-Origin": req.headers.get("origin") || "https://www.nev3s.com",
+  "Access-Control-Allow-Origin": getAllowedOrigin(req.headers.get("origin")),
   "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization, x-turnstile-token",
   "Access-Control-Allow-Credentials": "true",
   "Vary": "Origin",
 });
+
+const ALLOWED_ORIGINS = new Set([
+  "https://www.nev3s.com",
+  "https://staging.nev3s.com",
+  "http://localhost:4173",
+  "http://localhost:8787",
+]);
+
+function getAllowedOrigin(origin: string | null): string {
+  return origin && ALLOWED_ORIGINS.has(origin) ? origin : "https://www.nev3s.com";
+}
 
 /**
  * Wraps a Response with CORS headers.
@@ -16,7 +27,7 @@ export const corsHeaders = (req: Request): Record<string, string> => ({
  */
 export function wrapWithCors(res: Response, origin?: string): Response {
   const newHeaders = new Headers(res.headers);
-  newHeaders.set("Access-Control-Allow-Origin", origin || "https://www.nev3s.com");
+  newHeaders.set("Access-Control-Allow-Origin", getAllowedOrigin(origin ?? null));
   newHeaders.set("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS");
   newHeaders.set("Access-Control-Allow-Headers", "Content-Type, Authorization, x-turnstile-token");
   newHeaders.set("Access-Control-Allow-Credentials", "true");
