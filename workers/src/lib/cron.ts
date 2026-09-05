@@ -5,16 +5,56 @@
  *   "0 7 1 * *"  → 1st of month @ 07:00 UTC — 30-day check-in (Email 8)
  */
 import { Env } from "../index";
+import { sendEmail } from "./email";
 
 export async function runDailyNudge(env: Env): Promise<void> {
-  // 1. Query D1: approved dealers with 0 listings, created > 48h ago.
-  // 2. For each: trigger Email 6 (First Listing Reminder).
-  // Stub: log what would run.
-  console.log("[cron] Daily nudge — querying approved dealers with 0 listings after 48h");
+  // Approved dealers with 0 listings, created 48h+ ago and not yet nudged.
+  // (No dedicated "nudged" flag yet — this relies on the join against
+  // listings being empty; re-running the cron on the same dealer before
+  // they add a listing will re-send the nudge, which is an acceptable
+  // trade-off until a `last_nudged_at` column is added.)
+  const { results } = await env.DB.prepare(
+    `SELECT da.id, da.email, da.full_name, da.business_name
+     FROM dealer_applications da
+     WHERE da.status = 'approved'
+       AND datetime(da.updated_at) <= datetime('now', '-48 hours')
+       AND NOT EXISTS (
+         SELECT 1 FROM listings l WHERE l.seller_email = da.email
+       )`
+  ).all<{ id: string; email: string; full_name: string; business_name: string | null }>();
+
+  for (const dealer of results) {
+    await sendEmail(env, {
+      to: dealer.email,
+      template: "email_6_nudge",
+      variables: {
+        applicant_name: dealer.full_name,
+        business_name: dealer.business_name ?? "",
+      },
+    }).catch((err) => console.error(`[cron] nudge email failed for ${dealer.id}:`, err));
+  }
+
+  console.log(`[cron] Daily nudge — notified ${results.length} approved dealer(s) with 0 listings after 48h`);
 }
 
 export async function runMonthlyCheckin(env: Env): Promise<void> {
-  // 1. Query D1: all approved dealers active > 30 days.
-  // 2. For each: trigger Email 8 (30-Day Check-In).
-  console.log("[cron] Monthly check-in — querying 30-day-active approved dealers");
+  const { results } = await env.DB.prepare(
+    `SELECT id, email, full_name, business_name
+     FROM dealer_applications
+     WHERE status = 'approved'
+       AND datetime(updated_at) <= datetime('now', '-30 days')`
+  ).all<{ id: string; email: string; full_name: string; business_name: string | null }>();
+
+  for (const dealer of results) {
+    await sendEmail(env, {
+      to: dealer.email,
+      template: "email_8_checkin",
+      variables: {
+        applicant_name: dealer.full_name,
+        business_name: dealer.business_name ?? "",
+      },
+    }).catch((err) => console.error(`[cron] check-in email failed for ${dealer.id}:`, err));
+  }
+
+  console.log(`[cron] Monthly check-in — notified ${results.length} 30-day-active approved dealer(s)`);
 }

@@ -1,16 +1,12 @@
 /**
  * routes/types.ts — Shared type definitions for route handlers.
  */
+import type { Env } from "../index";
 
 export interface RouteContext {
   request: Request;
-  env: {
-    DB: D1Database;
-    DEALER_DOCS: R2Bucket;
-    LISTING_MEDIA: R2Bucket;
-    FEATURE_FLAGS: KVNamespace;
-    CONFIG: KVNamespace;
-    TURNSTILE_SECRET_KEY: string;
-  };
+  env: Env;
   params: Record<string, string>;
+  /** Worker execution context — use waitUntil() for fire-and-forget work like emails. */
+  executionCtx: ExecutionContext;
 }
