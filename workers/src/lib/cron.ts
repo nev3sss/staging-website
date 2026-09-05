@@ -8,11 +8,11 @@ import { Env } from "../index";
 import { sendEmail } from "./email";
 
 export async function runDailyNudge(env: Env): Promise<void> {
-  // Approved dealers with 0 listings, created 48h+ ago and not yet nudged.
-  // (No dedicated "nudged" flag yet — this relies on the join against
-  // listings being empty; re-running the cron on the same dealer before
-  // they add a listing will re-send the nudge, which is an acceptable
-  // trade-off until a `last_nudged_at` column is added.)
+  // Approved dealers with 0 listings, approved (or last updated) 48h+ ago.
+  // No dedicated "nudged" flag yet — this relies on the join against
+  // listings being empty; re-running the cron before the dealer adds a
+  // listing will re-send the nudge, which is an acceptable trade-off
+  // until a `last_nudged_at` column is added.
   const { results } = await env.DB.prepare(
     `SELECT da.id, da.email, da.full_name, da.business_name
      FROM dealer_applications da
