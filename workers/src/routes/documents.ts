@@ -167,7 +167,7 @@ export async function handleDocumentPresign(
     if (!body.filename || !body.contentType) {
       return new Response(
         JSON.stringify({ error: "Missing filename or contentType" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders(req) } }
       );
     }
 
@@ -175,13 +175,13 @@ export async function handleDocumentPresign(
       JSON.stringify({
         error: "Presigned uploads are not enabled. Use the authenticated upload endpoint.",
       }),
-      { status: 501, headers: { "Content-Type": "application/json" } }
+      { status: 501, headers: { "Content-Type": "application/json", ...corsHeaders(req) } }
     );
   } catch (err) {
     console.error("Document presign error:", err);
     return new Response(
-      JSON.stringify({ error: "Failed to create presigned URL" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Failed to create presigned document upload request" }),
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders(req) } }
     );
   }
 }

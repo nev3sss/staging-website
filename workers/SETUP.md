@@ -82,19 +82,19 @@ wrangler tail
 
 ## API Endpoints
 
-| Method | Path                             | Auth               | Description                   |
-| ------ | -------------------------------- | ------------------ | ----------------------------- |
-| GET    | `/api/v1/health`                 | None               | Health check                  |
-| POST   | `/api/v1/dealer-applications`    | Turnstile          | Submit dealer application     |
-| GET    | `/api/v1/dealer-applications/me` | Bearer JWT         | Get own application (Phase 2) |
-| POST   | `/api/v1/documents/upload`       | Bearer JWT         | Upload document to R2         |
-| POST   | `/api/v1/documents/presign`      | Bearer JWT         | Get presigned R2 PUT URL      |
-| GET    | `/api/v1/documents/:key`         | Bearer JWT         | Get signed download URL       |
-| DELETE | `/api/v1/documents/:key`         | Bearer JWT         | Delete document               |
-| GET    | `/api/v1/admin/applications`     | Bearer JWT (admin) | List all applications         |
-| PATCH  | `/api/v1/admin/applications/:id` | Bearer JWT (admin) | Approve/reject                |
-| GET    | `/api/v1/admin/analytics`        | Bearer JWT (admin) | Analytics                     |
-| POST   | `/api/v1/enquiries`              | Turnstile          | Buyer enquiry                 |
+| Method | Path                             | Auth               | Description                                                              |
+| ------ | -------------------------------- | ------------------ | ------------------------------------------------------------------------ |
+| GET    | `/api/v1/health`                 | None               | Health check                                                             |
+| POST   | `/api/v1/dealer-applications`    | Turnstile          | Submit dealer application                                                |
+| GET    | `/api/v1/dealer-applications/me` | Bearer JWT         | Get own application (Phase 2)                                            |
+| POST   | `/api/v1/documents/upload`       | Bearer JWT         | Upload document to R2                                                    |
+| POST   | `/api/v1/documents/presign`      | Bearer JWT         | Not implemented (501); presigned uploads disabled -- use upload endpoint |
+| GET    | `/api/v1/documents/:key`         | Bearer JWT         | Stream document body from R2                                             |
+| DELETE | `/api/v1/documents/:key`         | Bearer JWT         | Delete document                                                          |
+| GET    | `/api/v1/admin/applications`     | Bearer JWT (admin) | List all applications                                                    |
+| PATCH  | `/api/v1/admin/applications/:id` | Bearer JWT (admin) | Approve/reject                                                           |
+| GET    | `/api/v1/admin/analytics`        | Bearer JWT (admin) | Analytics                                                                |
+| POST   | `/api/v1/enquiries`              | Turnstile          | Buyer enquiry                                                            |
 
 ## File Map
 
