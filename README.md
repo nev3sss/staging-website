@@ -9,7 +9,7 @@ This repository keeps the site easy to review and ship: plain HTML/CSS, a conten
 The production-facing site covers:
 
 - a premium homepage and hero in `index.html`
-- 10 supporting public pages under `pages/`
+- 9 supporting public pages under `pages/` (plus 3 dealer-portal pages under `pages/dealers/`)
 - a bilingual dealer application portal under `pages/dealers/` (EN + AR)
 - a Cloudflare Worker API powering the dealer application endpoint
 - route metadata and nav source-of-truth in `content/site.json`
@@ -23,11 +23,12 @@ The production-facing site covers:
 ### Dealer Application Portal (feature/dealership-signup branch)
 
 - **Cloudflare Worker** (`workers/`) — deployed and live at `https://nev3s-dealership-api.nev3s-dev.workers.dev`
-  - `POST /api/v1/dealer-applications` — Turnstile-verified application submission
-  - `GET /api/v1/health` — health check
-  - 8 email triggers (application received, under review, changes requested, approved, rejected, 48h nudge, enquiry, 30-day check-in)
-  - Cloudflare Access auth, R2 document storage, D1 database, KV feature flags
-  - Daily cron (6am UTC) for listing nudge; monthly cron (1st of month, 7am UTC) for check-in
+  - `POST /api/v1/dealer-applications` — Turnstile-verified application submission → D1 insert
+  - `GET /api/v1/health` — health check (no auth)
+  - 8 email templates defined in `workers/src/lib/email.ts`; `sendEmail()` is currently a stub (logs to console — wire to Resend before going live)
+  - Admin auth stub: `requireAdmin` middleware in `routes/admin.ts` is a placeholder pending JWT verification
+  - R2 document storage, D1 database, KV feature flags
+  - Cron stubs in `workers/src/lib/cron.ts` (daily 06:00 UTC, 1st of month 07:00 UTC) — handlers log only
   - All secrets set via `wrangler secret put`; `.dev.vars` gitignored
   - CI/CD via `.github/workflows/deploy-worker.yml` (auto-deploys on push to `main`)
 - **`pages/dealers/apply.html`** — full bilingual dealer application page
