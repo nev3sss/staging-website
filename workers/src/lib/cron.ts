@@ -24,6 +24,7 @@ export async function runDailyNudge(env: Env): Promise<void> {
   ).all<{ id: string; email: string; full_name: string; business_name: string | null }>();
 
   for (const dealer of results) {
+    // Best-effort: sendEmail never throws, so no .catch() needed.
     await sendEmail(env, {
       to: dealer.email,
       template: "email_6_nudge",
@@ -31,7 +32,7 @@ export async function runDailyNudge(env: Env): Promise<void> {
         applicant_name: dealer.full_name,
         business_name: dealer.business_name ?? "",
       },
-    }).catch((err) => console.error(`[cron] nudge email failed for ${dealer.id}:`, err));
+    });
   }
 
   console.log(`[cron] Daily nudge — notified ${results.length} approved dealer(s) with 0 listings after 48h`);
@@ -46,6 +47,7 @@ export async function runMonthlyCheckin(env: Env): Promise<void> {
   ).all<{ id: string; email: string; full_name: string; business_name: string | null }>();
 
   for (const dealer of results) {
+    // Best-effort: sendEmail never throws, so no .catch() needed.
     await sendEmail(env, {
       to: dealer.email,
       template: "email_8_checkin",
@@ -53,7 +55,7 @@ export async function runMonthlyCheckin(env: Env): Promise<void> {
         applicant_name: dealer.full_name,
         business_name: dealer.business_name ?? "",
       },
-    }).catch((err) => console.error(`[cron] check-in email failed for ${dealer.id}:`, err));
+    });
   }
 
   console.log(`[cron] Monthly check-in — notified ${results.length} 30-day-active approved dealer(s)`);

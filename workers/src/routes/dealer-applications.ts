@@ -135,12 +135,13 @@ export async function handleDealerApplication(
   }
 
   // Fire-and-forget confirmation email (Email 1) — never block the response on this.
+  // Best-effort: sendEmail never throws, so no .catch() needed here.
   ctx.executionCtx.waitUntil(
     sendEmail(ctx.env, {
       to: body.email,
       template: "email_1_received",
       variables: { applicant_name: body.contactName, business_name: body.legalName },
-    }).catch((err) => console.error("[dealer-applications] sendEmail failed:", err))
+    })
   );
 
   return jsonResponse(

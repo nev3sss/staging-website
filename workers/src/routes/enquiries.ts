@@ -63,10 +63,9 @@ export async function handleEnquiry(
       .run();
 
     // Notify the dealer (Email 7) — best-effort, does not block/fail the enquiry.
+    // sendEmail never throws, so no .catch() needed.
     ctx.executionCtx.waitUntil(
-      notifyDealerOfEnquiry(ctx, body).catch((err) =>
-        console.error("[enquiries] dealer notification failed:", err)
-      )
+      notifyDealerOfEnquiry(ctx, body)
     );
 
     return jsonResponse(

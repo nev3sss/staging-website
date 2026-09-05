@@ -30,7 +30,8 @@ export async function sendEmail(env: Env, payload: EmailPayload): Promise<void> 
   if (!apiKey) {
     // No key configured (e.g. local dev without .dev.vars) -- fall back to logging
     // rather than throwing, so unrelated flows (form submission, cron) still work.
-    console.log(`[email] No RESEND_API_KEY set -- would send ${payload.template} to ${payload.to}`, payload.variables);
+    // Log only safe metadata; never include payload.variables (may contain PII).
+    console.log(`[email] No RESEND_API_KEY set -- would send ${payload.template} to ${payload.to}`);
     return;
   }
 

@@ -101,12 +101,10 @@ export async function handleUpdateApplication(
     }
 
     // Notify the applicant on approval/rejection (Emails 4/5). "reviewed" has no
-    // dedicated template yet, so skip it. Best-effort — never fail the admin action.
+    // dedicated template yet, so skip it. Best-effort — sendEmail never throws.
     if (body.status === "approved" || body.status === "rejected") {
       ctx.executionCtx.waitUntil(
-        notifyApplicantOfDecision(ctx, id, body.status).catch((err) =>
-          console.error("[admin] applicant notification failed:", err)
-        )
+        notifyApplicantOfDecision(ctx, id, body.status)
       );
     }
 
