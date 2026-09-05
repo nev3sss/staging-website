@@ -15,8 +15,10 @@ The production-facing site covers:
 - route metadata and nav source-of-truth in `content/site.json`
 - shared styling and design tokens in `styles/`
 - generated homepage navigation and `sitemap.xml` via `scripts/build.py`
+- audit-compliant page generator at `scripts/new-page.py` (OG, Twitter, JSON-LD, skip-link, main#main-content, all in one)
 - a HubSpot-form lead capture flow
 - updated GCC contact details across all pages
+- full SEO stack (meta, OG, Twitter, canonical, JSON-LD) on every page
 
 ## What was recently done
 
@@ -84,6 +86,24 @@ See `workers/SETUP.md` for the full resource map and endpoint table.
 - Standardized phone: `+966 56 556 920` across all pages
 - YouTube link updated to official NEV3S channel
 - Cookie/Privacy nav path corrected to `brands.html` (was `../pages/brands.html`)
+
+### SEO completeness — all pages
+
+Every page now has the full SEO stack:
+
+- `<meta name="description">` 70–165 characters
+- `<link rel="canonical">` with absolute URL
+- `<meta property="og:title">`, `og:description`, `og:type`, `og:url`, `og:image`, `og:image:width/height`
+- `<meta name="twitter:card">` with card content
+- `<meta name="viewport">`
+- `<script type="application/ld+json">` with `WebPage`, `AboutPage`, or `FAQPage` schema
+- `<meta name="robots">` set appropriately per page
+
+### Accessibility — legal pages
+
+- Skip-to-main-content link added to `privacy-policy.html` and `cookie-policy.html`
+- `<main id="main-content">` added to both legal pages for skip-link target
+- Full keyboard focus styles on the skip link
 
 ## Repository structure
 
@@ -168,6 +188,8 @@ All registered in `content/site.json` and generated into `sitemap.xml` and homep
 | `/pages/dealers/apply.html`           | Dealership Application  | Dealer signup form (EN)                             |
 | `/pages/dealers/apply-ar.html`        | تقديم طلب وكالة         | Dealer signup form (AR)                             |
 | `/pages/dealers/dashboard.html`       | Dealer Portal           | Phase 2 (not indexed)                               |
+
+If pages are added, removed, or renamed, run the build so the generated navigation and sitemap stay aligned.
 
 ## Local workflow
 

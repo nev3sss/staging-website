@@ -1510,6 +1510,13 @@
         color: var(--red-onblack);
         gap: 12px;
       }
+      .brand-link-text {
+        color: var(--muted, #6b7280);
+        font-size: 0.9em;
+        font-style: italic;
+        display: inline-block;
+        padding: 4px 0;
+      }
       @media (max-width: 1400px) {
         .brands-grid {
           grid-template-columns: repeat(4, 1fr);
@@ -2837,13 +2844,10 @@
                 One of China’s leading automakers, with a broad EV portfolio and
                 strong scale across passenger, fleet, and commercial segments.
               </p>
-              <a
-                href="https://www.saicmotor.com"
-                target="_blank"
-                rel="noopener"
-                class="brand-link"
-                aria-label="Visit SAIC website"
-                >Visit Website →</a
+              <span
+                class="brand-link-text"
+                aria-label="SAIC — partner brand, no external link"
+                >Partner brand</span
               >
             </article>
           </div>
