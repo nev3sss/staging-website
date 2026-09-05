@@ -77,5 +77,9 @@ function renderSubject(template: EmailTemplateId, vars: Record<string, string>):
 
 function renderBody(template: EmailTemplateId, vars: Record<string, string>): string {
   // TODO: load HTML templates from /emails/*.html and interpolate vars.
-  return `<p>Hello ${vars["applicant_name"] ?? "there"},</p><p>Template: ${template}</p>`;
+  // Escape HTML special chars in all user-supplied template variables.
+  const escapeHtml = (s: string): string =>
+    s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+  const name = escapeHtml(vars["applicant_name"] ?? "there");
+  return `<p>Hello ${name},</p><p>Template: ${template}</p>`;
 }

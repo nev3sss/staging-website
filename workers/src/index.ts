@@ -25,6 +25,19 @@ import { handleEnquiry } from "./routes/enquiries";
 import { runDailyNudge, runMonthlyCheckin } from "./lib/cron";
 import { jsonResponse, errorResponse, corsHeaders } from "./lib/responses";
 
+// Aliases matching the interface shapes defined in each route file.
+// Keeping them local avoids circular-import risk; update here if the route shapes change.
+type ApplicationForm = {
+  contactName: string; email: string; phone: string; legalName: string;
+  tradeLicenseNo: string; tradeLicenseExpiry: string; country: string;
+  city: string; dealerType: string; website?: string; capabilities?: string[];
+  sourceChannel?: string; turnstileToken?: string;
+};
+type DocumentUploadBody = { filename: string; contentType: string; data: string };
+type EnquiryBody = { dealerOrgId?: string; listingId?: string; message?: string;
+  buyerName?: string; buyerEmail?: string; turnstileToken?: string };
+type AdminUpdateBody = { status: "approved" | "rejected" | "reviewed"; notes?: string };
+
 export interface Env {
   /** D1 database — schema uses prefixes: organization_*, seller_*, listing_*, admin_*, public_* */
   DB: D1Database;
@@ -39,9 +52,7 @@ export interface Env {
 
   /** Secrets — set via `wrangler secret put` */
   TURNSTILE_SECRET_KEY: string;
-  EMAIL_API_KEY: string;
   RESEND_API_KEY: string;
-  ADMIN_API_TOKEN: string;
   JWT_SECRET: string;
 }
 
@@ -57,7 +68,7 @@ export default {
     // Construct shared route context
     const routeCtx = {
       request: req,
-      env: env as any,
+      env,
       params: {} as Record<string, string>,
       executionCtx: ctx,
     };
@@ -65,8 +76,8 @@ export default {
     try {
       // ── Public form submission ─────────────────────────────────────────
       if (url.pathname === "/api/v1/dealer-applications" && req.method === "POST") {
-        const body = await req.json().catch(() => ({}));
-        return handleDealerApplication(body as any, routeCtx);
+        const body = (await req.json().catch(() => ({}))) as unknown as ApplicationForm;
+        return handleDealerApplication(body, routeCtx);
       }
 
       if (url.pathname === "/api/v1/dealer-applications/me" && req.method === "GET") {
@@ -75,8 +86,8 @@ export default {
 
       // ── Document routes ─────────────────────────────────────────────────
       if (url.pathname === "/api/v1/documents/upload" && req.method === "POST") {
-        const body = await req.json().catch(() => ({}));
-        return handleDocumentUpload(body as any, routeCtx);
+        const body = (await req.json().catch(() => ({}))) as unknown as DocumentUploadBody;
+        return handleDocumentUpload(body, routeCtx);
       }
 
       if (url.pathname === "/api/v1/documents/presign" && req.method === "POST") {
@@ -101,8 +112,8 @@ export default {
 
       const adminPatchMatch = url.pathname.match(/^\/api\/v1\/admin\/applications\/([a-zA-Z0-9-]+)$/);
       if (adminPatchMatch && req.method === "PATCH") {
-        const body = await req.json().catch(() => ({}));
-        return handleUpdateApplication(adminPatchMatch[1], body as any, routeCtx);
+        const body = (await req.json().catch(() => ({}))) as unknown as AdminUpdateBody;
+        return handleUpdateApplication(adminPatchMatch[1], body, routeCtx);
       }
 
       if (url.pathname === "/api/v1/admin/analytics" && req.method === "GET") {
@@ -111,8 +122,8 @@ export default {
 
       // ── Enquiries (buyer) ─────────────────────────────────────────────
       if (url.pathname === "/api/v1/enquiries" && req.method === "POST") {
-        const body = await req.json().catch(() => ({}));
-        return handleEnquiry(body as any, routeCtx);
+        const body = (await req.json().catch(() => ({}))) as unknown as EnquiryBody;
+        return handleEnquiry(body, routeCtx);
       }
 
       // ── Health check ──────────────────────────────────────────────────
