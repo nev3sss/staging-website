@@ -7,7 +7,7 @@
  * Turnstile site key and Worker API URL before deploying.
  *
  * The Turnstile secret key goes in `workers/.dev.vars` and is set via
- * `wrangler secret put TURNSTILE_SECRET` — never in this file.
+ * `wrangler secret put TURNSTILE_SECRET_KEY` — never in this file.
  */
 window.NEV3S_CONFIG = {
   /** Cloudflare Turnstile site key — get from Cloudflare dashboard → Turnstile */

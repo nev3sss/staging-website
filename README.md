@@ -44,6 +44,7 @@ The production-facing site covers:
 - Sitemap regenerated with both dealer page URLs
 
 **CI/CD prerequisite** (before merging to `main`):
+
 - Set GitHub secret `CLOUDFLARE_API_TOKEN` = `cfut_...`
 - Set GitHub variable `CLOUDFLARE_ACCOUNT_ID` = account ID from `wrangler whoami`
 
@@ -151,21 +152,21 @@ See `workers/SETUP.md` for the full resource map and endpoint table.
 
 All registered in `content/site.json` and generated into `sitemap.xml` and homepage nav:
 
-| Route | Label | Notes |
-|---|---|---|
-| `/` | Home | Homepage with ecosystem pillars + HubSpot lead form |
-| `/pages/brands.html` | Brands | Brand partner showcase |
-| `/pages/marketplace.html` | Marketplace | EV marketplace landing (Jan 1, 2027) |
-| `/pages/offices.html` | Offices | GCC office locations |
-| `/pages/solutions.html` | Solutions | EV solutions overview |
-| `/pages/service-network.html` | Service Network | Service & aftermarket |
-| `/pages/franchise-opportunities.html` | Franchise Opportunities | Franchise program |
-| `/pages/spare-parts.html` | Spare Parts | Regional spare parts |
-| `/pages/privacy-policy.html` | Privacy Policy | Legal |
-| `/pages/cookie-policy.html` | Cookie Policy | Legal |
-| `/pages/dealers/apply.html` | Dealership Application | Dealer signup form (EN) |
-| `/pages/dealers/apply-ar.html` | تقديم طلب وكالة | Dealer signup form (AR) |
-| `/pages/dealers/dashboard.html` | Dealer Portal | Phase 2 (not indexed) |
+| Route                                 | Label                   | Notes                                               |
+| ------------------------------------- | ----------------------- | --------------------------------------------------- |
+| `/`                                   | Home                    | Homepage with ecosystem pillars + HubSpot lead form |
+| `/pages/brands.html`                  | Brands                  | Brand partner showcase                              |
+| `/pages/marketplace.html`             | Marketplace             | EV marketplace landing (Jan 1, 2027)                |
+| `/pages/offices.html`                 | Offices                 | GCC office locations                                |
+| `/pages/solutions.html`               | Solutions               | EV solutions overview                               |
+| `/pages/service-network.html`         | Service Network         | Service & aftermarket                               |
+| `/pages/franchise-opportunities.html` | Franchise Opportunities | Franchise program                                   |
+| `/pages/spare-parts.html`             | Spare Parts             | Regional spare parts                                |
+| `/pages/privacy-policy.html`          | Privacy Policy          | Legal                                               |
+| `/pages/cookie-policy.html`           | Cookie Policy           | Legal                                               |
+| `/pages/dealers/apply.html`           | Dealership Application  | Dealer signup form (EN)                             |
+| `/pages/dealers/apply-ar.html`        | تقديم طلب وكالة         | Dealer signup form (AR)                             |
+| `/pages/dealers/dashboard.html`       | Dealer Portal           | Phase 2 (not indexed)                               |
 
 ## Local workflow
 
