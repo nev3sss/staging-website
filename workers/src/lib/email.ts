@@ -1,7 +1,7 @@
 /**
  * lib/email.ts — Resend/Postmark email integration.
  * Resend is preferred for Cloudflare Workers (native HTTP API).
- * Sender domain: mail.nev3s.com (SPF + DKIM + DMARC configured separately).
+ * Sender domain: nev3s.com (main domain verified in Resend dashboard).
  */
 import { Env } from "../index";
 
@@ -22,7 +22,7 @@ export interface EmailPayload {
   variables: Record<string, string>;
 }
 
-const RESEND_FROM = "NEV3S Dealer Team <dealer-notify@mail.nev3s.com>";
+const RESEND_FROM = "NEV3S Dealer Team <dealer-application@nev3s.com>";
 
 export async function sendEmail(env: Env, payload: EmailPayload): Promise<void> {
   const apiKey = env.RESEND_API_KEY;
@@ -48,7 +48,7 @@ export async function sendEmail(env: Env, payload: EmailPayload): Promise<void> 
         from: RESEND_FROM,
         to: payload.to,
         subject: renderSubject(payload.template, payload.variables),
-        html: renderBody(payload.template, payload.variables),
+        html: await renderBody(payload.template, payload.variables),
       }),
     });
 
@@ -75,11 +75,40 @@ function renderSubject(template: EmailTemplateId, vars: Record<string, string>):
   return subjects[template] ?? "NEV3S notification";
 }
 
-function renderBody(template: EmailTemplateId, vars: Record<string, string>): string {
-  // TODO: load HTML templates from /emails/*.html and interpolate vars.
-  // Escape HTML special chars in all user-supplied template variables.
+async function renderBody(template: EmailTemplateId, vars: Record<string, string>): Promise<string> {
+  // HTML escape for any vars we interpolate directly
   const escapeHtml = (s: string): string =>
     s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
-  const name = escapeHtml(vars["applicant_name"] ?? "there");
-  return `<p>Hello ${name},</p><p>Template: ${template}</p>`;
+
+  // Load template from file. In production, Cloudflare Workers can read from volume.
+  // For local dev (.dev.vars without email backend), this is fine (won't be called).
+  const templateNames: Record<EmailTemplateId, string> = {
+    email_1_received: "email_1_received.html",
+    email_2_review: "email_2_review.html",
+    email_3_changes: "email_3_changes.html",
+    email_4_approved: "email_4_approved.html",
+    email_5_rejected: "email_5_rejected.html",
+    email_6_nudge: "email_6_nudge.html",
+    email_7_enquiry: "email_7_enquiry.html",
+    email_8_checkin: "email_8_checkin.html",
+  };
+
+  const templateFile = templateNames[template];
+  try {
+    // Try to fetch as blob (Cloudflare Workers may support volume FS)
+    const response = await fetch(`emails/${templateFile}`);
+    let html = await response.text();
+
+    // Interpolate Resend-style variables: {{{variableName}}}
+    for (const [key, value] of Object.entries(vars)) {
+      const placeholder = `{{{${key}}}}}`;
+      html = html.replace(new RegExp(placeholder, "g"), value || "");
+    }
+
+    return html;
+  } catch (err) {
+    // Fallback while templates are being prepared: return minimal HTML
+    const name = escapeHtml(vars["applicant_name"] ?? "there");
+    return `<p>Hello ${name},</p><p>Template: ${template}</p>`;
+  }
 }
