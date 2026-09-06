@@ -72,11 +72,16 @@ def validate_pages(config):
 
 
 def write_sitemap(config):
+    from datetime import date
+    today = date.today().isoformat()
     urls = []
     for page in config["pages"]:
         if page.get("public"):
             path = page["path"].replace("index.html", "")
-            urls.append(f'  <url><loc>{escape(config["site"]["url"] + path)}</loc></url>')
+            urls.append(
+                f'  <url><loc>{escape(config["site"]["url"] + path)}</loc>'
+                f'<lastmod>{today}</lastmod></url>'
+            )
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n'
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sitemap += "\n".join(urls) + "\n</urlset>\n"

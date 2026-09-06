@@ -1,0 +1,3 @@
+# Normalize all text files to LF line endings on all platforms.
+# Prettier writes LF regardless of OS, so this just keeps git consistent.
+* text=auto

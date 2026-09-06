@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buyer Enquiry | NEV3S</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      font-family:
+        -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica,
+        Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #333;
+    "
+  >
+    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+      <tr>
+        <td style="padding: 40px 20px; text-align: center; background: #1a1a2e">
+          <p style="margin: 0; color: #fff; font-size: 28px; font-weight: 700">
+            NEV3S
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding: 40px 20px; background: #ffffff">
+          <p style="margin-top: 0; font-size: 16px">
+            Hi <strong>{{{applicant_name}}}</strong>,
+          </p>
+
+          <p style="color: #444">
+            You've received a new buyer enquiry for your vehicle on NEV3S!
+          </p>
+
+          <table
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            style="margin-top: 30px"
+          >
+            <tr>
+              <td
+                style="
+                  padding: 15px;
+                  background: #f9fafb;
+                  border-left: 4px solid #1a1a2e;
+                "
+              >
+                <div style="margin-bottom: 10px">
+                  <strong style="color: #374151; font-size: 15px"
+                    >Buyer Name:</strong
+                  >
+                  <span style="color: #555"> {{{buyer_name}}} </span>
+                </div>
+                <div style="margin-bottom: 10px">
+                  <strong style="color: #374151; font-size: 15px"
+                    >Buyer Email:</strong
+                  >
+                  <span style="color: #555"> {{{buyer_email}}} </span>
+                </div>
+                <div style="margin-bottom: 0">
+                  <strong style="color: #374151; font-size: 15px"
+                    >Message:</strong
+                  >
+                  <p
+                    style="
+                      margin: 5px 0 0 0;
+                      color: #555;
+                      font-size: 14px;
+                      margin-top: 5px;
+                    "
+                  >
+                    {{{message}}}
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </table>
+
+          <p style="margin-top: 30px; color: #444">
+            Full details are available in your
+            <a
+              href="https://www.nev3s.com/pages/dealers/dashboard.html"
+              style="color: #1a1a2e; text-decoration: underline"
+              >Dealer Dashboard</a
+            >
+            under "Enquiries" or by visiting the listing:
+            <br />
+            <a
+              href="https://www.nev3s.com/pages/marketplace.html?listing={{{listing_id}}}"
+              style="color: #3b82f6; text-decoration: underline"
+            >
+              View Listing
+            </a>
+          </p>
+
+          <p style="margin-top: 30px; color: #555; font-size: 12px">
+            —<br />
+            NEV3S Team<br />
+            <a
+              href="https://www.nev3s.com"
+              style="color: #1a1a2e; text-decoration: underline"
+              >www.nev3s.com</a
+            >
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td
+          style="
+            padding: 20px;
+            text-align: center;
+            background: #f5f5f5;
+            color: #888;
+            font-size: 12px;
+          "
+        >
+          Change your email preferences or unsubscribe from these emails
+          anytime.
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

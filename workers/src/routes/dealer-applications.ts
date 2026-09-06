@@ -5,6 +5,7 @@
 import { jsonResponse, errorResponse } from "../lib/responses";
 import { verifyTurnstileToken } from "../lib/turnstile";
 import { generateId } from "../lib/ids";
+import { sendEmail } from "../lib/email";
 import type { RouteContext } from "./types";
 
 interface ApplicationForm {
@@ -132,6 +133,16 @@ export async function handleDealerApplication(
     console.error("D1 insert error:", err);
     return errorResponse("Failed to save application. Please try again.", 500, ctx.request);
   }
+
+  // Fire-and-forget confirmation email (Email 1) — never block the response on this.
+  // Best-effort: sendEmail never throws, so no .catch() needed here.
+  ctx.executionCtx.waitUntil(
+    sendEmail(ctx.env, {
+      to: body.email,
+      template: "email_1_received",
+      variables: { applicant_name: body.contactName, business_name: body.legalName },
+    })
+  );
 
   return jsonResponse(
     {
