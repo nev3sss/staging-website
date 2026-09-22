@@ -36,7 +36,7 @@
     });
 
     // Multi-select for capabilities
-    var cap = form.querySelector("[name=\"capabilities\"]");
+    var cap = form.querySelector('[name="capabilities"]');
     if (cap && cap.options) {
       data.capabilities = Array.from(cap.options).filter(function (o) { return o.selected; })
                                   .map(function (o) { return o.value; });
@@ -68,8 +68,8 @@
     }
 
     // Capture Turnstile token
-    var turnstileInput = form.querySelector("[name=\"cf-turnstile-response\"]") ||
-                        document.querySelector("[name=\"cf-turnstile-response\"]");
+    var turnstileInput = form.querySelector('[name="cf-turnstile-response"]') ||
+                        document.querySelector('[name="cf-turnstile-response"]');
     var turnstileToken = turnstileInput ? turnstileInput.value : null;
     if (!turnstileToken) {
       window.NEV3S_DEALERS.showFeedback(
@@ -108,7 +108,7 @@
         try { errData = await response.json(); } catch (e) { void e; }
         if (errData.errors && Array.isArray(errData.errors)) {
           errData.errors.forEach(function (e) {
-            var el = document.querySelector("[data-for=\"" + e.field + "\"]");
+            var el = document.querySelector('[data-for="' + e.field + '"]');
             if (el) {
               el.textContent = e.message;
               el.hidden = false;
@@ -147,14 +147,14 @@
   /** Display success message + reset form */
   function showSuccess(form, result) {
     form.style.display = "none";
-    var successHtml = "<div class=\"form-feedback success\" style=\"padding:2rem;text-align:center;\">" +
-      "<h3 style=\"margin:0 0 1rem;font-size:1.25rem;\">✓ Application Received</h3>" +
-      "<p style=\"margin:0 0 0.5rem;\">Thank you for applying to NEV3S.</p>" +
-      "<p style=\"margin:0 0 0.5rem;\">Your application reference: <strong>" + (result.applicationId || "—") + "</strong></p>" +
-      "<p style=\"margin:0;\">We will review your application within " +
+    var successHtml = '<div class="form-feedback success" style="padding:2rem;text-align:center;">' +
+      '<h3 style="margin:0 0 1rem;font-size:1.25rem;">✓ Application Received</h3>' +
+      '<p style="margin:0 0 0.5rem;">Thank you for applying to NEV3S.</p>' +
+      '<p style="margin:0 0 0.5rem;">Your application reference: <strong>' + (result.applicationId || "—") + '</strong></p>' +
+      '<p style="margin:0;">We will review your application within ' +
       ((window.NEV3S_CONFIG && window.NEV3S_CONFIG.reviewWindowDays) || 3) +
-      " business days and email you at the address you provided.</p>" +
-      "</div>";
+      ' business days and email you at the address you provided.</p>' +
+      '</div>';
 
     var wrapper = form.parentNode;
     var successEl = document.createElement("div");

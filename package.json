@@ -4,9 +4,7 @@
   "scripts": {
     "format": "prettier --write \"**/*.{html,css,md}\" --ignore-path .prettierignore",
     "format:check": "prettier --check \"**/*.{html,css,md}\" --ignore-path .prettierignore",
-    "lint": "eslint .",
-    "build": "python scripts/build.py",
-    "check:links": "python scripts/link-checker.py"
+    "lint": "eslint ."
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

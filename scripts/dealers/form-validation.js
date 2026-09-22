@@ -70,14 +70,14 @@
 
   /** Validate a single field, show inline error */
   function validateField(name) {
-    var input = document.getElementById(name) || document.querySelector("[name=\"" + name + "\"]");
+    var input = document.getElementById(name) || document.querySelector('[name="' + name + '"]');
     if (!input || !validators[name]) return true;
 
     var isCheckbox = input.type === "checkbox";
     var rawValue = isCheckbox ? input.checked : input.value;
     var error = validators[name](rawValue);
 
-    var errorEl = document.querySelector("[data-for=\"" + name + "\"]");
+    var errorEl = document.querySelector('[data-for="' + name + '"]');
     if (errorEl) {
       errorEl.textContent = error || "";
       errorEl.hidden = !error;
@@ -102,7 +102,7 @@
   function attachLiveValidation() {
     var fields = Object.keys(validators);
     fields.forEach(function (name) {
-      var input = document.getElementById(name) || document.querySelector("[name=\"" + name + "\"]");
+      var input = document.getElementById(name) || document.querySelector('[name="' + name + '"]');
       if (!input) return;
       var eventType = input.type === "checkbox" ? "change" : "blur";
       input.addEventListener(eventType, function () { validateField(name); });

@@ -4,40 +4,6 @@ Static marketing website for NEV3S — GCC's first dedicated EV sales, service, 
 
 This repository keeps the site easy to review and ship: plain HTML/CSS, a content registry, and Python build scripts instead of a heavier frontend framework. The goal is fast iteration, reliable route generation, and a clean staging flow for approved marketing changes.
 
-## Design Guideline Principles
-
-This site follows the NEV3S design guideline (`docs/design-guideline.md`), which specifies enterprise-grade visual identity with strict accessibility and performance standards:
-
-### Accessibility (WCAG 2.1 AA)
-
-- **Color contrast:** All text passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI components.
-- **Keyboard navigation:** All interactive elements are keyboard-focusable with visible focus states (minimum 2px outline, high contrast).
-- **Semantic HTML:** Proper heading hierarchy (one `<h1>` per page, no skipped levels), landmark elements (`<nav>`, `<main>`, `<header>`, `<footer>`), and ARIA labels on icon buttons.
-- **Skip link:** Every page has a skip-to-main-content link as the first focusable element.
-- **Image alt text:** All `<img>` tags have `alt` attributes — descriptive for content images, empty (`alt=""`) for decorative images.
-- **Form labels:** All form inputs have associated `<label for="id">` or `aria-label`.
-- **Reduced motion:** `prefers-reduced-motion: reduce` is respected — animations and smooth scroll are disabled.
-- **Touch targets:** Minimum 44×44px on mobile for all interactive elements.
-
-### Performance (Core Web Vitals)
-
-- **LCP** (Largest Contentful Paint): < 2.5s
-- **CLS** (Cumulative Layout Shift): < 0.1
-- **INP** (Interaction to Next Paint): < 200ms
-- **Resource hints:** `preconnect` and `dns-prefetch` for third-party origins (Google Fonts, Plausible analytics).
-- **Image optimization:** WebP/AVIF with `srcset` for responsive resolution switching; `loading="lazy"` on below-the-fold images.
-- **Critical CSS:** Inlined in `<head>` for above-the-fold rendering.
-- **CDN delivery:** All assets served via Cloudflare Pages CDN with Brotli compression and long-cache immutable headers.
-
-### Security Headers
-
-- **CSP:** Content-Security-Policy restricts script/style/img/font/connect sources.
-- **X-Frame-Options:** `DENY` — prevents clickjacking.
-- **X-Content-Type-Options:** `nosniff` — prevents MIME sniffing.
-- **Referrer-Policy:** `strict-origin-when-cross-origin`.
-- **Permissions-Policy:** Disables geolocation, microphone, camera, payment, and other sensitive APIs.
-- **HSTS:** `max-age=63072000; includeSubDomains; preload`.
-
 ## Current status
 
 The production-facing site covers:
@@ -50,26 +16,11 @@ The production-facing site covers:
 - shared styling and design tokens in `styles/`
 - generated homepage navigation and `sitemap.xml` via `scripts/build.py`
 - audit-compliant page generator at `scripts/new-page.py` (OG, Twitter, JSON-LD, skip-link, main#main-content, all in one)
-- accessibility validation in `scripts/build.py` (alt text, ARIA labels, skip links, form labels, loading attributes, viewport meta)
-- a HubSpot-form lead capture flow for the static site
-- updated GCC contact details and clearer presence cards
+- a HubSpot-form lead capture flow
+- updated GCC contact details across all pages
 - full SEO stack (meta, OG, Twitter, canonical, JSON-LD) on every page
-- security-hardened `_headers` file for Cloudflare Pages (CSP, HSTS, resource hints, caching)
 
 ## What was recently done
-
-### Enterprise UI/UX Overhaul
-
-- Full-viewport hero with dark gradient overlay, dual CTAs, animated scroll cue
-- Header transparent→solid on scroll, IntersectionObserver scroll reveals
-- Card hover scale+shadow, button micro-interactions, gradient section dividers
-- Pure #000→charcoal #0e1116, grayscale-to-color brand logos
-- Dark mode support (`prefers-color-scheme` + `[data-theme]` manual toggle)
-- Hamburger menu with off-canvas mobile nav, 44px touch targets
-- `loading="lazy"` on all images, reveal hooks on all sections
-- Comprehensive accessibility validation in `scripts/build.py`
-- Security headers hardened (CSP enforced, HSTS preload, nosniff, Referrer-Policy)
-- Resource hints and granular caching in `_headers`
 
 ### Dealer Application Portal (feature/dealership-signup branch)
 
@@ -187,9 +138,12 @@ Every page now has the full SEO stack:
 │       ├── dealers.css          # EN styles
 │       └── dealers-ar.css       # AR RTL styles
 ├── scripts/
-│   ├── build.py            # Validates pages, generates nav + sitemap, checks accessibility
-│   ├── link-checker.py     # Audits all links on nev3s.com
-│   └── new-page.py         # Creates and registers a new page
+│   ├── build.py                 # Validates pages + regenerates nav + sitemap
+│   ├── new-page.py              # Creates and registers a new page
+│   └── dealers/                 # Dealer portal JS
+│       ├── config.js            # Turnstile sitekey + API URL (safe to commit)
+│       ├── form-validation.js    # Client-side validation
+│       └── form-submit.js       # Form POST to Cloudflare Worker
 ├── workers/                     # Cloudflare Worker (dealer API)
 │   ├── wrangler.toml            # Bindings (committed; no secrets)
 │   ├── .dev.vars                # Local secrets (gitignored)
@@ -204,18 +158,14 @@ Every page now has the full SEO stack:
 │       ├── lib/ (responses, turnstile, ids, cron, email)
 │       └── routes/ (dealer-applications, enquiries, documents, admin)
 ├── docs/                        # Feature planning & documentation
-├── sitemap.xml             # Generated XML sitemap
-├── robots.txt              # Crawler instructions
-├── _headers                 # Cloudflare Pages security + performance headers
-├── package.json            # Lint and format scripts
-├── eslint.config.js        # ESLint configuration
-├── README.md               # Project documentation
-├── .gitignore              # Ignore rules for local and generated artifacts
-├── package-lock.json       # NPM lockfile
-├── node_modules/           # Installed dependencies (ignored by Git)
 ├── .github/
 │   └── workflows/
 │       └── deploy-worker.yml    # CI/CD: auto-deploys Worker on push to main
+├── sitemap.xml                  # Generated XML sitemap
+├── robots.txt
+├── package.json                 # Lint and format scripts
+├── eslint.config.js
+├── README.md
 └── .gitignore
 ```
 
@@ -282,7 +232,6 @@ The build validates that:
 - nav labels are unique
 - `sitemap.xml` reflects the public routes
 - homepage navigation stays consistent with `content/site.json`
-- HTML pages have `lang` attribute, skip-link, `<main>` element, alt text on images, form labels, viewport meta, loading attributes, and iframe titles
 
 ## Validation checks
 
@@ -296,7 +245,7 @@ py scripts/build.py
 
 > **Note:** On Windows, use `py` to invoke Python. On other systems, use `python3`.
 
-These checks validate formatting, linting, static route integrity, and accessibility conformance.
+These checks validate formatting, linting, and static route integrity.
 
 ## Notes
 

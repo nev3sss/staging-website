@@ -1,64 +1,20 @@
-/* =================================================================
-   offices.css — Enterprise-grade page styles for offices.html
-   NEV3S brand red (#d30100) preserved throughout.
-   ================================================================= */
-
-/* -- Light mode (default) -- */
 :root {
   --red: #d30100;
   --red-dark: #a90000;
-  --ink: #0e1116; /* charcoal, not pure black */
+  --ink: #171717;
   --ink-dim: #5c5c5c;
   --line: #e6e2de;
   --paper: #f7f5f2;
   --white: #fff;
   --display: Poppins, sans-serif;
   --body: Inter, sans-serif;
-
-  /* Section rhythm tokens */
-  --section-light: var(--white);
-  --section-dark: #0e1116;
-  --section-alt: #f0ece8;
-
-  /* Card / shadow tokens */
-  --card-radius: 12px;
-  --card-shadow: 0 2px 8px rgba(14, 17, 22, 0.06);
-  --card-shadow-hover: 0 16px 40px rgba(14, 17, 22, 0.16);
-  --card-hover-scale: 1.02;
-
-  /* Motion tokens */
-  --ease: ease-in-out;
-  --duration-fast: 200ms;
-  --duration: 250ms;
-
-  /* Touch target */
-  --touch-min: 44px;
 }
-
-/* -- Dark mode overrides -- */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #f0f0f0;
-    --ink-dim: #b0b0b0;
-    --line: #2a2f36;
-    --paper: #0e1116;
-    --white: #1a1e25;
-    --section-light: #1a1e25;
-    --section-dark: #0e1116;
-    --section-alt: #222830;
-    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    --card-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.6);
-  }
-}
-
 * {
   box-sizing: border-box;
 }
-
 html {
   scroll-behavior: smooth;
 }
-
 body {
   margin: 0;
   color: var(--ink);
@@ -66,12 +22,9 @@ body {
   font-family: var(--body);
   line-height: 1.6;
 }
-
 a {
   color: inherit;
 }
-
-/* -- Accessibility: skip link -- */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -84,14 +37,10 @@ a {
   background: var(--ink);
   color: var(--white);
 }
-
-/* -- Layout -- */
 .container {
   width: min(1160px, calc(100% - 40px));
   margin: 0 auto;
 }
-
-/* -- Header & nav -- */
 .site-header {
   background: var(--white);
   border-bottom: 1px solid var(--line);
@@ -109,9 +58,9 @@ a {
   justify-content: center;
   padding: 10px 14px;
   background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(14, 17, 22, 0.06);
+  border: 1px solid rgba(17, 17, 17, 0.06);
   border-radius: 14px;
-  box-shadow: 0 8px 18px rgba(14, 17, 22, 0.04);
+  box-shadow: 0 8px 18px rgba(18, 18, 18, 0.04);
 }
 .logo {
   display: block;
@@ -133,7 +82,6 @@ a {
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
-  transition: color var(--duration-fast) var(--ease);
 }
 .nav-link:hover,
 .nav-link:focus,
@@ -161,7 +109,7 @@ a {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 16px;
-  box-shadow: 0 18px 34px rgba(14, 17, 22, 0.12);
+  box-shadow: 0 18px 34px rgba(17, 17, 17, 0.12);
   z-index: 20;
 }
 .nav-item:hover .nav-submenu,
@@ -172,17 +120,14 @@ a {
   display: block;
   padding: 10px 12px;
   border-radius: 10px;
-  min-height: var(--touch-min);
 }
 .nav-submenu .nav-link:hover,
 .nav-submenu .nav-link:focus {
   background: rgba(211, 1, 0, 0.05);
 }
-
-/* -- Hero (dark section) -- */
 .hero {
   padding: 92px 0 68px;
-  background: var(--section-dark);
+  background: var(--ink);
   color: var(--white);
 }
 .eyebrow {
@@ -210,11 +155,8 @@ h1 {
   color: #d7d1cc;
   font-size: 1.125rem;
 }
-
-/* -- Locations section (light section) -- */
 .locations {
   padding: 72px 0 100px;
-  background: var(--section-light);
 }
 .section-intro {
   max-width: 720px;
@@ -228,36 +170,19 @@ h1 {
   margin: 0;
   color: var(--ink-dim);
 }
-
-/* -- Responsive grid: 2 → 1 with intermediate breakpoint -- */
 .locations-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
 }
-
-/* -- Location card with scale-up hover -- */
 .location-card {
   overflow: hidden;
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  transition:
-    transform var(--duration) var(--ease),
-    box-shadow var(--duration) var(--ease),
-    border-color var(--duration) var(--ease);
-}
-.location-card:hover,
-.location-card:focus-within {
-  transform: scale(var(--card-hover-scale));
-  box-shadow: var(--card-shadow-hover);
-  border-color: rgba(211, 1, 0, 0.3);
 }
 .location-card.headquarters {
   border-top: 4px solid var(--red);
 }
-
 .map-frame {
   display: block;
   width: 100%;
@@ -299,22 +224,18 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: var(--touch-min);
   color: var(--red-dark);
   font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
-  transition: color var(--duration-fast) var(--ease);
 }
 .map-link:hover,
 .map-link:focus {
   text-decoration: underline;
 }
-
-/* -- Contact band (alt section for rhythm) -- */
 .contact-band {
   padding: 54px 0;
-  background: var(--section-alt);
+  background: #eee9e4;
 }
 .contact-band-inner {
   display: flex;
@@ -330,34 +251,22 @@ h1 {
   margin: 0;
   color: var(--ink-dim);
 }
-
-/* -- Button -- */
 .button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--touch-min);
+  display: inline-block;
   padding: 13px 20px;
   background: var(--red);
   color: var(--white);
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  border-radius: 8px;
-  transition:
-    background var(--duration-fast) var(--ease),
-    transform var(--duration-fast) var(--ease);
 }
 .button:hover,
 .button:focus {
   background: var(--red-dark);
-  transform: translateY(-1px);
 }
-
-/* -- Footer (dark section) -- */
 .site-footer {
   padding: 32px 0;
-  background: var(--section-dark);
+  background: var(--ink);
   color: #d7d1cc;
 }
 .footer-inner {
@@ -376,42 +285,23 @@ h1 {
   gap: 18px;
 }
 .footer-links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--touch-min);
   color: #d7d1cc;
   font-size: 0.875rem;
   text-decoration: none;
-  transition: color var(--duration-fast) var(--ease);
 }
 .footer-links a:hover,
 .footer-links a:focus {
   color: #ff7774;
 }
-
-/* -- Scroll reveal hooks -- */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity var(--duration) var(--ease),
-    transform var(--duration) var(--ease);
+@media (max-width: 600px) {
+  .logo-shell {
+    padding: 8px 10px;
+  }
+  .logo {
+    width: clamp(128px, 42vw, 220px);
+    height: auto;
+  }
 }
-.reveal--visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* -- Section rhythm helper classes -- */
-.section--dark {
-  background: var(--section-dark);
-  color: var(--white);
-}
-.section--alt {
-  background: var(--section-alt);
-}
-
-/* -- Responsive breakpoints -- */
 @media (max-width: 760px) {
   .nav {
     min-height: 72px;
@@ -420,11 +310,6 @@ h1 {
     gap: 14px;
     flex-wrap: wrap;
     justify-content: flex-end;
-  }
-  .nav-link {
-    min-height: var(--touch-min);
-    display: inline-flex;
-    align-items: center;
   }
   .hero {
     padding: 64px 0 52px;
@@ -441,17 +326,6 @@ h1 {
     flex-direction: column;
   }
 }
-
-@media (max-width: 600px) {
-  .logo-shell {
-    padding: 8px 10px;
-  }
-  .logo {
-    width: clamp(128px, 42vw, 220px);
-    height: auto;
-  }
-}
-
 @media (max-width: 420px) {
   .container {
     width: min(100% - 28px, 1160px);
@@ -465,34 +339,9 @@ h1 {
   .nav-link {
     font-size: 0.75rem;
   }
-  .map-link,
-  .button {
-    min-height: var(--touch-min);
-  }
-  .button {
-    width: 100%;
-  }
 }
-
-/* -- Reduced motion -- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .location-card,
-  .button,
-  .nav-link,
-  .map-link,
-  .footer-links a,
-  .reveal {
-    transition: none;
-  }
-  .location-card:hover,
-  .location-card:focus-within {
-    transform: none;
-  }
-  .reveal {
-    opacity: 1;
-    transform: none;
   }
 }

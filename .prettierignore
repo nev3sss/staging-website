@@ -1,5 +1,1 @@
-# Don't format package-lock.json (huge, auto-generated)
 package-lock.json
-
-# Don't format generated files
-sitemap.xml

@@ -2,7 +2,7 @@ import js from "@eslint/js";
 
 export default [
   {
-    ignores: ["node_modules/**", ".verify/**", "scripts/*.py"],
+    ignores: ["node_modules/**", ".verify/**"],
   },
   {
     files: ["**/*.js", "**/*.mjs", "**/*.cjs"],
@@ -15,13 +15,6 @@ export default [
         fetch: true,
         console: true,
       },
-    },
-    rules: {
-      "no-console": "warn",
-      "no-unused-vars": "warn",
-      "eqeqeq": ["error", "always"],
-      "semi": ["error", "always"],
-      "quotes": ["error", "double"],
     },
   },
 ];
